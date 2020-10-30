@@ -261,7 +261,7 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_Duracao(bool inverso, bool client
     return pesquisa_duracao;
 }
 
-const vector<Reserva> Hotel::Pesquisa_Reservas_Data(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
+const vector<Reserva> Hotel::Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
     vector <Reserva> pesquisa_duracao;
     int rsize = reservas.size();
     if(clientes_novos) {
@@ -270,8 +270,53 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_Data(bool inverso, bool clientes_
         }
     }
     else pesquisa_duracao = reservas;
-    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Datacomp_Decr);
-    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Datacomp_Cr);
+    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataIcomp_Decr);
+    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataIcomp_Cr);
+    if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
+    return pesquisa_duracao;
+}
+
+const vector<Reserva> Hotel::Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector<Reserva> r) {
+    vector <Reserva> pesquisa_duracao;
+    int rsize = r.size();
+    if(clientes_novos) {
+        for (int i = 0; rsize > i; i++){
+            if (r[i].primeiravez) pesquisa_duracao.push_back(r[i]);
+        }
+    }
+    else pesquisa_duracao = r;
+    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataIcomp_Decr);
+    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataIcomp_Cr);
+    if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
+    return pesquisa_duracao;
+}
+
+const vector<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
+    vector <Reserva> pesquisa_duracao;
+    int rsize = reservas.size();
+    if(clientes_novos) {
+        for (int i = 0; rsize > i; i++){
+            if (reservas[i].primeiravez) pesquisa_duracao.push_back(reservas[i]);
+        }
+    }
+    else pesquisa_duracao = reservas;
+    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataFcomp_Decr);
+    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataFcomp_Cr);
+    if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
+    return pesquisa_duracao;
+}
+
+const vector<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector<Reserva> r) {
+    vector <Reserva> pesquisa_duracao;
+    int rsize = r.size();
+    if(clientes_novos) {
+        for (int i = 0; rsize > i; i++){
+            if (r[i].primeiravez) pesquisa_duracao.push_back(r[i]);
+        }
+    }
+    else pesquisa_duracao = r;
+    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataFcomp_Decr);
+    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataFcomp_Cr);
     if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
     return pesquisa_duracao;
 }
@@ -291,6 +336,32 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes
     return pesquisa_duracao;
 }
 
+const vector <Reserva> Hotel::Quartos_Fin(int mesp, int anop){
+    data dataf = dataf.DiaFinal(mesp, anop);
+    data datai = {.dia = 1, .mes = mesp, .ano = anop};
+    vector <Reserva> reservastotais = reservas;
+    reservastotais.insert(reservastotais.end(), quartos_ocupados.begin(), quartos_ocupados.end());
+    reservastotais.insert(reservastotais.end(), estadias.begin(), estadias.end());
+    vector <Reserva> ri = Pesquisa_Reservas_DataI(0, 0, 0, reservastotais);
+    int vmin = 0, vmax = ri.size() - 1;
+    int vmedio = vmax/2;
+    while(vmin != vmax){
+        if(ri[vmedio].data_inicio <= dataf) vmin = vmedio;
+        if(ri[vmedio].data_inicio > dataf) vmax = vmedio;
+        vmedio = vmin + (vmax - vmin)/2;
+    }
+    ri.erase(ri.begin() + vmax + 1, ri.end());
+    vector <Reserva> rf = Pesquisa_Reservas_DataF(0, 0, 0, ri);
+    vmin = 0, vmax = rf.size() - 1;
+    vmedio = vmax/2;
+    while(vmin != vmax){
+        if(ri[vmedio].data_fim < datai) vmin = vmedio;
+        if(ri[vmedio].data_fim >= datai) vmax = vmedio;
+        vmedio = vmin + (vmax - vmin)/2;
+    }
+    rf.erase(rf.begin(), rf.begin() + vmin - 1);
+    return rf;
+}
 
 // Hotel Finances Functions
 
