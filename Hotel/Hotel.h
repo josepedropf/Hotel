@@ -10,6 +10,7 @@ using namespace std;
 
 struct data {
     int dia, mes, ano;
+    data DiaFinal(int mesp, int anop);
     data operator+=(const int duracao);
     int operator-(const data &d2)const;
     bool operator<(const data &d2)const; bool operator>(const data &d2)const;
@@ -49,6 +50,11 @@ inline bool data::operator==(const data &d2) const{
 }
 inline bool data::operator<=(const data &d2) const {return (*this == d2 || *this < d2);}
 inline bool data::operator>=(const data &d2) const {return (*this == d2 || *this > d2);}
+data data::DiaFinal(int mesp, int anop) {
+    if (mesp == 2) return {.dia = 28, .mes = mesp, .ano= anop};
+    else if (mesp == 4 || mesp == 6 || mesp == 9 || mesp == 11) return {.dia = 30, .mes = mesp, .ano= anop};
+    else return {.dia = 31, .mes = mesp, .ano= anop};
+}
 
 
 
@@ -85,8 +91,10 @@ public:
     static bool Duracaocomp_Cr(Reserva r1, Reserva r2) {return r1.duracao < r2.duracao;}
     static bool Precocomp_Decr(Reserva r1, Reserva r2) {return r1.preco > r2.preco;}
     static bool Precocomp_Cr(Reserva r1, Reserva r2) {return r1.preco < r2.preco;}
-    static bool Datacomp_Decr(Reserva r1, Reserva r2) {return r1.data_inicio > r2.data_inicio;}
-    static bool Datacomp_Cr(Reserva r1, Reserva r2) {return r1.data_inicio < r2.data_inicio;}
+    static bool DataIcomp_Decr(Reserva r1, Reserva r2) {return r1.data_inicio > r2.data_inicio;}
+    static bool DataIcomp_Cr(Reserva r1, Reserva r2) {return r1.data_inicio < r2.data_inicio;}
+    static bool DataFcomp_Decr(Reserva r1, Reserva r2) {return r1.data_fim > r2.data_fim;}
+    static bool DataFcomp_Cr(Reserva r1, Reserva r2) {return r1.data_fim < r2.data_fim;}
     Reserva(data i, data f, int lp, vector <Quarto> q);
     Reserva(data i, data f, int lp, vector <Quarto> q, bool v, bool pr);
     Reserva() {vazia = true;}
@@ -215,7 +223,11 @@ public:
     const vector <Funcionario> Pesquisa_F_Cargo();
     const vector <Reserva> Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const vector <Reserva> Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_Data(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> r);
+    const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> r);
+    const vector <Reserva> Quartos_Fin(int mesp, int anop);
     float CustosTotais(float impostos, float despesasfixas);
     float RendimentosTotais(int mes, int ano);
     float BalancoFin();
