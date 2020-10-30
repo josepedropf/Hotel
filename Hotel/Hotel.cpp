@@ -1,326 +1,224 @@
-#include "Hotel.h"
+#ifndef HOTEL_HOTEL_H
+#define HOTEL_HOTEL_H
 
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
 
-// Inicializações
-Hotel::Hotel(string n) {
-    nome = n;
-    cout << "Bem Vindo ao Grande Hotel " << nome << "!" << endl;
+using namespace std;
+
+struct data {
+    int dia, mes, ano;
+    data operator+=(const int duracao);
+    int operator-(const data &d2)const;
+    bool operator<(const data &d2)const; bool operator>(const data &d2)const;
+    bool operator==(const data &d2)const;
+    bool operator<=(const data &d2)const; bool operator>=(const data &d2)const;
+};
+enum turno {dia = 0, noite = 1};
+enum tipo_quarto {sem_vista = 12, com_vista = 8, suite = 5};
+enum tipo_produto {restauracao = 0, limpeza = 1};
+enum avaliacao {ma = 1, insuficiente = 2, razoavel = 3, boa = 4, excelente = 5};
+inline ostream& operator<<(ostream &os, const data d){
+    os << d.dia << "-" << d.mes << "-" << d.ano;
+    return os;
 }
-
-Produto::Produto(tipo_produto tp, avaliacao q, float p){
-    tprod = tp;
-    qualidade = q;
-    preco = p;
+inline data data::operator+=(const int duracao){
+    dia += duracao;
+    return *this;
 }
-
-Reserva::Reserva(data i, data f, int lp, vector <Quarto> q){
-    data_inicio = i;
-    data_fim = f;
-    lugaresp = lp;
-    quartos_res = q;
-    int qsize = quartos_res.size();
-    preco = 0;
-    for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco_base;
-    }
+inline int data::operator-(const data &d2) const{
+    int result = ano*365 + mes*30 + dia;
+    int dif = d2.ano*365 + d2.mes*30 + d2.dia;
+    result-=dif;
+    return result;
 }
-Reserva::Reserva(data i, data f, int lp, vector<Quarto> q, bool v, bool pr) {
-    vazia = v;
-    primeiravez = pr;
-    data_inicio = i;
-    data_fim = f;
-    lugaresp = lp;
-    quartos_res = q;
-    int qsize = quartos_res.size();
-    preco = 0;
-    for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco_base;
-    }
+inline bool data::operator<(const data &d2) const{
+    int n1 = ano*365 + mes*30 + dia;
+    int n2 = d2.ano*365 + d2.mes*30 + d2.dia;
+    return n1 < n2;
 }
-
-Cliente::Cliente(string na, int n) {
-    nome = na;
-    nif = n;
+inline bool data::operator>(const data &d2) const{
+    int n1 = ano*365 + mes*30 + dia;
+    int n2 = d2.ano*365 + d2.mes*30 + d2.dia;
+    return n1 > n2;
 }
-
-Quarto::Quarto(tipo_quarto tq, int p, int n, int c, float pb) {
-    tquarto = tq;
-    piso = p;
-    numero = n;
-    capacidade = c;
-    preco_base = pb;
-    promo = tquarto;
+inline bool data::operator==(const data &d2) const{
+    return (this->ano == d2.ano && this->mes == d2.mes && this->dia == d2.dia);
 }
-
-Funcionario::Funcionario(string na, int n, int as, float s) {
-    nome = na;
-    nif = n;
-    anos_servico = as;
-    salario = s;
-}
-
-Funcionario::Funcionario(string na, int n, int as, float s, string c) {
-    nome = na;
-    nif = n;
-    anos_servico = as;
-    salario = s;
-    cargo = c;
-}
-
-F_Rececao::F_Rececao(string na, int n, int as, float s): Funcionario(na, n, as, s, "Receção") {}
-F_Rececao::F_Rececao(string na, int n, int as, float s, string c): Funcionario(na, n, as, s, c) {}
+inline bool data::operator<=(const data &d2) const {return (*this == d2 || *this < d2);}
+inline bool data::operator>=(const data &d2) const {return (*this == d2 || *this > d2);}
 
 
-F_Responsavel::F_Responsavel(string na, int n, int as, float s): F_Rececao(na, n, as, s, "Responsável") {}
-F_Responsavel::F_Responsavel(string na, int n, int as, float s, vector<int> pr): F_Rececao(na, n, as, s, "Responsável") {
-    pisos_resp = pr;
-}
 
-F_Limpeza::F_Limpeza(string na, int n, int as, float s, turno t): Funcionario(na, n, as, s, "Limpeza") {
-    fturno = t;
-}
+class Produto{
+public:
+    tipo_produto tprod;
+    avaliacao qualidade;
+    float preco;
+    Produto(tipo_produto tp, avaliacao q, float p);
+    ~Produto() {};
+    void Info();
+};
 
-F_Gestor::F_Gestor(string na, int n, int as, float s): Funcionario(na, n, as, s, "Gestor") {}
+class Quarto{
+public:
+    tipo_quarto tquarto;
+    int piso, numero, capacidade;
+    float preco_base, promo;
+    bool ocupado = false;
+    Quarto(tipo_quarto tq, int p, int n, int c, float pb);
+    ~Quarto() {};
+    void Info();
+    bool operator==(const Quarto &q2) const{return numero == q2.numero;}
+};
 
-F_Gestor::F_Gestor(string na, int n, int as, float s, avaliacao av): Funcionario(na, n, as, s, "Gestor") {
-    av_prestacao = av;
-}
+class Reserva{
+public:
+    data data_inicio, data_fim;
+    int lugaresp, duracao = data_fim - data_inicio, preco;
+    vector <Quarto> quartos_res;
+    bool vazia = false, primeiravez = true;
+    static bool PrimeiraReserva(Reserva r1, Reserva r2) {return r1.primeiravez > r2.primeiravez;}
+    static bool Duracaocomp_Decr(Reserva r1, Reserva r2) {return r1.duracao > r2.duracao;}
+    static bool Duracaocomp_Cr(Reserva r1, Reserva r2) {return r1.duracao < r2.duracao;}
+    static bool Precocomp_Decr(Reserva r1, Reserva r2) {return r1.preco > r2.preco;}
+    static bool Precocomp_Cr(Reserva r1, Reserva r2) {return r1.preco < r2.preco;}
+    static bool Datacomp_Decr(Reserva r1, Reserva r2) {return r1.data_inicio > r2.data_inicio;}
+    static bool Datacomp_Cr(Reserva r1, Reserva r2) {return r1.data_inicio < r2.data_inicio;}
+    Reserva(data i, data f, int lp, vector <Quarto> q);
+    Reserva(data i, data f, int lp, vector <Quarto> q, bool v, bool pr);
+    Reserva() {vazia = true;}
+    ~Reserva() {};
+    bool operator==(const Reserva &r2) const{return (quartos_res == r2.quartos_res && data_inicio == r2.data_inicio && data_fim == r2.data_fim);}
+    void Info();
+};
+
+class Cliente{
+public:
+    string nome;
+    int nif;
+    bool cliente_usual = estadias_anteriores.size() > 0, nohotel = false;
+    vector <Reserva> estadias_anteriores;
+    Reserva *reserva_atual, *estadia_atual;
+    Cliente(string na, int n);
+    ~Cliente() {};
+    void Info();
+    bool operator==(const Cliente &c2) const{return (nome == c2.nome && nif == c2.nif);}
+
+    void Reservar(data di, data df, int lp, vector <Quarto> q);
+};
+
+class Funcionario{
+public:
+    string cargo = "Geral";
+    string nome;
+    int nif, anos_servico;
+    float salario;
+    static bool Cargocomp(Funcionario f1, Funcionario f2) {return f1.cargo > f2.cargo;}
+    static bool Salariocomp_Decr(Funcionario f1, Funcionario f2) {return f1.salario > f2.salario;}
+    static bool Salariocomp_Cr(Funcionario f1, Funcionario f2) {return f1.salario < f2.salario;}
+    Funcionario() {};
+    Funcionario(string na, int n, int as, float s);
+    Funcionario(string na, int n, int as, float s, string c);
+    ~Funcionario() {};
+    void Info();
+    bool operator==(Funcionario f2);
+};
+
+class F_Rececao : public Funcionario{
+public:
+    F_Rececao(string na, int n, int as, float s);
+    F_Rececao(string na, int n, int as, float s, string c);
+};
+
+class F_Responsavel : public F_Rececao{
+public:
+    vector <int> pisos_resp;
+    F_Responsavel(string na, int n, int as, float s);
+    F_Responsavel(string na, int n, int as, float s, vector<int> pr);
+};
+
+class F_Limpeza : public Funcionario{
+public:
+    turno fturno;
+    F_Limpeza(string na, int n, int as, float s, turno t);
+};
+
+class F_Gestor : public Funcionario{
+public:
+    avaliacao av_prestacao = razoavel;
+    F_Gestor(string na, int n, int as, float s);
+    F_Gestor(string na, int n, int as, float s, avaliacao av);
+    void Promocoes(vector <Quarto> quartos_promo);
+    Produto Escolher_Prod(vector <Produto> prods);
+};
 
 
-//Infos
-void Produto::Info() {
-    cout << "<PRODUTO>" << endl;
-    cout << "Tipo de Produto: " << tprod << " | ";
-    cout << "Preço: " << preco << " | ";
-    cout << "Qualidade: " << qualidade;
-    cout << endl;
-}
+class Hotel{
+protected:
+    string nome;
+    vector <Produto> produtos;
+    vector <Reserva> reservas;
+    vector <Reserva> estadias;
+    vector <Reserva> quartos_ocupados;
+    vector <Cliente> clientes;
+    vector <Quarto> quartos;
+    vector <Funcionario> funcionarios;
 
-void Reserva::Info() {
-    cout << "<RESERVA>" << endl;
-    cout << "Data de Início: " << data_inicio << " | ";
-    cout << "Data de Fim: " << data_fim << " | ";
-    cout << "Duração: " << duracao << " | ";
-    cout << "Lugares Esperados: " << lugaresp;
-    cout << endl;
-}
+public:
+    Hotel(string n);
+    ~Hotel() {};
 
-void Cliente::Info() {
-    cout << "<CLIENTE>" << endl;
-    cout << "Nome: " << nome << " | ";
-    cout << "Nif: " << nif << " | ";
-    if(cliente_usual) cout << "Cliente Usual";
-    else cout << "Cliente Novo";
-    cout << endl;
-}
-
-void Funcionario::Info() {
-    string cargo_upper = cargo;
-    transform(cargo_upper.begin(), cargo_upper.end(),cargo_upper.begin(), ::toupper);
-    cout << "<FUNCIONÁRIO " << cargo_upper << ">" << endl;
-    cout << "Nome: " << nome << " | ";
-    cout << "Nif: " << nif << " | ";
-    cout << "Anos de Serviço: " << anos_servico << " | ";
-    cout << "Salário: " << salario;
-    cout << endl;
-}
-
-
-// Hotel Database Add
-bool Hotel::AddReserva(Reserva r) {
-    int capacidadetotal = 0;
-    int qsize = r.quartos_res.size();
-    for (int i = 0; qsize > i; i++){
-        capacidadetotal += r.quartos_res[i].capacidade;
-    }
-    if(r.lugaresp <= capacidadetotal && (r.data_fim - r.data_inicio > 0)) reservas.push_back(r);
-    else{
-        cout << endl << "Reserva Impossível" << endl;
-        cout << "Razão: Lugares Esperados excedem a capacidade total dos Quartos selecionados!" << endl;
-        return false;
-    }
-    return true;
-}
-
-void Hotel::AddQuartoOcupado(Reserva r) {
-    quartos_ocupados.push_back(r);
-}
-
-void Hotel::AddEstadia(Reserva r) {
-    estadias.push_back(r);
-}
-
-void Hotel::AddCliente(Cliente c) {
-    clientes.push_back(c);
-}
-
-void Hotel::AddQuarto(Quarto q) {
-    quartos.push_back(q);
-}
-
-void Hotel::AddFuncionario(Funcionario f) {
-    funcionarios.push_back(f);
-}
-
-//  |Cliente Func|
-void Cliente::Reservar(data di, data df, int lp, vector <Quarto> q) {
-    Reserva r(di, df, lp, q);
-    reserva_atual = &r;
-}
-//  |Cliente Func|
-
-bool Hotel::ValidarReserva(Cliente c) {
-    Reserva r = *c.reserva_atual;
-    if (r.vazia == true && AddReserva(r)) {
-        r.vazia = false;
-        if (!c.cliente_usual) {
-            AddCliente(c);
-            r.primeiravez = true;
+    template<class T>
+    void PrintV(vector<T> v){
+        int vsize = v.size();
+        cout << endl << "PRINT" << endl;
+        cout << "|||-> " << endl;
+        for (int i = 0; vsize > i; i++){
+            v[i].Info();
+            cout << endl;
         }
-        else r.primeiravez = false;
-        return true;
+        cout << "<-||| " << endl;
     }
-    else{
-        cout << endl << "Reserva Inválida!!!" << endl;
-        return false;
-    }
-}
 
-void Hotel::CheckIn(Cliente c) {
-    Reserva r = *c.reserva_atual;
-    c.estadia_atual = &r;
-    c.reserva_atual = NULL;
-    c.nohotel = true;
-    int rindex = FindIndex(reservas, r);
-    reservas.erase(reservas.begin() + rindex);
-    AddQuartoOcupado(r);
-}
-
-void Hotel::CheckOut(Cliente c) {
-    Reserva r = *c.reserva_atual;
-    c.estadias_anteriores.push_back(r);
-    c.estadia_atual = NULL;
-    AddEstadia(r);
-    r.vazia = true;
-    int rindex = FindIndex(reservas, r);
-    quartos_ocupados.erase(reservas.begin() + rindex);
-    c.nohotel = false;
-}
-
-
-// Gestor Funcs
-void F_Gestor::Promocoes(vector<Quarto> quartos_promo) {
-    int qsize = quartos_promo.size();
-    for(int i = 0; qsize > i; i++){
-        Quarto quarto = quartos_promo[i];
-        quarto.preco_base *= float(float(100 - quarto.promo)/ 100);
-    }
-}
-
-Produto F_Gestor::Escolher_Prod(vector<Produto> prods) {
-    int prodsize = prods.size();
-    Produto escolhido = prods[0];
-    for (int i = 0; prodsize > i; i++){
-        if(prods[i].preco < escolhido.preco) escolhido = prods[i];
-        else if(prods[i].preco == escolhido.preco){
-            if(prods[i].qualidade > escolhido.qualidade) escolhido = prods[i];
+    template <class T>
+    int FindIndex(vector <T> v, T element){
+        int vsize = v.size();
+        for(int i = 0; vsize > i; i++){
+            if (v[i] == element) return i;
         }
+        return 0;
     }
-    return escolhido;
-}
 
 
-//Hotel Database Funcs
-const vector<Funcionario> Hotel::Pesquisa_F_Salario(bool inverso) {
-    vector <Funcionario> pesquisa_salario = funcionarios;
-    if(inverso) sort(pesquisa_salario.begin(), pesquisa_salario.end(), Funcionario::Salariocomp_Decr);
-    else sort(pesquisa_salario.begin(), pesquisa_salario.end(), Funcionario::Salariocomp_Cr);
-    PrintV(pesquisa_salario);
-    return pesquisa_salario;
-}
+    bool AddReserva(Reserva r);
+    void AddQuartoOcupado(Reserva r);
+    void AddEstadia(Reserva r);
+    void AddCliente(Cliente c);
+    void AddQuarto(Quarto q);
+    void AddFuncionario(Funcionario f);
 
-const vector<Funcionario> Hotel::Pesquisa_F_Cargo() {
-    vector <Funcionario> pesquisa_cargo = funcionarios;
-    sort(pesquisa_cargo.begin(), pesquisa_cargo.end(), Funcionario::Cargocomp);
-    PrintV(pesquisa_cargo);
-    return pesquisa_cargo;
-}
+    bool ValidarReserva(Cliente c);
+    void CheckIn(Cliente c);
+    void CheckOut(Cliente c);
 
-const vector<Reserva> Hotel::Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
-    vector <Reserva> pesquisa_duracao;
-    int rsize = reservas.size();
-    if(clientes_novos) {
-        for (int i = 0; rsize > i; i++){
-            if (reservas[i].primeiravez) pesquisa_duracao.push_back(reservas[i]);
-        }
-    }
-    else pesquisa_duracao = reservas;
-    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Duracaocomp_Decr);
-    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Duracaocomp_Cr);
-    if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
-    return pesquisa_duracao;
-}
+    const vector <Reserva> GetReservas() {return reservas;}
+    const vector <Reserva> GetQuartosOcupados() {return quartos_ocupados;}
+    const vector <Reserva> GetEstadias() {return estadias;}
+    const vector <Cliente> GetClientes() {return clientes;}
+    const vector <Quarto> GetQuartos() {return quartos;}
+    const vector <Funcionario> GetFuncionarios() {return funcionarios;}
 
-const vector<Reserva> Hotel::Pesquisa_Reservas_Data(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
-    vector <Reserva> pesquisa_duracao;
-    int rsize = reservas.size();
-    if(clientes_novos) {
-        for (int i = 0; rsize > i; i++){
-            if (reservas[i].primeiravez) pesquisa_duracao.push_back(reservas[i]);
-        }
-    }
-    else pesquisa_duracao = reservas;
-    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Datacomp_Decr);
-    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Datacomp_Cr);
-    if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
-    return pesquisa_duracao;
-}
+    const vector <Funcionario> Pesquisa_F_Salario(bool inverso);
+    const vector <Funcionario> Pesquisa_F_Cargo();
+    const vector <Reserva> Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const vector <Reserva> Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const vector <Reserva> Pesquisa_Reservas_Data(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    float CustosTotais(float impostos, float despesasfixas);
+    float RendimentosTotais(int mes, int ano);
+    float BalancoFin();
+};
 
-const vector<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
-    vector <Reserva> pesquisa_duracao;
-    int rsize = reservas.size();
-    if(clientes_novos) {
-        for (int i = 0; rsize > i; i++){
-            if (reservas[i].primeiravez) pesquisa_duracao.push_back(reservas[i]);
-        }
-    }
-    else pesquisa_duracao = reservas;
-    if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Precocomp_Decr);
-    else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::Precocomp_Cr);
-    if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
-    return pesquisa_duracao;
-}
-
-
-// Hotel Finances Functions
-
-float Hotel::CustosTotais(float impostos, float despesasfixas) {
-    int fsize = funcionarios.size();
-    int psize = produtos.size();
-    float salarios = 0;
-    float preco_produtos = 0;
-    for (int i = 0; fsize > i; i++){
-        salarios += funcionarios[i].salario;
-    }
-    for (int i = 0; psize > i; i++){
-        preco_produtos +=  produtos[i].preco;
-    }
-    return impostos + despesasfixas + preco_produtos + salarios;
-}
-
-float Hotel::RendimentosTotais(int mes, int ano) {
-    data data_inicial = {.dia = 1, .mes = mes, .ano = ano};
-    int diaf = 31, ndias = 0;
-    if (mes == 2) diaf = 28;
-    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) diaf = 30;
-    data data_final = {.dia = diaf, .mes = mes, .ano = ano};
-    vector<Reserva> reservas_totais = quartos_ocupados;
-    int rsize = reservas.size();
-    int estsize = estadias.size();
-    //Search Alg!!!!!!!!!!!!!
-    for (int i = 0; rsize > i; i++){
-
-
-    }
-}
-
+#endif //HOTEL_HOTEL_H
