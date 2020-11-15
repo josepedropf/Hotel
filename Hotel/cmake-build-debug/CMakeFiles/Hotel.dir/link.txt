@@ -1,0 +1,3 @@
+"D:\CLion 2019.3.4\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Hotel.dir/objects.a
+D:\MingW64\mingw64\bin\ar.exe cr CMakeFiles\Hotel.dir/objects.a @CMakeFiles\Hotel.dir\objects1.rsp
+D:\MingW64\mingw64\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\Hotel.dir/objects.a -Wl,--no-whole-archive  -o Hotel.exe -Wl,--out-implib,libHotel.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Hotel.dir\linklibs.rsp

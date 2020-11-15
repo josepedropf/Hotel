@@ -1,19 +1,20 @@
 #include <iostream>
 #include "Hotel.h"
 
-
 using namespace std;
 
 int main() {
     Hotel H("da Marateca");
 
+
     Quarto Q205(suite, 2, 205, 3, 55.67);
     Quarto Q100(sem_vista, 1, 100, 2, 34.21);
     Quarto Q317(com_vista, 3, 317, 4, 44);
 
-    Reserva R1({.dia = 20, .mes = 5, .ano= 2019}, {.dia = 25, .mes = 6, .ano= 2019}, 4, {Q317}, false, true);
-    Reserva R2({.dia = 20, .mes = 5, .ano= 2019}, {.dia = 1, .mes = 7, .ano= 2021}, 8, {Q205, Q100});
-    Reserva R3({.dia = 20, .mes = 5, .ano= 2019}, {.dia = 1, .mes = 7, .ano= 2019}, 8, {Q100, Q205, Q317});
+
+    //Reserva R1({.dia = 20, .mes = 5, .ano= 2019}, {.dia = 25, .mes = 6, .ano= 2019}, 4, {Q100}, false, true);
+    //Reserva R2({.dia = 20, .mes = 5, .ano= 2019}, {.dia = 1, .mes = 7, .ano= 2021}, 8, {Q205, Q100});
+    //Reserva R3({.dia = 20, .mes = 5, .ano= 2019}, {.dia = 1, .mes = 7, .ano= 2019}, 8, {Q100, Q205, Q317});
 
     F_Rececao Alfredo("Alfredo", 123456798, 5, 832.78);
     F_Rececao Maria("Maria", 123256798, 3, 750.78);
@@ -49,12 +50,45 @@ int main() {
     cout << endl << "d1-d6 = -396  " << d1-d6 << endl;
     */
 
-
+    /*
     H.AddReserva(R1);
     H.AddReserva(R2);
     H.AddReserva(R3);
+     */
+
+    Quarto Q206(suite, 2, 206, 3, 12);
+    Quarto Q207(suite, 2, 207, 3, 12);
+    Quarto Q208(suite, 2, 208, 3, 120);
+    Quarto Q209(suite, 2, 209, 3, 1);
+    Quarto Q210(suite, 2, 210, 3, 12);
+    Quarto Q211(suite, 2, 211, 3, 5);
+    Quarto Q212(suite, 2, 212, 3, 112);
+    Quarto Q213(suite, 2, 213, 3, 15);
+    Quarto Q214(suite, 2, 214, 3, 12);
+
+    Reserva RR1({.dia = 20, .mes = 11, .ano= 2020}, {.dia = 2, .mes = 12, .ano= 2020}, 1, {Q100});
+    Reserva RR2({.dia = 25, .mes = 10, .ano= 2020}, {.dia = 9, .mes = 11, .ano= 2020}, 2, {Q205});
+    Reserva RR3({.dia = 2, .mes = 11, .ano= 2020}, {.dia = 30, .mes = 11, .ano= 2020}, 1, {Q317});
+    Reserva RR4({.dia = 22, .mes = 10, .ano= 2020}, {.dia = 7, .mes = 12, .ano= 2020}, 1, {Q206});
+    Reserva RR5({.dia = 12, .mes = 10, .ano= 2020}, {.dia = 1, .mes = 11, .ano= 2020}, 1, {Q209});
+    Reserva RR6({.dia = 5, .mes = 11, .ano= 2020}, {.dia = 30, .mes = 11, .ano= 2020}, 1, {Q210});
+    Reserva RR7({.dia = 1, .mes = 10, .ano= 2020}, {.dia = 20, .mes = 10, .ano= 2020}, 1, {Q211});
+    Reserva RR8({.dia = 5, .mes = 11, .ano= 2019}, {.dia = 30, .mes = 11, .ano= 2019}, 1, {Q212});
+
+    H.AddReserva(RR1);
+    H.AddReserva(RR2);
+    H.AddReserva(RR3);
+    H.AddReserva(RR4);
+    H.AddReserva(RR5);
+    H.AddReserva(RR6);
+    H.AddReserva(RR7);
+    H.AddReserva(RR8);
+
+    int rend = H.RendimentosTotais(11, 2020);
+    cout << endl << "Rendimentos: " << rend << endl;
+
     vector<Reserva> r = H.GetReservas();
-    H.PrintV(r);
+    //H.PrintV(r);
 
     H.AddFuncionario(Ze);
     H.AddFuncionario(Duarte);
@@ -69,9 +103,9 @@ int main() {
     H.AddFuncionario(Erica);
     H.AddFuncionario(Tina);
 
-
+    /*
     H.Pesquisa_F_Cargo();
     H.Pesquisa_F_Salario(0);
     H.Pesquisa_F_Salario(1);
-
+    */
 }

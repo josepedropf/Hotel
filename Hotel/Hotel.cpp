@@ -2,127 +2,10 @@
 
 
 // Inicializações
+
 Hotel::Hotel(string n) {
     nome = n;
     cout << "Bem Vindo ao Grande Hotel " << nome << "!" << endl;
-}
-
-Produto::Produto(tipo_produto tp, avaliacao q, float p){
-    tprod = tp;
-    qualidade = q;
-    preco = p;
-}
-
-Reserva::Reserva(data i, data f, int lp, vector <Quarto> q){
-    data_inicio = i;
-    data_fim = f;
-    lugaresp = lp;
-    quartos_res = q;
-    int qsize = quartos_res.size();
-    preco = 0;
-    for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco_base;
-    }
-}
-Reserva::Reserva(data i, data f, int lp, vector<Quarto> q, bool v, bool pr) {
-    vazia = v;
-    primeiravez = pr;
-    data_inicio = i;
-    data_fim = f;
-    lugaresp = lp;
-    quartos_res = q;
-    int qsize = quartos_res.size();
-    preco = 0;
-    for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco_base;
-    }
-}
-
-Cliente::Cliente(string na, int n) {
-    nome = na;
-    nif = n;
-}
-
-Quarto::Quarto(tipo_quarto tq, int p, int n, int c, float pb) {
-    tquarto = tq;
-    piso = p;
-    numero = n;
-    capacidade = c;
-    preco_base = pb;
-    promo = tquarto;
-}
-
-Funcionario::Funcionario(string na, int n, int as, float s) {
-    nome = na;
-    nif = n;
-    anos_servico = as;
-    salario = s;
-}
-
-Funcionario::Funcionario(string na, int n, int as, float s, string c) {
-    nome = na;
-    nif = n;
-    anos_servico = as;
-    salario = s;
-    cargo = c;
-}
-
-F_Rececao::F_Rececao(string na, int n, int as, float s): Funcionario(na, n, as, s, "Receção") {}
-F_Rececao::F_Rececao(string na, int n, int as, float s, string c): Funcionario(na, n, as, s, c) {}
-
-
-F_Responsavel::F_Responsavel(string na, int n, int as, float s): F_Rececao(na, n, as, s, "Responsável") {}
-F_Responsavel::F_Responsavel(string na, int n, int as, float s, vector<int> pr): F_Rececao(na, n, as, s, "Responsável") {
-    pisos_resp = pr;
-}
-
-F_Limpeza::F_Limpeza(string na, int n, int as, float s, turno t): Funcionario(na, n, as, s, "Limpeza") {
-    fturno = t;
-}
-
-F_Gestor::F_Gestor(string na, int n, int as, float s): Funcionario(na, n, as, s, "Gestor") {}
-
-F_Gestor::F_Gestor(string na, int n, int as, float s, avaliacao av): Funcionario(na, n, as, s, "Gestor") {
-    av_prestacao = av;
-}
-
-
-//Infos
-void Produto::Info() {
-    cout << "<PRODUTO>" << endl;
-    cout << "Tipo de Produto: " << tprod << " | ";
-    cout << "Preço: " << preco << " | ";
-    cout << "Qualidade: " << qualidade;
-    cout << endl;
-}
-
-void Reserva::Info() {
-    cout << "<RESERVA>" << endl;
-    cout << "Data de Início: " << data_inicio << " | ";
-    cout << "Data de Fim: " << data_fim << " | ";
-    cout << "Duração: " << duracao << " | ";
-    cout << "Lugares Esperados: " << lugaresp;
-    cout << endl;
-}
-
-void Cliente::Info() {
-    cout << "<CLIENTE>" << endl;
-    cout << "Nome: " << nome << " | ";
-    cout << "Nif: " << nif << " | ";
-    if(cliente_usual) cout << "Cliente Usual";
-    else cout << "Cliente Novo";
-    cout << endl;
-}
-
-void Funcionario::Info() {
-    string cargo_upper = cargo;
-    transform(cargo_upper.begin(), cargo_upper.end(),cargo_upper.begin(), ::toupper);
-    cout << "<FUNCIONÁRIO " << cargo_upper << ">" << endl;
-    cout << "Nome: " << nome << " | ";
-    cout << "Nif: " << nif << " | ";
-    cout << "Anos de Serviço: " << anos_servico << " | ";
-    cout << "Salário: " << salario;
-    cout << endl;
 }
 
 
@@ -162,13 +45,6 @@ void Hotel::AddFuncionario(Funcionario f) {
     funcionarios.push_back(f);
 }
 
-//  |Cliente Func|
-void Cliente::Reservar(data di, data df, int lp, vector <Quarto> q) {
-    Reserva r(di, df, lp, q);
-    reserva_atual = &r;
-}
-//  |Cliente Func|
-
 bool Hotel::ValidarReserva(Cliente c) {
     Reserva r = *c.reserva_atual;
     if (r.vazia == true && AddReserva(r)) {
@@ -205,28 +81,6 @@ void Hotel::CheckOut(Cliente c) {
     int rindex = FindIndex(reservas, r);
     quartos_ocupados.erase(reservas.begin() + rindex);
     c.nohotel = false;
-}
-
-
-// Gestor Funcs
-void F_Gestor::Promocoes(vector<Quarto> quartos_promo) {
-    int qsize = quartos_promo.size();
-    for(int i = 0; qsize > i; i++){
-        Quarto quarto = quartos_promo[i];
-        quarto.preco_base *= float(float(100 - quarto.promo)/ 100);
-    }
-}
-
-Produto F_Gestor::Escolher_Prod(vector<Produto> prods) {
-    int prodsize = prods.size();
-    Produto escolhido = prods[0];
-    for (int i = 0; prodsize > i; i++){
-        if(prods[i].preco < escolhido.preco) escolhido = prods[i];
-        else if(prods[i].preco == escolhido.preco){
-            if(prods[i].qualidade > escolhido.qualidade) escolhido = prods[i];
-        }
-    }
-    return escolhido;
 }
 
 
@@ -337,29 +191,52 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes
 }
 
 const vector <Reserva> Hotel::Quartos_Fin(int mesp, int anop){
-    data dataf = dataf.DiaFinal(mesp, anop);
+    bool check = false, checking = false;
+    data dataf = DiaFinal(mesp, anop);
     data datai = {.dia = 1, .mes = mesp, .ano = anop};
     vector <Reserva> reservastotais = reservas;
     reservastotais.insert(reservastotais.end(), quartos_ocupados.begin(), quartos_ocupados.end());
     reservastotais.insert(reservastotais.end(), estadias.begin(), estadias.end());
     vector <Reserva> ri = Pesquisa_Reservas_DataI(0, 0, 0, reservastotais);
+    int risize = ri.size();
+    cout << endl << "SIZE: " << risize << endl;
     int vmin = 0, vmax = ri.size() - 1;
     int vmedio = vmax/2;
-    while(vmin != vmax){
+    cout << endl << "1) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl;
+    while(!check){
         if(ri[vmedio].data_inicio <= dataf) vmin = vmedio;
         if(ri[vmedio].data_inicio > dataf) vmax = vmedio;
-        vmedio = vmin + (vmax - vmin)/2;
+        if(!checking) vmedio = vmin + (vmax - vmin)/2;
+        else check = true;
+        if(!check){
+            if(vmedio == vmin) vmedio = vmax;
+            if(vmedio == vmax) vmedio = vmin;
+            checking = true;
+        }
+        cout << endl << "1) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl;
     }
-    ri.erase(ri.begin() + vmax + 1, ri.end());
+    cout << endl << "VMAX: " << vmax << endl;
+    ri.erase(ri.begin() + min(vmax, risize - 1), ri.end());
     vector <Reserva> rf = Pesquisa_Reservas_DataF(0, 0, 0, ri);
     vmin = 0, vmax = rf.size() - 1;
     vmedio = vmax/2;
-    while(vmin != vmax){
+    check = false;
+    checking = false;
+    cout << endl << "2) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl;
+    while(!check){
         if(ri[vmedio].data_fim < datai) vmin = vmedio;
         if(ri[vmedio].data_fim >= datai) vmax = vmedio;
-        vmedio = vmin + (vmax - vmin)/2;
+        if(!checking) vmedio = vmin + (vmax - vmin)/2;
+        else check = true;
+        if(!check) {
+            if (vmedio == vmin) vmedio = vmax;
+            if (vmedio == vmax) vmedio = vmin;
+            checking = true;
+        }
+        cout << endl << "2) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl;
     }
-    rf.erase(rf.begin(), rf.begin() + vmin - 1);
+    cout << endl << "VMIN: " << vmin << endl;
+    rf.erase(rf.begin(), rf.begin() + max(0, vmin));
     return rf;
 }
 
@@ -379,18 +256,41 @@ float Hotel::CustosTotais(float impostos, float despesasfixas) {
     return impostos + despesasfixas + preco_produtos + salarios;
 }
 
+data Hotel::DiaFinal(int mesp, int anop) {
+    if (mesp == 2) return {.dia = 28, .mes = mesp, .ano= anop};
+    else if (mesp == 4 || mesp == 6 || mesp == 9 || mesp == 11) return {.dia = 30, .mes = mesp, .ano= anop};
+    else return {.dia = 31, .mes = mesp, .ano= anop};
+}
+
 float Hotel::RendimentosTotais(int mes, int ano) {
     data data_inicial = {.dia = 1, .mes = mes, .ano = ano};
-    int diaf = 31, ndias = 0;
-    if (mes == 2) diaf = 28;
-    if (mes == 4 || mes == 6 || mes == 9 || mes == 11) diaf = 30;
-    data data_final = {.dia = diaf, .mes = mes, .ano = ano};
-    vector<Reserva> reservas_totais = quartos_ocupados;
-    int rsize = reservas.size();
-    int estsize = estadias.size();
-    //Search Alg!!!!!!!!!!!!!
+    data data_final = DiaFinal(mes, ano);
+    vector<Reserva> reservas_totais = Quartos_Fin(mes, ano);
+    PrintV(reservas_totais);
+    cout << endl << "HERE RT" << endl;
+    int realdur;
+    float count_rquartos = 0, rendimento = 0;
+    int rsize = reservas_totais.size();
     for (int i = 0; rsize > i; i++){
-
-
+        if(reservas_totais[i].data_inicio >= data_inicial && reservas_totais[i].data_fim <= data_final) count_rquartos += reservas_totais[i].duracao * reservas_totais[i].preco;
+        if(reservas_totais[i].data_inicio >= data_inicial && reservas_totais[i].data_fim > data_final){
+            realdur = data_final - reservas_totais[i].data_inicio;
+            count_rquartos += reservas_totais[i].preco * realdur;
+        }
+        if(reservas_totais[i].data_inicio < data_inicial && reservas_totais[i].data_fim <= data_final){
+            realdur = reservas_totais[i].data_fim - data_inicial;
+            count_rquartos += reservas_totais[i].preco * realdur;
+        }
+        if(reservas_totais[i].data_inicio < data_inicial && reservas_totais[i].data_fim > data_final){
+            realdur = data_final - data_inicial;
+            count_rquartos += reservas_totais[i].preco * realdur;
+        }
+        }
+    rendimento += count_rquartos;
+    return rendimento;
     }
+
+float Hotel::BalancoFin(int mes, int ano, float impostos, float despesasfixas) {
+    return RendimentosTotais(mes, ano) - CustosTotais(impostos, despesasfixas);
 }
+
