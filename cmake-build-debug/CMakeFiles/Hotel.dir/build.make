@@ -62,10 +62,10 @@ RM = "D:\CLion 2019.3.4\bin\cmake\win\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\MSI\Desktop\Hotel
+CMAKE_SOURCE_DIR = C:\Users\MSI\Desktop\Hotel\Hotel
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\MSI\Desktop\Hotel\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Hotel.dir/depend.make
@@ -78,94 +78,94 @@ include CMakeFiles/Hotel.dir/flags.make
 
 CMakeFiles/Hotel.dir/main.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Hotel.dir/main.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\main.cpp.obj -c C:\Users\MSI\Desktop\Hotel\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Hotel.dir/main.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\main.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\main.cpp
 
 CMakeFiles/Hotel.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/main.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\main.cpp > CMakeFiles\Hotel.dir\main.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\main.cpp > CMakeFiles\Hotel.dir\main.cpp.i
 
 CMakeFiles/Hotel.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/main.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\main.cpp -o CMakeFiles\Hotel.dir\main.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\main.cpp -o CMakeFiles\Hotel.dir\main.cpp.s
 
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Hotel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Hotel.dir/Hotel.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Hotel.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Hotel.dir/Hotel.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Hotel.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\Hotel.cpp
 
 CMakeFiles/Hotel.dir/Hotel.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/Hotel.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel.cpp > CMakeFiles\Hotel.dir\Hotel.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\Hotel.cpp > CMakeFiles\Hotel.dir\Hotel.cpp.i
 
 CMakeFiles/Hotel.dir/Hotel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/Hotel.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel.cpp -o CMakeFiles\Hotel.dir\Hotel.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\Hotel.cpp -o CMakeFiles\Hotel.dir\Hotel.cpp.s
 
 CMakeFiles/Hotel.dir/Produto.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/Produto.cpp.obj: ../Produto.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Hotel.dir/Produto.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Produto.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Produto.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Hotel.dir/Produto.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Produto.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\Produto.cpp
 
 CMakeFiles/Hotel.dir/Produto.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/Produto.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Produto.cpp > CMakeFiles\Hotel.dir\Produto.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\Produto.cpp > CMakeFiles\Hotel.dir\Produto.cpp.i
 
 CMakeFiles/Hotel.dir/Produto.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/Produto.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Produto.cpp -o CMakeFiles\Hotel.dir\Produto.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\Produto.cpp -o CMakeFiles\Hotel.dir\Produto.cpp.s
 
 CMakeFiles/Hotel.dir/Reserva.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/Reserva.cpp.obj: ../Reserva.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Hotel.dir/Reserva.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Reserva.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Reserva.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/Hotel.dir/Reserva.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Reserva.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\Reserva.cpp
 
 CMakeFiles/Hotel.dir/Reserva.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/Reserva.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Reserva.cpp > CMakeFiles\Hotel.dir\Reserva.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\Reserva.cpp > CMakeFiles\Hotel.dir\Reserva.cpp.i
 
 CMakeFiles/Hotel.dir/Reserva.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/Reserva.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Reserva.cpp -o CMakeFiles\Hotel.dir\Reserva.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\Reserva.cpp -o CMakeFiles\Hotel.dir\Reserva.cpp.s
 
 CMakeFiles/Hotel.dir/Quarto.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/Quarto.cpp.obj: ../Quarto.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Hotel.dir/Quarto.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Quarto.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Quarto.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Hotel.dir/Quarto.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Quarto.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\Quarto.cpp
 
 CMakeFiles/Hotel.dir/Quarto.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/Quarto.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Quarto.cpp > CMakeFiles\Hotel.dir\Quarto.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\Quarto.cpp > CMakeFiles\Hotel.dir\Quarto.cpp.i
 
 CMakeFiles/Hotel.dir/Quarto.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/Quarto.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Quarto.cpp -o CMakeFiles\Hotel.dir\Quarto.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\Quarto.cpp -o CMakeFiles\Hotel.dir\Quarto.cpp.s
 
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Funcionario.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Hotel.dir/Funcionario.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Funcionario.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Funcionario.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Hotel.dir/Funcionario.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Funcionario.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\Funcionario.cpp
 
 CMakeFiles/Hotel.dir/Funcionario.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/Funcionario.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Funcionario.cpp > CMakeFiles\Hotel.dir\Funcionario.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\Funcionario.cpp > CMakeFiles\Hotel.dir\Funcionario.cpp.i
 
 CMakeFiles/Hotel.dir/Funcionario.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/Funcionario.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Funcionario.cpp -o CMakeFiles\Hotel.dir\Funcionario.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\Funcionario.cpp -o CMakeFiles\Hotel.dir\Funcionario.cpp.s
 
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: CMakeFiles/Hotel.dir/flags.make
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Cliente.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Hotel.dir/Cliente.cpp.obj"
-	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Cliente.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Cliente.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Hotel.dir/Cliente.cpp.obj"
+	D:\MingW64\mingw64\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\Hotel.dir\Cliente.cpp.obj -c C:\Users\MSI\Desktop\Hotel\Hotel\Cliente.cpp
 
 CMakeFiles/Hotel.dir/Cliente.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Hotel.dir/Cliente.cpp.i"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Cliente.cpp > CMakeFiles\Hotel.dir\Cliente.cpp.i
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\MSI\Desktop\Hotel\Hotel\Cliente.cpp > CMakeFiles\Hotel.dir\Cliente.cpp.i
 
 CMakeFiles/Hotel.dir/Cliente.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Hotel.dir/Cliente.cpp.s"
-	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Cliente.cpp -o CMakeFiles\Hotel.dir\Cliente.cpp.s
+	D:\MingW64\mingw64\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S C:\Users\MSI\Desktop\Hotel\Hotel\Cliente.cpp -o CMakeFiles\Hotel.dir\Cliente.cpp.s
 
 # Object files for target Hotel
 Hotel_OBJECTS = \
@@ -191,7 +191,7 @@ Hotel.exe: CMakeFiles/Hotel.dir/build.make
 Hotel.exe: CMakeFiles/Hotel.dir/linklibs.rsp
 Hotel.exe: CMakeFiles/Hotel.dir/objects1.rsp
 Hotel.exe: CMakeFiles/Hotel.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Hotel.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Hotel.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Hotel.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -204,6 +204,6 @@ CMakeFiles/Hotel.dir/clean:
 .PHONY : CMakeFiles/Hotel.dir/clean
 
 CMakeFiles/Hotel.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\MSI\Desktop\Hotel C:\Users\MSI\Desktop\Hotel C:\Users\MSI\Desktop\Hotel\cmake-build-debug C:\Users\MSI\Desktop\Hotel\cmake-build-debug C:\Users\MSI\Desktop\Hotel\cmake-build-debug\CMakeFiles\Hotel.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\MSI\Desktop\Hotel\Hotel C:\Users\MSI\Desktop\Hotel\Hotel C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug C:\Users\MSI\Desktop\Hotel\Hotel\cmake-build-debug\CMakeFiles\Hotel.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/Hotel.dir/depend
 

@@ -16,7 +16,7 @@ public:
     data data_inicio, data_fim;
     int lugaresp, duracao, preco, idnumero;
     vector <Quarto> quartos_res;
-    bool vazia = false, primeiravez = true;
+    bool primeiravez = true;
     static bool PrimeiraReserva(Reserva r1, Reserva r2) {return r1.primeiravez > r2.primeiravez;}
     static bool Duracaocomp_Decr(Reserva r1, Reserva r2) {return r1.duracao > r2.duracao;}
     static bool Duracaocomp_Cr(Reserva r1, Reserva r2) {return r1.duracao < r2.duracao;}
@@ -27,8 +27,7 @@ public:
     static bool DataFcomp_Decr(Reserva r1, Reserva r2) {return r1.data_fim > r2.data_fim;}
     static bool DataFcomp_Cr(Reserva r1, Reserva r2) {return r1.data_fim < r2.data_fim;}
     Reserva(int num, data i, data f, int lp, vector <Quarto> q);
-    Reserva(int num, data i, data f, int lp, vector <Quarto> q, bool v, bool pr);
-    Reserva() {vazia = true;}
+    Reserva(int num, data i, data f, int lp, vector <Quarto> q, bool pr);
     ~Reserva() {};
     bool operator==(const Reserva &r2) const;
     void Info();

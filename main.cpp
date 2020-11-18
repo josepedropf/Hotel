@@ -86,10 +86,17 @@ int main() {
     H.AddReserva(RR8);
     H.AddReserva(RR9);
 
+    Cliente Lucas("Lucas Calvet", 910);
 
     int rend = H.RendimentosTotais(11, 2020);
     cout << endl << "Rendimentos: " << rend << endl;
 
+    Reserva LR1(222, {.dia = 20, .mes = 11, .ano= 2021}, {.dia = 2, .mes = 12, .ano= 2021}, 1, {Q100});
+    Reserva LR2(223, {.dia = 20, .mes = 11, .ano= 2022}, {.dia = 2, .mes = 12, .ano= 2022}, 1, {Q100});
+    Lucas.Reservar(LR1);
+    Lucas.Reservar(LR2);
+    H.ValidarReserva(Lucas, LR1);
+    H.ValidarReserva(Lucas, LR2);
 
     /*
     Reserva RR10(9, {.dia = 6, .mes = 12, .ano= 2020}, {.dia = 30, .mes = 12, .ano= 2020}, 1, {Q214});

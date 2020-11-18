@@ -21,13 +21,13 @@ protected:
     vector <Produto> produtos;
     vector <Reserva> reservas;
     vector <Reserva> estadias;
-    vector <Reserva> quartos_ocupados;
+    vector <Reserva> reservas_atuais;
     vector <Cliente> clientes;
     vector <Quarto> quartos;
     vector <Funcionario> funcionarios;
 
 public:
-    Hotel(string n);
+    Hotel(string nome);
     ~Hotel() {};
 
     template<class T>
@@ -52,19 +52,19 @@ public:
     }
 
 
-    bool AddReserva(Reserva r);
-    void AddQuartoOcupado(Reserva r);
-    void AddEstadia(Reserva r);
-    void AddCliente(Cliente c);
-    void AddQuarto(Quarto q);
-    void AddFuncionario(Funcionario f);
+    bool AddReserva(Reserva reserva);
+    void AddReservasAtuais(Reserva reserva);
+    void AddEstadia(Reserva reserva);
+    void AddCliente(Cliente cliente);
+    void AddQuarto(Quarto quarto);
+    void AddFuncionario(Funcionario funcionario);
 
-    bool ValidarReserva(Cliente c);
-    void CheckIn(Cliente c);
-    void CheckOut(Cliente c);
+    bool ValidarReserva(Cliente cliente, Reserva reserva);
+    void CheckIn(Cliente cliente);
+    void CheckOut(Cliente cliente);
 
     const vector <Reserva> GetReservas() {return reservas;}
-    const vector <Reserva> GetQuartosOcupados() {return quartos_ocupados;}
+    const vector <Reserva> GetReservasAtuais() {return reservas_atuais;}
     const vector <Reserva> GetEstadias() {return estadias;}
     const vector <Cliente> GetClientes() {return clientes;}
     const vector <Quarto> GetQuartos() {return quartos;}
@@ -76,9 +76,9 @@ public:
     const vector <Reserva> Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const vector <Reserva> Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> r);
+    const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> reserva);
     const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> r);
+    const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> reserva);
     const vector <Reserva> Quartos_Fin(int mesp, int anop);
     float CustosTotais(float impostos, float despesasfixas);
     float RendimentosTotais(int mes, int ano);

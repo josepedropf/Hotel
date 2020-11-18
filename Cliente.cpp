@@ -16,5 +16,11 @@ void Cliente::Info() {
 
 void Cliente::Reservar(int num, data di, data df, int lp, vector <Quarto> q) {
     Reserva r(num, di, df, lp, q);
-    reserva_atual = &r;
+    reservas_cliente.push_back(r);
+    sort(reservas_cliente.begin(), reservas_cliente.end(), Reserva::DataIcomp_Cr);
+}
+
+void Cliente::Reservar(Reserva reserva) {
+    reservas_cliente.push_back(reserva);
+    sort(reservas_cliente.begin(), reservas_cliente.end(), Reserva::DataIcomp_Cr);
 }

@@ -13,9 +13,8 @@ Reserva::Reserva(int num, data i, data f, int lp, vector <Quarto> q){
         preco += quartos_res[i].preco_base;
     }
 }
-Reserva::Reserva(int num, data i, data f, int lp, vector<Quarto> q, bool v, bool pr) {
+Reserva::Reserva(int num, data i, data f, int lp, vector<Quarto> q, bool pr) {
     idnumero = num;
-    vazia = v;
     primeiravez = pr;
     data_inicio = i;
     data_fim = f;

@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/MSI/Desktop/Hotel/Cliente.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
 iostream
 -
 vector
@@ -16,17 +16,17 @@ string
 algorithm
 -
 Data.h
-C:/Users/MSI/Desktop/Hotel/Data.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 Reserva.h
-C:/Users/MSI/Desktop/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
 
-C:/Users/MSI/Desktop/Hotel/Data.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 string
 -
 iostream
 -
 
-C:/Users/MSI/Desktop/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
 iostream
 -
 vector
@@ -36,15 +36,15 @@ string
 algorithm
 -
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
 Produto.h
-C:/Users/MSI/Desktop/Hotel/Produto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel.cpp
+C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.cpp
 Hotel.h
-C:/Users/MSI/Desktop/Hotel/Hotel.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
 iostream
 -
 vector
@@ -54,19 +54,19 @@ string
 algorithm
 -
 Reserva.h
-C:/Users/MSI/Desktop/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
 Produto.h
-C:/Users/MSI/Desktop/Hotel/Produto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
 Funcionario.h
-C:/Users/MSI/Desktop/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
 Cliente.h
-C:/Users/MSI/Desktop/Hotel/Cliente.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
 Data.h
-C:/Users/MSI/Desktop/Hotel/Data.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 
-C:/Users/MSI/Desktop/Hotel/Produto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
 iostream
 -
 vector
@@ -76,7 +76,7 @@ string
 algorithm
 -
 
-C:/Users/MSI/Desktop/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
 iostream
 -
 vector
@@ -86,7 +86,7 @@ string
 algorithm
 -
 
-C:/Users/MSI/Desktop/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
 iostream
 -
 vector
@@ -96,7 +96,7 @@ string
 algorithm
 -
 Data.h
-C:/Users/MSI/Desktop/Hotel/Data.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
 

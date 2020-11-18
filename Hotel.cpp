@@ -2,34 +2,43 @@
 
 
 // Inicializações
-
-Hotel::Hotel(string n) {
-    nome = n;
+/**
+ * Construtor da Classe Hotel
+ * @param nome nome do Hotel
+ */
+Hotel::Hotel(string nome) {
+    nome = nome;
     cout << "Bem Vindo ao Grande Hotel " << nome << "!" << endl;
 }
 
 
 // Hotel Database Add
-bool Hotel::AddReserva(Reserva r) {
-    bool copia = false;
+/**
+ * Adiciona uma Reserva à base de dados do Hotel (vetor reservas), se esta for válida, isto é,
+ * se não for sobreposta a outras já existentes e a capacidade desejada for igual ou inferior á dos quartos requeridos
+ * @param reserva Reserva a ser adicionada
+ * @return true se a reserva for válida e portanto adicionada, false caso contrário
+ */
+bool Hotel::AddReserva(Reserva reserva) {
+    bool sobreposta = false;
     int capacidadetotal = 0;
-    int qsize = r.quartos_res.size();
+    int qsize = reserva.quartos_res.size();
     int rsize = reservas.size();
     for (int i = 0; rsize > i; i++){
-        if(reservas[i] == r){
-            copia = true;
+        if(reservas[i] == reserva){
+            sobreposta = true;
             break;
         }
     }
-    if(copia){
+    if(sobreposta){
         cout << endl << "Reserva Impossível" << endl;
         cout << "Razão: A Reserva já existe ou sobrepõe-se a uma já existente!" << endl;
         return false;
     }
     for (int i = 0; qsize > i; i++){
-        capacidadetotal += r.quartos_res[i].capacidade;
+        capacidadetotal += reserva.quartos_res[i].capacidade;
     }
-    if(r.lugaresp <= capacidadetotal && (r.data_fim - r.data_inicio > 0)) reservas.push_back(r);
+    if(reserva.lugaresp <= capacidadetotal && (reserva.data_fim - reserva.data_inicio > 0)) reservas.push_back(reserva);
     else{
         cout << endl << "Reserva Impossível" << endl;
         cout << "Razão: Lugares Esperados excedem a capacidade total dos Quartos selecionados!" << endl;
@@ -38,35 +47,77 @@ bool Hotel::AddReserva(Reserva r) {
     return true;
 }
 
-void Hotel::AddQuartoOcupado(Reserva r) {
-    quartos_ocupados.push_back(r);
+/**
+ * Adiciona uma Reserva ao conjunto de reservas atuais do Hotel, ou seja,
+ * aquelas que estão a ser usufruídas no momento (vetor reservas_atuais)
+ * @param reserva Reserva a ser adicionada ao vetor reservas_atuais
+ */
+void Hotel::AddReservasAtuais(Reserva reserva) {
+    reservas_atuais.push_back(reserva);
 }
 
-void Hotel::AddEstadia(Reserva r) {
-    estadias.push_back(r);
+/**
+ * Adiciona uma Reserva ao conjunto de estadias anteriores efetuadas no Hotel, isto é,
+ * que já foram usufruídas pelos clientes (vetor estadias)
+ * @param reserva Reserva a ser adicionada ao vetor estadias
+ */
+void Hotel::AddEstadia(Reserva reserva) {
+    estadias.push_back(reserva);
 }
 
-void Hotel::AddCliente(Cliente c) {
-    clientes.push_back(c);
+/**
+ * Adiciona um Cliente à base de dados do Hotel (um perfil que se mantem se o mesmo fizer reservas no futuro)
+ * (vetor clientes)
+ * @param cliente Cliente a ser adicionado ao vetor clientes
+ */
+void Hotel::AddCliente(Cliente cliente) {
+    clientes.push_back(cliente);
 }
 
-void Hotel::AddQuarto(Quarto q) {
-    quartos.push_back(q);
+/**
+ * Adiciona um Quarto à base de dados do Hotel (vetor quartos)
+ * @param quarto Quarto a ser adicionado ao vetor quartos
+ */
+void Hotel::AddQuarto(Quarto quarto) {
+    quartos.push_back(quarto);
 }
 
-void Hotel::AddFuncionario(Funcionario f) {
-    funcionarios.push_back(f);
+/**
+ * Adiciona um Funcionário à base de dados do Hotel (vetor funcionários)
+ * @param funcionario Funcionário a ser adicionado ao vetor funcionários
+ */
+void Hotel::AddFuncionario(Funcionario funcionario) {
+    funcionarios.push_back(funcionario);
 }
 
-bool Hotel::ValidarReserva(Cliente c) {
-    Reserva r = *c.reserva_atual;
-    if (r.vazia == true && AddReserva(r)) {
-        r.vazia = false;
-        if (!c.cliente_usual) {
-            AddCliente(c);
-            r.primeiravez = true;
+
+ /**
+  * Valida a Reserva feita pelo cliente, certeficando-se que esta não se sobrepõe a outras feitas pelo mesmo cliente.
+  * Além disso adiciona o cliente à base de dados chamando a AddCliente caso seja a primeira reserva deste.
+  * @param cliente Cliente que efetuou a reserva que queremos validar
+  * @param reserva Reserva que se pretende validar
+  * @return true se a Reserva for válida, false caso contrário
+  */
+bool Hotel::ValidarReserva(Cliente cliente, Reserva reserva) {
+    bool exist = false;
+    int crsize = cliente.reservas_cliente.size();
+    vector<Reserva> outras_reservas_cliente;
+    for(int i = 0; crsize > i; i++){
+        if(reserva.idnumero == cliente.reservas_cliente[i].idnumero) exist = true;
+        else outras_reservas_cliente.push_back(cliente.reservas_cliente[i]);
+    }
+    if(!exist) return false;
+    int outrasrsize = outras_reservas_cliente.size();
+    for(int i = 0; outrasrsize > i; i++){
+        if(reserva == outras_reservas_cliente[i]) return false;
+    }
+    if(*cliente.estadia_atual == reserva) return false;
+    if (AddReserva(reserva)) {
+        if (!cliente.cliente_usual) {
+            AddCliente(cliente);
+            reserva.primeiravez = true;
         }
-        else r.primeiravez = false;
+        else reserva.primeiravez = false;
         return true;
     }
     else{
@@ -75,25 +126,37 @@ bool Hotel::ValidarReserva(Cliente c) {
     }
 }
 
-void Hotel::CheckIn(Cliente c) {
-    Reserva r = *c.reserva_atual;
-    c.estadia_atual = &r;
-    c.reserva_atual = NULL;
-    c.nohotel = true;
-    int rindex = FindIndex(reservas, r);
+/**
+ * Realiza o Check-In, a reserva mais recente do cliente deixa de pertencer ao seu vetor reservas_cliente
+ * e passa a ser a sua estadia atual, visto que este entra no hotel
+ * Atualiza também outras informações como por exemplo o facto de o cliente se encontrar no hotel passando nohotel a true
+ * @param cliente Cliente que está a realizar o Check-In
+ */
+void Hotel::CheckIn(Cliente cliente) {
+    Reserva reserva = cliente.reservas_cliente[0];
+    cliente.estadia_atual = &reserva;
+    int rindex = FindIndex(cliente.reservas_cliente, reserva);
+    cliente.reservas_cliente.erase(cliente.reservas_cliente.begin() + rindex);
+    cliente.nohotel = true;
+    rindex = FindIndex(reservas, reserva);
     reservas.erase(reservas.begin() + rindex);
-    AddQuartoOcupado(r);
+    AddReservasAtuais(reserva);
 }
 
-void Hotel::CheckOut(Cliente c) {
-    Reserva r = *c.reserva_atual;
-    c.estadias_anteriores.push_back(r);
-    c.estadia_atual = NULL;
-    AddEstadia(r);
-    r.vazia = true;
-    int rindex = FindIndex(reservas, r);
-    quartos_ocupados.erase(reservas.begin() + rindex);
-    c.nohotel = false;
+/**
+ * Realiza o Check-Out, a estadia atual do cliente em questão passa a pertencer às suas estadias_anteriores
+ * Atualiza outras informações: o facto do cliente já não estar no hotel passando nohotel a false
+ * @param cliente Cliente que está a realizar o Check-Out
+ */
+void Hotel::CheckOut(Cliente cliente) {
+    Reserva reserva = *cliente.estadia_atual;
+    cliente.estadias_anteriores.push_back(reserva);
+    cliente.estadia_atual = NULL;
+    AddEstadia(reserva);
+    int rindex = FindIndex(reservas, reserva);
+    reservas_atuais.erase(reservas.begin() + rindex);
+    cliente.nohotel = false;
+    if(!cliente.cliente_usual) cliente.cliente_usual = true;
 }
 
 
@@ -143,15 +206,15 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_DataI(bool inverso, bool clientes
     return pesquisa_duracao;
 }
 
-const vector<Reserva> Hotel::Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector<Reserva> r) {
+const vector<Reserva> Hotel::Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector<Reserva> reserva) {
     vector <Reserva> pesquisa_duracao;
-    int rsize = r.size();
+    int rsize = reserva.size();
     if(clientes_novos) {
         for (int i = 0; rsize > i; i++){
-            if (r[i].primeiravez) pesquisa_duracao.push_back(r[i]);
+            if (reserva[i].primeiravez) pesquisa_duracao.push_back(reserva[i]);
         }
     }
-    else pesquisa_duracao = r;
+    else pesquisa_duracao = reserva;
     if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataIcomp_Decr);
     else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataIcomp_Cr);
     if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
@@ -173,15 +236,15 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes
     return pesquisa_duracao;
 }
 
-const vector<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector<Reserva> r) {
+const vector<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector<Reserva> reserva) {
     vector <Reserva> pesquisa_duracao;
-    int rsize = r.size();
+    int rsize = reserva.size();
     if(clientes_novos) {
         for (int i = 0; rsize > i; i++){
-            if (r[i].primeiravez) pesquisa_duracao.push_back(r[i]);
+            if (reserva[i].primeiravez) pesquisa_duracao.push_back(reserva[i]);
         }
     }
-    else pesquisa_duracao = r;
+    else pesquisa_duracao = reserva;
     if(inverso) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataFcomp_Decr);
     else sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::DataFcomp_Cr);
     if(clientes_novos_primeiro) sort(pesquisa_duracao.begin(), pesquisa_duracao.end(), Reserva::PrimeiraReserva);
@@ -208,7 +271,7 @@ const vector <Reserva> Hotel::Quartos_Fin(int mesp, int anop){
     data dataf = DiaFinal(mesp, anop);
     data datai = {.dia = 1, .mes = mesp, .ano = anop};
     vector <Reserva> reservastotais = reservas;
-    reservastotais.insert(reservastotais.end(), quartos_ocupados.begin(), quartos_ocupados.end());
+    reservastotais.insert(reservastotais.end(), reservas_atuais.begin(), reservas_atuais.end());
     reservastotais.insert(reservastotais.end(), estadias.begin(), estadias.end());
     vector <Reserva> ri = Pesquisa_Reservas_DataI(0, 0, 0, reservastotais);
     int risize = ri.size();
