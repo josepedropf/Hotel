@@ -16,7 +16,6 @@ public:
     bool voltar;
     Menu() {};
     ifstream OpenFicheiro(string localizacao);
-    bool ImportarQuartos(string localizacao);
     bool ImportarHotel(string localizacao);
     void Coisas();
 };

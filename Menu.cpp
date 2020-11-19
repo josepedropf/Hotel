@@ -29,6 +29,7 @@ bool Menu::ImportarHotel(string localizacao) {
     while(inficheiro){
         getline(cin, line);
     }
+    return true;
 }
 
 void Menu::Coisas() {

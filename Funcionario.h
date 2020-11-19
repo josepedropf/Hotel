@@ -45,20 +45,20 @@ public:
     virtual void Info() const;
 };
 
-enum turno {dia = 0, noite = 1};
+enum tipo_turno {dia = 0, noite = 1};
 
 class F_Limpeza : public Funcionario{
 public:
-    turno fturno;
-    F_Limpeza(string na, int n, int as, float s, turno t);
+    tipo_turno fturno;
+    F_Limpeza(string na, int n, int as, float s, tipo_turno t);
     virtual void Info() const;
 };
 
 class F_Gestor : public Funcionario{
 public:
-    avaliacao av_prestacao = razoavel;
+    nota_avaliacao av_prestacao = razoavel;
     F_Gestor(string na, int n, int as, float s);
-    F_Gestor(string na, int n, int as, float s, avaliacao av);
+    F_Gestor(string na, int n, int as, float s, nota_avaliacao av);
     void Promocoes(vector <Quarto> quartos_promo);
     Produto Escolher_Prod(vector <Produto> prods);
     virtual void Info() const;

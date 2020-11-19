@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.cpp
-Cliente.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
-
 C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
 iostream
 -
@@ -30,10 +26,6 @@ string
 iostream
 -
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.cpp
-Exceptions.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
-
 C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
 iostream
 -
@@ -43,10 +35,6 @@ string
 -
 algorithm
 -
-
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.cpp
-Funcionario.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
 
 C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
 iostream
@@ -94,34 +82,6 @@ C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 Exceptions.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.cpp
-fstream
--
-sstream
--
-Menu.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h
-Exceptions.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
-
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h
-iostream
--
-vector
--
-string
--
-algorithm
--
-Data.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
-Hotel.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
-
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.cpp
-Produto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
-
 C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
 iostream
 -
@@ -132,10 +92,6 @@ string
 algorithm
 -
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.cpp
-Quarto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
-
 C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
 iostream
 -
@@ -145,10 +101,6 @@ string
 -
 algorithm
 -
-
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.cpp
-Reserva.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
 
 C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
 iostream
@@ -163,8 +115,4 @@ Data.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 Quarto.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
-
-C:/Users/MSI/Desktop/Hotel/Hotel/main.cpp
-Hotel.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
 

@@ -30,6 +30,10 @@ protected:
     vector <Cliente> clientes;
     vector <Quarto> quartos;
     vector <Funcionario> funcionarios;
+    vector <F_Rececao> funcionarios_rececao;
+    vector <F_Responsavel> funcionarios_responsaveis;
+    vector <F_Limpeza> funcionarios_limpeza;
+    vector <F_Gestor> funcionarios_gestores;
 
 public:
     Hotel(string nome);
@@ -63,15 +67,24 @@ public:
     void AddCliente(Cliente cliente);
     void AddQuarto(Quarto quarto);
     void AddFuncionario(Funcionario funcionario);
+    void AddFuncionarioRececao(F_Rececao funcionario_rec);
+    void AddFuncionarioResponsavel(F_Responsavel funcionario_resp);
+    void AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza);
+    void AddFuncionarioGestor(F_Gestor funcionario_gestor);
 
-    bool ImportarQuartos(string localizacao);
+    void ImportarQuartos(string localizacao);
+    void ImportarClientes(string localizacao);
+    void ImportarFuncionario(string localizacao);
 
     bool ValidarReserva(Cliente cliente, Reserva reserva);
     void CheckIn(Cliente cliente);
     void CheckOut(Cliente cliente);
 
     tipo_cargo EscolherCargo();
+    tipo_turno EscolherTurno();
+    int EscolherPiso();
     Funcionario Contratar(string nome, int nif);
+    Funcionario Contratar(string nome, int nif, tipo_cargo cargo);
 
     const vector <Reserva> GetReservas() {return reservas;}
     const vector <Reserva> GetReservasAtuais() {return reservas_atuais;}
@@ -79,6 +92,10 @@ public:
     const vector <Cliente> GetClientes() {return clientes;}
     const vector <Quarto> GetQuartos() {return quartos;}
     const vector <Funcionario> GetFuncionarios() {return funcionarios;}
+    const vector <F_Rececao> GetFuncionariosRececao() {return funcionarios_rececao;}
+    const vector <F_Responsavel> GetFuncionariosResponsaveis() {return funcionarios_responsaveis;}
+    const vector <F_Limpeza> GetFuncionariosLimpeza() {return funcionarios_limpeza;}
+    const vector <F_Gestor> GetFuncionariosGestores() {return funcionarios_gestores;}
 
     data DiaFinal(int mesp, int anop);
     const vector <Funcionario> Pesquisa_F_Salario(bool inverso);

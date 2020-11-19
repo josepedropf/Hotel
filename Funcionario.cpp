@@ -20,19 +20,17 @@ Funcionario::Funcionario(string na, int n, int as, float s, tipo_cargo c) {
 F_Rececao::F_Rececao(string na, int n, int as, float s): Funcionario(na, n, as, s, frececao) {}
 F_Rececao::F_Rececao(string na, int n, int as, float s, tipo_cargo c): Funcionario(na, n, as, s, c) {}
 
-
 F_Responsavel::F_Responsavel(string na, int n, int as, float s): F_Rececao(na, n, as, s, fresponsavel) {}
 F_Responsavel::F_Responsavel(string na, int n, int as, float s, vector<int> pr): F_Rececao(na, n, as, s, fresponsavel) {
     pisos_resp = pr;
 }
 
-F_Limpeza::F_Limpeza(string na, int n, int as, float s, turno t): Funcionario(na, n, as, s, flimpeza) {
+F_Limpeza::F_Limpeza(string na, int n, int as, float s, tipo_turno t): Funcionario(na, n, as, s, flimpeza) {
     fturno = t;
 }
 
 F_Gestor::F_Gestor(string na, int n, int as, float s): Funcionario(na, n, as, s, fgestor) {}
-
-F_Gestor::F_Gestor(string na, int n, int as, float s, avaliacao av): Funcionario(na, n, as, s, fgestor) {
+F_Gestor::F_Gestor(string na, int n, int as, float s, nota_avaliacao av): Funcionario(na, n, as, s, fgestor) {
     av_prestacao = av;
 }
 
@@ -43,25 +41,25 @@ void Funcionario::Info() const{
         case naodef:
             break;
         case frececao:
-            scargo = "RECEÇÃO";
+            scargo = " RECEÇÃO";
             break;
         case fresponsavel:
-            scargo = "RESPONSÁVEL";
+            scargo = " RESPONSÁVEL";
             break;
         case flimpeza:
-            scargo = "LIMPEZA";
+            scargo = " LIMPEZA";
             break;
         case fgestor:
-            scargo = "GESTOR";
+            scargo = " GESTOR";
             break;
         default:
             break;
     }
-    cout << "<FUNCIONÁRIO " << scargo << ">" << endl;
+    cout << "<FUNCIONÁRIO" << scargo << ">" << endl;
     cout << "Nome: " << nome << " | ";
     cout << "Nif: " << nif << " | ";
     cout << "Anos de Serviço: " << anos_servico << " | ";
-    cout << "Salário: " << salario;
+    cout << "Salário: " << salario << endl;
 }
 
 void F_Rececao::Info() const {Funcionario::Info(); cout << endl;}
@@ -71,7 +69,7 @@ void F_Responsavel::Info() const {
     if(!pisos_resp.empty()){
         int prsize = pisos_resp.size();
         for(int i = 0; prsize > i; i++){
-            pisos += to_string(pisos_resp[i]);
+            pisos += " " + to_string(pisos_resp[i]);
         }
     }
     cout << " | Pisos da sua Responsabilidade: " << pisos;

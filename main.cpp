@@ -174,8 +174,20 @@ int main() {
     //H.Pesquisa_F_Salario(0);
     //H.Pesquisa_F_Salario(1);
 
-    //H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
-    //vector <Quarto> q = H.GetQuartos();
-    //H.PrintV(q);
+    H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    vector <Quarto> q = H.GetQuartos();
+    H.PrintV(q);
 
+
+    H.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
+    vector <Cliente> c = H.GetClientes();
+    H.PrintV(c);
+
+    H.ImportarFuncionario("C:\\Users\\MSI\\Desktop\\h1.txt");
+    vector <Funcionario> f = H.GetFuncionarios();
+    H.PrintV(f);
+
+    H.Contratar("Canas", 9999, fresponsavel);
+    vector<F_Responsavel> frr = H.GetFuncionariosResponsaveis();
+    H.PrintV(frr);
 }

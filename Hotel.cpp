@@ -90,6 +90,21 @@ void Hotel::AddFuncionario(Funcionario funcionario) {
     funcionarios.push_back(funcionario);
 }
 
+void Hotel::AddFuncionarioRececao(F_Rececao funcionario_rec) {
+    funcionarios_rececao.push_back(funcionario_rec);
+}
+
+void Hotel::AddFuncionarioResponsavel(F_Responsavel funcionario_resp) {
+    funcionarios_responsaveis.push_back(funcionario_resp);
+}
+
+void Hotel::AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza) {
+    funcionarios_limpeza.push_back(funcionario_limpeza);
+}
+
+void Hotel::AddFuncionarioGestor(F_Gestor funcionario_gestor) {
+    funcionarios_gestores.push_back(funcionario_gestor);
+}
 
  /**
   * Valida a Reserva feita pelo cliente, certeficando-se que esta não se sobrepõe a outras feitas pelo mesmo cliente.
@@ -431,25 +446,78 @@ tipo_cargo Hotel::EscolherCargo() {
     return cargo;
 }
 
+tipo_turno Hotel::EscolherTurno() {
+    int flsize = funcionarios_limpeza.size();
+    int countdia = 0, countnoite = 0;
+    for (int i = 0; flsize > i; i++){
+        if(funcionarios_limpeza[i].fturno == dia) countdia++;
+        else countnoite++;
+    }
+    if(countdia > countnoite) return noite;
+    else return dia;
+}
+
+int Hotel::EscolherPiso() {
+    vector <int> pisos, pvigiados;
+    vector <pair<int, int>> pcounter;
+    int qsize = quartos.size();
+    int rsize = funcionarios_responsaveis.size();
+    for (int i = 0; qsize > i; i++){
+        pisos.push_back(quartos[i].piso);
+    }
+    sort(pisos.begin(), pisos.end());
+    sort(unique(pisos.begin(), pisos.end()), pisos.end());
+    int psize = pisos.size();
+    for(int i = 0; psize > i; i++) pcounter.push_back(make_pair(pisos[i], 0));
+    for(int i = 0; rsize > i; i++) {
+        int pvsize = funcionarios_responsaveis[i].pisos_resp.size();
+        for(int a = 0; pvsize > a; a++){
+            pvigiados.push_back(funcionarios_responsaveis[i].pisos_resp[a]);
+        }
+    }
+    sort(pcounter.begin(), pcounter.end());
+    int pcindex, pcsize = pcounter.size();
+    int pvigsize = pvigiados.size(), pisoesc;
+    for(int i = 0; pvigsize > i; i++){
+        pcindex = pvigiados[i] - pcounter[0].first;
+        pcounter[pcindex].second++;
+    }
+    pisoesc = pcounter[0].first;
+    int counter = pcounter[0].second;
+    for(int i = 1; pcindex > i; i++){
+        if(pcounter[i].second < counter){
+            pisoesc = pcounter[i].first;
+            counter = pcounter[i].second;
+        }
+    }
+    return pisoesc;
+}
+
 Funcionario Hotel::Contratar(string nome, int nif){
     tipo_cargo cargo = EscolherCargo();
     if(cargo == frececao){
-        Funcionario FR(nome, nif, 0, 800);
+        F_Rececao FR(nome, nif, 0, 800);
         AddFuncionario(FR);
+        AddFuncionarioRececao(FR);
         return FR;
     }
     if(cargo == fresponsavel){
-        Funcionario FRR(nome, nif, 0, 1200);
+        vector<int> pisos;
+        pisos.push_back(EscolherPiso());
+        F_Responsavel FRR(nome, nif, 0, 1200, pisos);
         AddFuncionario(FRR);
+        AddFuncionarioResponsavel(FRR);
         return FRR;
     }
     if(cargo == flimpeza){
-        Funcionario FL(nome, nif, 0, 800);
+        tipo_turno turno = EscolherTurno();
+        F_Limpeza FL(nome, nif, 0, 800, turno);
         AddFuncionario(FL);
+        AddFuncionarioLimpeza(FL);
         return FL;
     }
     if(cargo == fgestor){
-        Funcionario FG(nome, nif, 0, 2000);
+        F_Gestor FG(nome, nif, 0, 2000);
         AddFuncionario(FG);
         return FG;
     }
@@ -458,7 +526,39 @@ Funcionario Hotel::Contratar(string nome, int nif){
     return F;
 }
 
-bool Hotel::ImportarQuartos(string localizacao) {
+Funcionario Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
+    if(cargo == frececao){
+        F_Rececao FR(nome, nif, 0, 800);
+        AddFuncionario(FR);
+        AddFuncionarioRececao(FR);
+        return FR;
+    }
+    if(cargo == fresponsavel){
+        vector<int> pisos;
+        pisos.push_back(EscolherPiso());
+        F_Responsavel FRR(nome, nif, 0, 1200, pisos);
+        AddFuncionario(FRR);
+        AddFuncionarioResponsavel(FRR);
+        return FRR;
+    }
+    if(cargo == flimpeza){
+        tipo_turno turno = EscolherTurno();
+        F_Limpeza FL(nome, nif, 0, 800, turno);
+        AddFuncionario(FL);
+        AddFuncionarioLimpeza(FL);
+        return FL;
+    }
+    if(cargo == fgestor){
+        F_Gestor FG(nome, nif, 0, 2000);
+        AddFuncionario(FG);
+        return FG;
+    }
+    Funcionario F(nome, nif, 0, 600);
+    AddFuncionario(F);
+    return F;
+}
+
+void Hotel::ImportarQuartos(string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
     if(!inficheiro){
@@ -467,15 +567,116 @@ bool Hotel::ImportarQuartos(string localizacao) {
     }
     string line;
     while(line != "Quartos"){
-        getline(cin, line);
+        getline(inficheiro, line);
     }
     int tquarto, piso, numero, capacidade;
     float preco;
+    getline(inficheiro, line);
     while(line != ""){
-        getline(cin, line);
-        while(inficheiro.peek() != '\n'){
-            inficheiro >> tquarto >> piso >> numero >> capacidade >> preco;
-        }
+        stringstream ss(line);
+        ss >> tquarto >> piso >> numero >> capacidade >> preco;
         AddQuarto(Quarto(static_cast<tipo_quarto>(tquarto), piso, numero, capacidade, preco));
+        getline(inficheiro, line);
+    }
+}
+
+void Hotel::ImportarClientes(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if (!inficheiro) {
+        cout << endl << "O Ficheiro não abre!" << endl;
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while (line != "Clientes") {
+        getline(inficheiro, line);
+        cout << endl << "DEBUG" << "line: " << line << endl;
+    }
+    string nomet= "", nomep = "";
+    int nif, usual;
+    getline(inficheiro, line);
+    while (line != "") {
+        nomet= "";
+        nomep = "";
+        usual = -1;
+        stringstream ss(line);
+        while(nomep != ","){
+            if(nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
+        }
+        ss >> nif >> usual;
+        if(usual != -1) AddCliente(Cliente(nomet, nif, usual));
+        else AddCliente(Cliente(nomet, nif));
+        getline(inficheiro, line);
+    }
+}
+
+void Hotel::ImportarFuncionario(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if (!inficheiro) {
+        cout << endl << "O Ficheiro não abre!" << endl;
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while (line != "Funcionários") {
+        getline(inficheiro, line);
+        cout << endl << "DEBUG" << "line: " << line << endl;
+    }
+    string nomet= "", nomep = "";
+    vector <int> pisos;
+    int nif, anos_servico, avaliacao, turno, cargo, piso;
+    float salario;
+    getline(inficheiro, line);
+    while (line != "") {
+        nomet= "";
+        nomep = "";
+        cargo = 0;
+        avaliacao = -1;
+        pisos.clear();
+        stringstream ss(line);
+        while(nomep != ","){
+            if(nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
+        }
+        ss >> nif >> anos_servico >> salario >> cargo;
+        cargo = static_cast<tipo_cargo>(cargo);
+        switch (cargo){
+            case frececao:
+                AddFuncionario(F_Rececao(nomet, nif, anos_servico, salario));
+                AddFuncionarioRececao(F_Rececao(nomet, nif, anos_servico, salario));
+                break;
+            case fresponsavel:
+                while(ss){
+                    ss >> piso;
+                    pisos.push_back(piso);
+                }
+                pisos.erase(pisos.end() - 1);
+                AddFuncionario(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
+                AddFuncionarioResponsavel(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
+                break;
+            case flimpeza:
+                ss >> turno;
+                AddFuncionario(F_Limpeza(nomet, nif, anos_servico, salario, static_cast<tipo_turno>(turno)));
+                AddFuncionarioLimpeza(F_Limpeza(nomet, nif, anos_servico, salario, static_cast<tipo_turno>(turno)));
+                break;
+            case fgestor:
+                ss >> avaliacao;
+                if(avaliacao == -1){
+                    AddFuncionario(F_Gestor(nomet, nif, anos_servico, salario));
+                    AddFuncionarioGestor(F_Gestor(nomet, nif, anos_servico, salario));
+                }
+                else{
+                    AddFuncionario(F_Gestor(nomet, nif, anos_servico, salario, static_cast<nota_avaliacao>(avaliacao)));
+                    AddFuncionarioGestor(F_Gestor(nomet, nif, anos_servico, salario, static_cast<nota_avaliacao>(avaliacao)));
+                }
+                break;
+            default:
+                AddFuncionario(Funcionario(nomet, nif, anos_servico, salario));
+                break;
+        }
+        getline(inficheiro, line);
     }
 }

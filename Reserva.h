@@ -23,7 +23,9 @@ public:
     static bool Precocomp_Decr(Reserva r1, Reserva r2) {return r1.preco > r2.preco;}
     static bool Precocomp_Cr(Reserva r1, Reserva r2) {return r1.preco < r2.preco;}
     static bool DataIcomp_Decr(Reserva r1, Reserva r2) {return r1.data_inicio > r2.data_inicio;}
+    static bool P_DataIcomp_Decr(Reserva *r1, Reserva *r2) {return r1->data_inicio > r2->data_inicio;}
     static bool DataIcomp_Cr(Reserva r1, Reserva r2) {return r1.data_inicio < r2.data_inicio;}
+    static bool P_DataIcomp_Cr(Reserva *r1, Reserva *r2) {return r1->data_inicio < r2->data_inicio;}
     static bool DataFcomp_Decr(Reserva r1, Reserva r2) {return r1.data_fim > r2.data_fim;}
     static bool DataFcomp_Cr(Reserva r1, Reserva r2) {return r1.data_fim < r2.data_fim;}
     Reserva(int num, data i, data f, int lp, vector <Quarto *> q);
