@@ -1,6 +1,6 @@
 #include "Reserva.h"
 
-Reserva::Reserva(int num, data i, data f, int lp, vector <Quarto> q){
+Reserva::Reserva(int num, data i, data f, int lp, vector <Quarto *> q){
     idnumero = num;
     data_inicio = i;
     data_fim = f;
@@ -10,10 +10,10 @@ Reserva::Reserva(int num, data i, data f, int lp, vector <Quarto> q){
     int qsize = quartos_res.size();
     preco = 0;
     for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco_base;
+        preco += quartos_res[i]->preco_base;
     }
 }
-Reserva::Reserva(int num, data i, data f, int lp, vector<Quarto> q, bool pr) {
+Reserva::Reserva(int num, data i, data f, int lp, vector<Quarto *> q, bool pr) {
     idnumero = num;
     primeiravez = pr;
     data_inicio = i;
@@ -24,11 +24,11 @@ Reserva::Reserva(int num, data i, data f, int lp, vector<Quarto> q, bool pr) {
     int qsize = quartos_res.size();
     preco = 0;
     for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco_base;
+        preco += quartos_res[i]->preco_base;
     }
 }
 
-void Reserva::Info() {
+void Reserva::Info() const{
     cout << "<RESERVA>" << endl;
     cout << "Número ID: " << idnumero << " | ";
     cout << "Data de Início: " << data_inicio << " | ";

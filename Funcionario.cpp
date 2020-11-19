@@ -6,9 +6,10 @@ Funcionario::Funcionario(string na, int n, int as, float s) {
     nif = n;
     anos_servico = as;
     salario = s;
+    cargo = naodef;
 }
 
-Funcionario::Funcionario(string na, int n, int as, float s, string c) {
+Funcionario::Funcionario(string na, int n, int as, float s, tipo_cargo c) {
     nome = na;
     nif = n;
     anos_servico = as;
@@ -16,38 +17,55 @@ Funcionario::Funcionario(string na, int n, int as, float s, string c) {
     cargo = c;
 }
 
-F_Rececao::F_Rececao(string na, int n, int as, float s): Funcionario(na, n, as, s, "Receção") {}
-F_Rececao::F_Rececao(string na, int n, int as, float s, string c): Funcionario(na, n, as, s, c) {}
+F_Rececao::F_Rececao(string na, int n, int as, float s): Funcionario(na, n, as, s, frececao) {}
+F_Rececao::F_Rececao(string na, int n, int as, float s, tipo_cargo c): Funcionario(na, n, as, s, c) {}
 
 
-F_Responsavel::F_Responsavel(string na, int n, int as, float s): F_Rececao(na, n, as, s, "Responsável") {}
-F_Responsavel::F_Responsavel(string na, int n, int as, float s, vector<int> pr): F_Rececao(na, n, as, s, "Responsável") {
+F_Responsavel::F_Responsavel(string na, int n, int as, float s): F_Rececao(na, n, as, s, fresponsavel) {}
+F_Responsavel::F_Responsavel(string na, int n, int as, float s, vector<int> pr): F_Rececao(na, n, as, s, fresponsavel) {
     pisos_resp = pr;
 }
 
-F_Limpeza::F_Limpeza(string na, int n, int as, float s, turno t): Funcionario(na, n, as, s, "Limpeza") {
+F_Limpeza::F_Limpeza(string na, int n, int as, float s, turno t): Funcionario(na, n, as, s, flimpeza) {
     fturno = t;
 }
 
-F_Gestor::F_Gestor(string na, int n, int as, float s): Funcionario(na, n, as, s, "Gestor") {}
+F_Gestor::F_Gestor(string na, int n, int as, float s): Funcionario(na, n, as, s, fgestor) {}
 
-F_Gestor::F_Gestor(string na, int n, int as, float s, avaliacao av): Funcionario(na, n, as, s, "Gestor") {
+F_Gestor::F_Gestor(string na, int n, int as, float s, avaliacao av): Funcionario(na, n, as, s, fgestor) {
     av_prestacao = av;
 }
 
 
-void Funcionario::Info() {
-    string cargo_upper = cargo;
-    transform(cargo_upper.begin(), cargo_upper.end(), cargo_upper.begin(), ::toupper);
-    cout << "<FUNCIONÁRIO " << cargo_upper << ">" << endl;
+void Funcionario::Info() const{
+    string scargo = "";
+    switch(cargo){
+        case naodef:
+            break;
+        case frececao:
+            scargo = "RECEÇÃO";
+            break;
+        case fresponsavel:
+            scargo = "RESPONSÁVEL";
+            break;
+        case flimpeza:
+            scargo = "LIMPEZA";
+            break;
+        case fgestor:
+            scargo = "GESTOR";
+            break;
+        default:
+            break;
+    }
+    cout << "<FUNCIONÁRIO " << scargo << ">" << endl;
     cout << "Nome: " << nome << " | ";
     cout << "Nif: " << nif << " | ";
     cout << "Anos de Serviço: " << anos_servico << " | ";
     cout << "Salário: " << salario;
 }
 
-void F_Rececao::Info() {Funcionario::Info(); cout << endl;}
-void F_Responsavel::Info() {
+void F_Rececao::Info() const {Funcionario::Info(); cout << endl;}
+void F_Responsavel::Info() const {
     Funcionario::Info();
     string pisos = "";
     if(!pisos_resp.empty()){
@@ -60,14 +78,14 @@ void F_Responsavel::Info() {
     cout << endl;
 }
 
-void F_Limpeza::Info() {
+void F_Limpeza::Info() const{
     Funcionario::Info();
     if(fturno == dia) cout << " | Turno: dia";
     else cout << " | Turno: noite";
     cout << endl;
 }
 
-void F_Gestor::Info() {
+void F_Gestor::Info() const{
     cout << " | Avaliação: " << av_prestacao;
     cout << endl;
 }

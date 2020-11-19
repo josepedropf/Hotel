@@ -18,8 +18,10 @@ public:
     bool ocupado = false;
     Quarto(tipo_quarto tq, int p, int n, int c, float pb);
     ~Quarto() {};
-    void Info();
+    void Info() const;
     bool operator==(const Quarto &q2) const{return numero == q2.numero;}
+    static bool Numcomp_Decr(Quarto q1, Quarto q2) {return q1.numero > q2.numero;}
+    static bool Numcomp_Cr(Quarto q1, Quarto q2) {return q1.numero < q2.numero;}
 };
 
 #endif //HOTEL_QUARTO_H

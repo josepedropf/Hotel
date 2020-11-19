@@ -1,7 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Hotel.dir/Cliente.cpp.obj"
+  "CMakeFiles/Hotel.dir/Exceptions.cpp.obj"
   "CMakeFiles/Hotel.dir/Funcionario.cpp.obj"
   "CMakeFiles/Hotel.dir/Hotel.cpp.obj"
+  "CMakeFiles/Hotel.dir/Menu.cpp.obj"
   "CMakeFiles/Hotel.dir/Produto.cpp.obj"
   "CMakeFiles/Hotel.dir/Quarto.cpp.obj"
   "CMakeFiles/Hotel.dir/Reserva.cpp.obj"

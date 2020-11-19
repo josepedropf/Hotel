@@ -89,6 +89,12 @@
 		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Data.h">
 			<Option target="Hotel"/>
 		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.cpp">
+			<Option target="Hotel"/>
+		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h">
+			<Option target="Hotel"/>
+		</Unit>
 		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.cpp">
 			<Option target="Hotel"/>
 		</Unit>
@@ -99,6 +105,12 @@
 			<Option target="Hotel"/>
 		</Unit>
 		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h">
+			<Option target="Hotel"/>
+		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Menu.cpp">
+			<Option target="Hotel"/>
+		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h">
 			<Option target="Hotel"/>
 		</Unit>
 		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Produto.cpp">

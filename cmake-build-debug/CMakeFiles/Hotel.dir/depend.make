@@ -7,6 +7,9 @@ CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Data.h
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Quarto.h
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Reserva.h
 
+CMakeFiles/Hotel.dir/Exceptions.cpp.obj: ../Exceptions.cpp
+CMakeFiles/Hotel.dir/Exceptions.cpp.obj: ../Exceptions.h
+
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Funcionario.cpp
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Funcionario.h
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Produto.h
@@ -14,12 +17,24 @@ CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Quarto.h
 
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Cliente.h
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Data.h
+CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Exceptions.h
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Funcionario.h
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Hotel.cpp
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Hotel.h
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Produto.h
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Quarto.h
 CMakeFiles/Hotel.dir/Hotel.cpp.obj: ../Reserva.h
+
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Cliente.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Data.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Exceptions.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Funcionario.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Hotel.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Menu.cpp
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Menu.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Produto.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Quarto.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj: ../Reserva.h
 
 CMakeFiles/Hotel.dir/Produto.cpp.obj: ../Produto.cpp
 CMakeFiles/Hotel.dir/Produto.cpp.obj: ../Produto.h
@@ -34,6 +49,7 @@ CMakeFiles/Hotel.dir/Reserva.cpp.obj: ../Reserva.h
 
 CMakeFiles/Hotel.dir/main.cpp.obj: ../Cliente.h
 CMakeFiles/Hotel.dir/main.cpp.obj: ../Data.h
+CMakeFiles/Hotel.dir/main.cpp.obj: ../Exceptions.h
 CMakeFiles/Hotel.dir/main.cpp.obj: ../Funcionario.h
 CMakeFiles/Hotel.dir/main.cpp.obj: ../Hotel.h
 CMakeFiles/Hotel.dir/main.cpp.obj: ../Produto.h

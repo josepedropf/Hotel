@@ -36,7 +36,7 @@ bool Hotel::AddReserva(Reserva reserva) {
         return false;
     }
     for (int i = 0; qsize > i; i++){
-        capacidadetotal += reserva.quartos_res[i].capacidade;
+        capacidadetotal += reserva.quartos_res[i]->capacidade;
     }
     if(reserva.lugaresp <= capacidadetotal && (reserva.data_fim - reserva.data_inicio > 0)) reservas.push_back(reserva);
     else{
@@ -103,18 +103,16 @@ bool Hotel::ValidarReserva(Cliente cliente, Reserva reserva) {
     int crsize = cliente.reservas_cliente.size();
     vector<Reserva> outras_reservas_cliente;
     for(int i = 0; crsize > i; i++){
-        if(reserva.idnumero == cliente.reservas_cliente[i].idnumero) exist = true;
-        else outras_reservas_cliente.push_back(cliente.reservas_cliente[i]);
+        if(reserva.idnumero == cliente.reservas_cliente[i]->idnumero) exist = true;
+        else outras_reservas_cliente.push_back(*cliente.reservas_cliente[i]);
     }
     if(!exist) return false;
     int outrasrsize = outras_reservas_cliente.size();
     for(int i = 0; outrasrsize > i; i++){
         if(reserva == outras_reservas_cliente[i]) return false;
     }
-    if(*cliente.estadia_atual == reserva) return false;
     if (AddReserva(reserva)) {
         if (!cliente.cliente_usual) {
-            AddCliente(cliente);
             reserva.primeiravez = true;
         }
         else reserva.primeiravez = false;
@@ -133,14 +131,14 @@ bool Hotel::ValidarReserva(Cliente cliente, Reserva reserva) {
  * @param cliente Cliente que está a realizar o Check-In
  */
 void Hotel::CheckIn(Cliente cliente) {
-    Reserva reserva = cliente.reservas_cliente[0];
-    cliente.estadia_atual = &reserva;
+    Reserva *reserva = cliente.reservas_cliente[0];
+    cliente.estadia_atual = reserva;
     int rindex = FindIndex(cliente.reservas_cliente, reserva);
     cliente.reservas_cliente.erase(cliente.reservas_cliente.begin() + rindex);
     cliente.nohotel = true;
-    rindex = FindIndex(reservas, reserva);
+    rindex = FindIndex(reservas, *reserva);
     reservas.erase(reservas.begin() + rindex);
-    AddReservasAtuais(reserva);
+    AddReservasAtuais(*reserva);
 }
 
 /**
@@ -150,7 +148,7 @@ void Hotel::CheckIn(Cliente cliente) {
  */
 void Hotel::CheckOut(Cliente cliente) {
     Reserva reserva = *cliente.estadia_atual;
-    cliente.estadias_anteriores.push_back(reserva);
+    cliente.estadias_anteriores.push_back(&reserva);
     cliente.estadia_atual = NULL;
     AddEstadia(reserva);
     int rindex = FindIndex(reservas, reserva);
@@ -266,13 +264,8 @@ const vector<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes
     return pesquisa_duracao;
 }
 
-const vector <Reserva> Hotel::Quartos_Fin(int mesp, int anop){
+vector<Reserva> Hotel::ReservasSobrepostas(vector<Reserva> reservastotais, data datai, data dataf) {
     bool done = false;
-    data dataf = DiaFinal(mesp, anop);
-    data datai = {.dia = 1, .mes = mesp, .ano = anop};
-    vector <Reserva> reservastotais = reservas;
-    reservastotais.insert(reservastotais.end(), reservas_atuais.begin(), reservas_atuais.end());
-    reservastotais.insert(reservastotais.end(), estadias.begin(), estadias.end());
     vector <Reserva> ri = Pesquisa_Reservas_DataI(0, 0, 0, reservastotais);
     int risize = ri.size();
     int vmin = 0, vmax = ri.size();
@@ -316,6 +309,34 @@ const vector <Reserva> Hotel::Quartos_Fin(int mesp, int anop){
     return rf;
 }
 
+vector <Reserva> Hotel::Reservas_Fin(int mesp, int anop){
+    data dataf = DiaFinal(mesp, anop);
+    data datai = {.dia = 1, .mes = mesp, .ano = anop};
+    vector <Reserva> reservastotais = reservas;
+    reservastotais.insert(reservastotais.end(), reservas_atuais.begin(), reservas_atuais.end());
+    reservastotais.insert(reservastotais.end(), estadias.begin(), estadias.end());
+    return ReservasSobrepostas(reservastotais, datai, dataf);
+}
+
+vector<Quarto> Hotel::Quartos_Disponiveis(data data_inicial, data data_final) {
+    vector <Quarto> quartos_disponiveis = quartos;
+    vector<Reserva> reservas_analise = reservas;
+    vector <Reserva> reservas_sobrepostas;
+    reservas_analise.insert(reservas_analise.end(), reservas_atuais.begin(), reservas_atuais.end());
+    reservas_sobrepostas = ReservasSobrepostas(reservas_analise, data_inicial, data_final);
+    int rssize = reservas_sobrepostas.size(), qsize, qindex;
+    for(int i = 0; rssize > i; i++){
+        qsize = reservas_sobrepostas[i].quartos_res.size();
+        for (int a = 0; qsize > a; a++){
+            qindex = FindIndex(reservas_sobrepostas[i].quartos_res, reservas_sobrepostas[i].quartos_res[a]);
+            if(qindex >= 0) quartos_disponiveis.erase(quartos_disponiveis.begin() + qindex);
+        }
+    }
+    sort(quartos_disponiveis.begin(), quartos_disponiveis.end(), Quarto::Numcomp_Cr);
+    PrintV(quartos_disponiveis);
+    return quartos_disponiveis;
+}
+
 // Hotel Finances Functions
 
 float Hotel::CustosTotais(float impostos, float despesasfixas) {
@@ -341,7 +362,7 @@ data Hotel::DiaFinal(int mesp, int anop) {
 float Hotel::RendimentosTotais(int mes, int ano) {
     data data_inicial = {.dia = 1, .mes = mes, .ano = ano};
     data data_final = DiaFinal(mes, ano);
-    vector<Reserva> reservas_totais = Quartos_Fin(mes, ano);
+    vector<Reserva> reservas_totais = Reservas_Fin(mes, ano);
     cout << endl << "Quartos Reservados (Total ou Parcialmente) neste mês fiscal (" << mes << "-" << ano <<"): ";
     PrintV(reservas_totais);
     int realdur;
@@ -368,3 +389,93 @@ float Hotel::BalancoFin(int mes, int ano, float impostos, float despesasfixas) {
     return RendimentosTotais(mes, ano) - CustosTotais(impostos, despesasfixas);
 }
 
+tipo_cargo Hotel::EscolherCargo() {
+    tipo_cargo cargo;
+    int n_rececaosimples = 0, n_rececaoresp = 0, n_limpeza = 0, n_gestor = 0;
+    int fsize = funcionarios.size();
+    for (int i = 0; fsize > i; i++){
+        switch(funcionarios[i].cargo){
+            case naodef:
+                break;
+            case frececao:
+                n_rececaosimples++;
+                break;
+            case fresponsavel:
+                n_rececaoresp++;
+                break;
+            case flimpeza:
+                n_limpeza++;
+                break;
+            case fgestor:
+                n_gestor++;
+                break;
+            default:
+                break;
+        }
+    }
+    int menor = n_rececaosimples;
+    tipo_cargo cmenor = frececao;
+    if(menor > n_rececaoresp){
+        menor = n_rececaoresp;
+        cmenor = fresponsavel;
+    }
+    if(menor > n_limpeza){
+        menor = n_limpeza;
+        cmenor = flimpeza;
+    }
+    if(menor > n_gestor){
+        menor = n_gestor;
+        cmenor = fgestor;
+    }
+    cargo = cmenor;
+    return cargo;
+}
+
+Funcionario Hotel::Contratar(string nome, int nif){
+    tipo_cargo cargo = EscolherCargo();
+    if(cargo == frececao){
+        Funcionario FR(nome, nif, 0, 800);
+        AddFuncionario(FR);
+        return FR;
+    }
+    if(cargo == fresponsavel){
+        Funcionario FRR(nome, nif, 0, 1200);
+        AddFuncionario(FRR);
+        return FRR;
+    }
+    if(cargo == flimpeza){
+        Funcionario FL(nome, nif, 0, 800);
+        AddFuncionario(FL);
+        return FL;
+    }
+    if(cargo == fgestor){
+        Funcionario FG(nome, nif, 0, 2000);
+        AddFuncionario(FG);
+        return FG;
+    }
+    Funcionario F(nome, nif, 0, 600);
+    AddFuncionario(F);
+    return F;
+}
+
+bool Hotel::ImportarQuartos(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if(!inficheiro){
+        cout << endl << "O Ficheiro não abre!" << endl;
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while(line != "Quartos"){
+        getline(cin, line);
+    }
+    int tquarto, piso, numero, capacidade;
+    float preco;
+    while(line != ""){
+        getline(cin, line);
+        while(inficheiro.peek() != '\n'){
+            inficheiro >> tquarto >> piso >> numero >> capacidade >> preco;
+        }
+        AddQuarto(Quarto(static_cast<tipo_quarto>(tquarto), piso, numero, capacidade, preco));
+    }
+}

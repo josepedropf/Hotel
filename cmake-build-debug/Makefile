@@ -169,6 +169,33 @@ Cliente.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Cliente.cpp.s
 .PHONY : Cliente.cpp.s
 
+Exceptions.obj: Exceptions.cpp.obj
+
+.PHONY : Exceptions.obj
+
+# target to build an object file
+Exceptions.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Exceptions.cpp.obj
+.PHONY : Exceptions.cpp.obj
+
+Exceptions.i: Exceptions.cpp.i
+
+.PHONY : Exceptions.i
+
+# target to preprocess a source file
+Exceptions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Exceptions.cpp.i
+.PHONY : Exceptions.cpp.i
+
+Exceptions.s: Exceptions.cpp.s
+
+.PHONY : Exceptions.s
+
+# target to generate assembly for a file
+Exceptions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Exceptions.cpp.s
+.PHONY : Exceptions.cpp.s
+
 Funcionario.obj: Funcionario.cpp.obj
 
 .PHONY : Funcionario.obj
@@ -222,6 +249,33 @@ Hotel.s: Hotel.cpp.s
 Hotel.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Hotel.cpp.s
 .PHONY : Hotel.cpp.s
+
+Menu.obj: Menu.cpp.obj
+
+.PHONY : Menu.obj
+
+# target to build an object file
+Menu.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Menu.cpp.obj
+.PHONY : Menu.cpp.obj
+
+Menu.i: Menu.cpp.i
+
+.PHONY : Menu.i
+
+# target to preprocess a source file
+Menu.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Menu.cpp.i
+.PHONY : Menu.cpp.i
+
+Menu.s: Menu.cpp.s
+
+.PHONY : Menu.s
+
+# target to generate assembly for a file
+Menu.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Menu.cpp.s
+.PHONY : Menu.cpp.s
 
 Produto.obj: Produto.cpp.obj
 
@@ -343,12 +397,18 @@ help:
 	@echo ... Cliente.obj
 	@echo ... Cliente.i
 	@echo ... Cliente.s
+	@echo ... Exceptions.obj
+	@echo ... Exceptions.i
+	@echo ... Exceptions.s
 	@echo ... Funcionario.obj
 	@echo ... Funcionario.i
 	@echo ... Funcionario.s
 	@echo ... Hotel.obj
 	@echo ... Hotel.i
 	@echo ... Hotel.s
+	@echo ... Menu.obj
+	@echo ... Menu.i
+	@echo ... Menu.s
 	@echo ... Produto.obj
 	@echo ... Produto.i
 	@echo ... Produto.s

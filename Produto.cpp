@@ -6,7 +6,7 @@ Produto::Produto(tipo_produto tp, avaliacao q, float p){
     preco = p;
 }
 
-void Produto::Info() {
+void Produto::Info() const{
     cout << "<PRODUTO>" << endl;
     cout << "Tipo de Produto: " << tprod << " | ";
     cout << "Preço: " << preco << " | ";

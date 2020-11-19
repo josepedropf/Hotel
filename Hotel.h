@@ -5,6 +5,9 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <fstream>
+#include <sstream>
+
 
 #include "Reserva.h"
 #include "Produto.h"
@@ -12,10 +15,12 @@
 #include "Funcionario.h"
 #include "Cliente.h"
 #include "Data.h"
+#include "Exceptions.h"
+
 
 using namespace std;
 
-class Hotel{
+class Hotel {
 protected:
     string nome;
     vector <Produto> produtos;
@@ -31,7 +36,7 @@ public:
     ~Hotel() {};
 
     template<class T>
-    void PrintV(vector<T> v){
+    void PrintV(const vector<T>& v){
         int vsize = v.size();
         cout << endl;
         cout << "|||-> " << endl << endl;
@@ -48,7 +53,7 @@ public:
         for(int i = 0; vsize > i; i++){
             if (v[i] == element) return i;
         }
-        return 0;
+        return -1;
     }
 
 
@@ -59,9 +64,14 @@ public:
     void AddQuarto(Quarto quarto);
     void AddFuncionario(Funcionario funcionario);
 
+    bool ImportarQuartos(string localizacao);
+
     bool ValidarReserva(Cliente cliente, Reserva reserva);
     void CheckIn(Cliente cliente);
     void CheckOut(Cliente cliente);
+
+    tipo_cargo EscolherCargo();
+    Funcionario Contratar(string nome, int nif);
 
     const vector <Reserva> GetReservas() {return reservas;}
     const vector <Reserva> GetReservasAtuais() {return reservas_atuais;}
@@ -79,7 +89,11 @@ public:
     const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> reserva);
     const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> reserva);
-    const vector <Reserva> Quartos_Fin(int mesp, int anop);
+
+    vector <Reserva> ReservasSobrepostas(vector <Reserva> reservastotais, data datai, data dataf);
+    vector <Reserva> Reservas_Fin(int mesp, int anop);
+    vector <Quarto> Quartos_Disponiveis(data data_inicial, data data_final);
+
     float CustosTotais(float impostos, float despesasfixas);
     float RendimentosTotais(int mes, int ano);
     float BalancoFin(int mes, int ano, float impostos, float despesasfixas);

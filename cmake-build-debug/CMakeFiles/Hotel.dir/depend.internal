@@ -7,6 +7,9 @@ CMakeFiles/Hotel.dir/Cliente.cpp.obj
  C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+CMakeFiles/Hotel.dir/Exceptions.cpp.obj
+ C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.cpp
+ C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj
  C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.cpp
  C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
@@ -15,9 +18,21 @@ CMakeFiles/Hotel.dir/Funcionario.cpp.obj
 CMakeFiles/Hotel.dir/Hotel.cpp.obj
  C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.cpp
  C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+CMakeFiles/Hotel.dir/Menu.cpp.obj
+ C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Menu.cpp
+ C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
@@ -35,6 +50,7 @@ CMakeFiles/Hotel.dir/Reserva.cpp.obj
 CMakeFiles/Hotel.dir/main.cpp.obj
  C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+ C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
  C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h

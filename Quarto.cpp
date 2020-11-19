@@ -9,7 +9,7 @@ Quarto::Quarto(tipo_quarto tq, int p, int n, int c, float pb) {
     promo = tquarto;
 }
 
-void Quarto::Info() {
+void Quarto::Info() const{
     cout << "<QUARTO>" << endl;
     cout << "Número: " << numero << " | ";
     cout << "Piso: " << piso << " | ";

@@ -16,15 +16,16 @@ class Cliente{
 public:
     string nome;
     int nif;
-    bool cliente_usual = false, nohotel = false;
-    vector <Reserva> estadias_anteriores, reservas_cliente;
+    bool cliente_usual, nohotel;
+    vector <Reserva *> estadias_anteriores, reservas_cliente;
     Reserva *estadia_atual;
-    Cliente(string na, int n);
+    Cliente(string nome, int nif);
+    Cliente(string nome, int nif, bool usual);
     ~Cliente() {};
-    void Info();
+    void Info() const;
     bool operator==(const Cliente &c2) const{return (nome == c2.nome && nif == c2.nif);}
 
-    void Reservar(int num, data di, data df, int lp, vector <Quarto> q);
+    void Reservar(vector<Quarto> quartos, int num, data di, data df, int lp, vector <int> numq);
     void Reservar(Reserva reserva);
 };
 

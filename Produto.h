@@ -19,7 +19,7 @@ public:
     float preco;
     Produto(tipo_produto tp, avaliacao q, float p);
     ~Produto() {};
-    void Info();
+    void Info() const;
 };
 
 
