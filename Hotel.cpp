@@ -234,14 +234,12 @@ const vector<Funcionario> Hotel::Pesquisa_F_Salario(bool inverso) {
     vector <Funcionario> pesquisa_salario = funcionarios;
     if(inverso) sort(pesquisa_salario.begin(), pesquisa_salario.end(), Funcionario::Salariocomp_Decr);
     else sort(pesquisa_salario.begin(), pesquisa_salario.end(), Funcionario::Salariocomp_Cr);
-    PrintV(pesquisa_salario);
     return pesquisa_salario;
 }
 
 const vector<Funcionario> Hotel::Pesquisa_F_Cargo() {
     vector <Funcionario> pesquisa_cargo = funcionarios;
     sort(pesquisa_cargo.begin(), pesquisa_cargo.end(), Funcionario::Cargocomp);
-    PrintV(pesquisa_cargo);
     return pesquisa_cargo;
 }
 
@@ -400,7 +398,6 @@ vector<Quarto> Hotel::Quartos_Disponiveis(data data_inicial, data data_final) {
         }
     }
     sort(quartos_disponiveis.begin(), quartos_disponiveis.end(), Quarto::Numcomp_Cr);
-    PrintV(quartos_disponiveis);
     return quartos_disponiveis;
 }
 
@@ -431,7 +428,6 @@ float Hotel::RendimentosTotais(int mes, int ano) {
     data data_final = DiaFinal(mes, ano);
     vector<Reserva> reservas_totais = Reservas_Fin(mes, ano);
     cout << endl << "Quartos Reservados (Total ou Parcialmente) neste mês fiscal (" << mes << "-" << ano <<"): ";
-    PrintV(reservas_totais);
     int realdur;
     float preco_res;
     float count_rquartos = 0, rendimento = 0;

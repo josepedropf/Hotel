@@ -41,17 +41,6 @@ public:
     ~Hotel() {};
     string nome;
 
-    template<class T>
-    void PrintV(const vector<T>& v){
-        int vsize = v.size();
-        cout << endl;
-        cout << "|||-> " << endl << endl;
-        for (int i = 0; vsize > i; i++){
-            v[i].Info();
-            cout << endl;
-        }
-        cout << "<-||| " << endl;
-    }
 
     template <class T>
     int FindIndex(vector <T> v, T element);
@@ -59,7 +48,6 @@ public:
     void Apagar(vector <T> v, int index) {v.erase(v.begin() + index);}
 
     int FindIndexReserva(vector <Reserva> vr, Reserva r);
-
 
     bool AddProduto(Produto produto);
     bool AddReserva(Reserva reserva);
