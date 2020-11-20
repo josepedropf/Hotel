@@ -174,20 +174,40 @@ int main() {
     //H.Pesquisa_F_Salario(0);
     //H.Pesquisa_F_Salario(1);
 
-    H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
-    vector <Quarto> q = H.GetQuartos();
-    H.PrintV(q);
+    //H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //vector <Quarto> q = H.GetQuartos();
+    //H.PrintV(q);
 
 
-    H.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
-    vector <Cliente> c = H.GetClientes();
-    H.PrintV(c);
+    //H.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //vector <Cliente> c = H.GetClientes();
+    //H.PrintV(c);
 
-    H.ImportarFuncionario("C:\\Users\\MSI\\Desktop\\h1.txt");
-    vector <Funcionario> f = H.GetFuncionarios();
-    H.PrintV(f);
+    //H.ImportarFuncionarios("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //vector <Funcionario> f = H.GetFuncionarios();
+    //H.PrintV(f);
 
-    H.Contratar("Canas", 9999, fresponsavel);
-    vector<F_Responsavel> frr = H.GetFuncionariosResponsaveis();
-    H.PrintV(frr);
+    //H.Contratar("Canas", 9999, fresponsavel);
+    //vector<F_Responsavel> frr = H.GetFuncionariosResponsaveis();
+    //H.PrintV(frr);
+
+    //H.ImportarProdutos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //vector<Produto> p = H.GetProdutos();
+    //H.PrintV(p);
+
+    //H.ImportarReservas("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //vector<Reserva> r = H.GetReservas();
+    //H.PrintV(r);
+
+    /*
+    H.AddProduto(Produto("massa", 1222, restauracao, ma, 4.36));
+    H.AddCliente(Cliente("André Soares Meira", 1234587424, true));
+    H.AddQuarto(Quarto(suite, 1, 199, 5, 78.5));
+    H.AddFuncionarioGestor(F_Gestor("Diogo Pires", 1979801, 5, 1800, boa));
+    H.AddFuncionarioResponsavel(F_Responsavel("César Torres", 99995559, 12, 3000, {1, 2}));
+    H.PrintV(r);
+    H.EscreverHotel("Marateca01");
+     */
+
+
 }

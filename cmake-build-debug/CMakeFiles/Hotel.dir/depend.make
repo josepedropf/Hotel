@@ -4,6 +4,7 @@
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Cliente.cpp
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Cliente.h
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Data.h
+CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Exceptions.h
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Quarto.h
 CMakeFiles/Hotel.dir/Cliente.cpp.obj: ../Reserva.h
 

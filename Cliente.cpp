@@ -5,6 +5,8 @@ Cliente::Cliente(string nome, int nif) {
     this->nif = nif;
     cliente_usual = false;
     nohotel = false;
+    estadia_atual = NULL;
+    conta = 0;
 }
 
 Cliente::Cliente(string nome, int nif, bool usual) {
@@ -12,6 +14,17 @@ Cliente::Cliente(string nome, int nif, bool usual) {
     this->nif = nif;
     cliente_usual = usual;
     nohotel = false;
+    estadia_atual = NULL;
+    conta = 0;
+}
+
+Cliente::Cliente(string nome, int nif, vector<Reserva> estadias_anteriores) {
+    this->nome = nome;
+    this->nif = nif;
+    this->estadias_anteriores = estadias_anteriores;
+    cliente_usual = estadias_anteriores.size() > 0;
+    estadia_atual = NULL;
+    conta = 0;
 }
 
 void Cliente::Info() const{
@@ -23,20 +36,12 @@ void Cliente::Info() const{
     cout << endl;
 }
 
-void Cliente::Reservar(vector <Quarto> quartos, int num, data di, data df, int lp, vector <int> numq) {
-    int qsize = quartos.size(), nsize = numq.size();
-    vector <Quarto *> vq;
-    for (int a = 0; nsize > a; a++){
-        for (int i = 0; qsize > i; i++){
-            if(quartos[i].numero == numq[a]) vq.push_back(&quartos[i]);
-        }
-    }
-    Reserva r(num, di, df, lp, vq);
-    reservas_cliente.push_back(&r);
-    sort(reservas_cliente.begin(), reservas_cliente.end(), Reserva::P_DataIcomp_Cr);
-}
 
-void Cliente::Reservar(Reserva reserva) {
-    reservas_cliente.push_back(&reserva);
-    sort(reservas_cliente.begin(), reservas_cliente.end(), Reserva::P_DataIcomp_Cr);
+float Cliente::GetConta() {
+    conta = 0;
+    int rsize = reservas_cliente.size();
+    for(int i = 0; rsize > i; i++){
+        conta += reservas_cliente[i].preco;
+    }
+    return conta;
 }

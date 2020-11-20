@@ -23,25 +23,25 @@ public:
     static bool Salariocomp_Decr(Funcionario f1, Funcionario f2) {return f1.salario > f2.salario;}
     static bool Salariocomp_Cr(Funcionario f1, Funcionario f2) {return f1.salario < f2.salario;}
     Funcionario() {};
-    Funcionario(string na, int n, int as, float s);
-    Funcionario(string na, int n, int as, float s, tipo_cargo c);
+    Funcionario(string nome, int nif, int anos_servico, float salario);
+    Funcionario(string nome, int nif, int anos_servico, float salario, tipo_cargo cargo);
     ~Funcionario() {};
     virtual void Info() const;
-    bool operator==(Funcionario f2);
+    bool operator==(Funcionario & f2) {return nif == f2.nif;}
 };
 
 class F_Rececao : public Funcionario{
 public:
-    F_Rececao(string na, int n, int as, float s);
-    F_Rececao(string na, int n, int as, float s, tipo_cargo c);
+    F_Rececao(string nome, int nif, int anos_servico, float salario);
+    F_Rececao(string nome, int nif, int anos_servico, float salario, tipo_cargo cargo);
     virtual void Info() const;
 };
 
 class F_Responsavel : public F_Rececao{
 public:
     vector <int> pisos_resp;
-    F_Responsavel(string na, int n, int as, float s);
-    F_Responsavel(string na, int n, int as, float s, vector<int> pr);
+    F_Responsavel(string nome, int nif, int anos_servico, float salario);
+    F_Responsavel(string nome, int nif, int anos_servico, float salario, vector<int> pisos_resp);
     virtual void Info() const;
 };
 
@@ -49,18 +49,18 @@ enum tipo_turno {dia = 0, noite = 1};
 
 class F_Limpeza : public Funcionario{
 public:
-    tipo_turno fturno;
-    F_Limpeza(string na, int n, int as, float s, tipo_turno t);
+    tipo_turno turno;
+    F_Limpeza(string nome, int nif, int anos_servico, float salario, tipo_turno turno);
     virtual void Info() const;
 };
 
 class F_Gestor : public Funcionario{
 public:
     nota_avaliacao av_prestacao = razoavel;
-    F_Gestor(string na, int n, int as, float s);
-    F_Gestor(string na, int n, int as, float s, nota_avaliacao av);
-    void Promocoes(vector <Quarto> quartos_promo);
-    Produto Escolher_Prod(vector <Produto> prods);
+    F_Gestor(string nome, int nif, int anos_servico, float salario);
+    F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao);
+    void Promocoes(vector <Quarto> &quartos_promo);
+    Produto Escolher_Prod(vector <Produto *> prods);
     virtual void Info() const;
 };
 

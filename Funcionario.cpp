@@ -1,37 +1,37 @@
 #include "Funcionario.h"
 
 
-Funcionario::Funcionario(string na, int n, int as, float s) {
-    nome = na;
-    nif = n;
-    anos_servico = as;
-    salario = s;
+Funcionario::Funcionario(string nome, int nif, int anos_servico, float salario) {
+    this->nome = nome;
+    this->nif = nif;
+    this->anos_servico = anos_servico;
+    this->salario = salario;
     cargo = naodef;
 }
 
-Funcionario::Funcionario(string na, int n, int as, float s, tipo_cargo c) {
-    nome = na;
-    nif = n;
-    anos_servico = as;
-    salario = s;
+Funcionario::Funcionario(string nome, int nif, int anos_servico, float salario, tipo_cargo c) {
+    this->nome = nome;
+    this->nif = nif;
+    this->anos_servico = anos_servico;
+    this->salario = salario;
     cargo = c;
 }
 
-F_Rececao::F_Rececao(string na, int n, int as, float s): Funcionario(na, n, as, s, frececao) {}
-F_Rececao::F_Rececao(string na, int n, int as, float s, tipo_cargo c): Funcionario(na, n, as, s, c) {}
+F_Rececao::F_Rececao(string nome, int nif, int anos_servico, float salario): Funcionario(nome, nif, anos_servico, salario, frececao) {}
+F_Rececao::F_Rececao(string nome, int nif, int anos_servico, float salario, tipo_cargo c): Funcionario(nome, nif, anos_servico, salario, c) {}
 
-F_Responsavel::F_Responsavel(string na, int n, int as, float s): F_Rececao(na, n, as, s, fresponsavel) {}
-F_Responsavel::F_Responsavel(string na, int n, int as, float s, vector<int> pr): F_Rececao(na, n, as, s, fresponsavel) {
-    pisos_resp = pr;
+F_Responsavel::F_Responsavel(string nome, int nif, int anos_servico, float salario): F_Rececao(nome, nif, anos_servico, salario, fresponsavel) {}
+F_Responsavel::F_Responsavel(string nome, int nif, int anos_servico, float salario, vector<int> pisos_resp): F_Rececao(nome, nif, anos_servico, salario, fresponsavel) {
+    this->pisos_resp = pisos_resp;
 }
 
-F_Limpeza::F_Limpeza(string na, int n, int as, float s, tipo_turno t): Funcionario(na, n, as, s, flimpeza) {
-    fturno = t;
+F_Limpeza::F_Limpeza(string nome, int nif, int anos_servico, float salario, tipo_turno turno): Funcionario(nome, nif, anos_servico, salario, flimpeza) {
+    this->turno = turno;
 }
 
-F_Gestor::F_Gestor(string na, int n, int as, float s): Funcionario(na, n, as, s, fgestor) {}
-F_Gestor::F_Gestor(string na, int n, int as, float s, nota_avaliacao av): Funcionario(na, n, as, s, fgestor) {
-    av_prestacao = av;
+F_Gestor::F_Gestor(string nome, int nif, int anos_servico, float salario): Funcionario(nome, nif, anos_servico, salario, fgestor) {}
+F_Gestor::F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao): Funcionario(nome, nif, anos_servico, salario, fgestor) {
+    this->av_prestacao = av_prestacao;
 }
 
 
@@ -78,7 +78,7 @@ void F_Responsavel::Info() const {
 
 void F_Limpeza::Info() const{
     Funcionario::Info();
-    if(fturno == dia) cout << " | Turno: dia";
+    if(turno == dia) cout << " | Turno: dia";
     else cout << " | Turno: noite";
     cout << endl;
 }
@@ -89,21 +89,21 @@ void F_Gestor::Info() const{
 }
 
 // Gestor Funcs
-void F_Gestor::Promocoes(vector<Quarto> quartos_promo) {
+void F_Gestor::Promocoes(vector<Quarto> &quartos_promo) {
     int qsize = quartos_promo.size();
     for(int i = 0; qsize > i; i++){
         Quarto quarto = quartos_promo[i];
-        quarto.preco_base *= float(float(100 - quarto.promo)/ 100);
+        quarto.preco *= float(float(100 - quarto.promo)/ 100);
     }
 }
 
-Produto F_Gestor::Escolher_Prod(vector<Produto> prods) {
+Produto F_Gestor::Escolher_Prod(vector<Produto *> prods) {
     int prodsize = prods.size();
-    Produto escolhido = prods[0];
+    Produto escolhido = *prods[0];
     for (int i = 0; prodsize > i; i++){
-        if(prods[i].preco < escolhido.preco) escolhido = prods[i];
-        else if(prods[i].preco == escolhido.preco){
-            if(prods[i].qualidade > escolhido.qualidade) escolhido = prods[i];
+        if(prods[i]->preco < escolhido.preco) escolhido = *prods[i];
+        else if(prods[i]->preco == escolhido.preco){
+            if(prods[i]->qualidade > escolhido.qualidade) escolhido = *prods[i];
         }
     }
     return escolhido;

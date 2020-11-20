@@ -8,9 +8,18 @@
 
 using namespace std;
 
-class FicheiroIncompativel{
+class FicheiroIncompativel: public exception{
 public:
     FicheiroIncompativel(string nomeficheiro);
     ~FicheiroIncompativel() {};
 };
+
+class Repetido: public exception{
+public:
+    Repetido(string nome);
+    Repetido(int id);
+    ~Repetido() {};
+};
+
+
 #endif //HOTEL_EXCEPTIONS_H

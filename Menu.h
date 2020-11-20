@@ -6,17 +6,20 @@
 #include <string>
 #include <algorithm>
 
+#include "Exceptions.h"
 #include "Data.h"
 #include "Hotel.h"
 
 using namespace std;
 
 class Menu{
+private:
+    Hotel H;
 public:
-    bool voltar;
     Menu() {};
-    ifstream OpenFicheiro(string localizacao);
-    bool ImportarHotel(string localizacao);
+    void ImportarHotel(string localizacao);
+    void ImprimeOp(vector <string> opcoes);
+    void Inicial();
     void Coisas();
 };
 

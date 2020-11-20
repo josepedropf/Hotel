@@ -14,12 +14,15 @@ enum tipo_produto {restauracao = 0, limpeza = 1};
 
 class Produto{
 public:
+    string nome;
+    int numero;
     tipo_produto tprod;
     nota_avaliacao qualidade;
     float preco;
-    Produto(tipo_produto tp, nota_avaliacao q, float p);
+    Produto(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco);
     ~Produto() {};
     void Info() const;
+    bool operator==(const Produto &p2) const{return numero == p2.numero;}
 };
 
 

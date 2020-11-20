@@ -19,6 +19,8 @@ Data.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 Reserva.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+Exceptions.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
 
 C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 string
@@ -49,10 +51,6 @@ Quarto.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
 Produto.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
-
-C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.cpp
-Hotel.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
 
 C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
 iostream
@@ -115,4 +113,8 @@ Data.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
 Quarto.h
 C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+
+C:/Users/MSI/Desktop/Hotel/Hotel/main.cpp
+Hotel.h
+C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
 

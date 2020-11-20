@@ -1,30 +1,30 @@
 #include "Reserva.h"
 
-Reserva::Reserva(int num, data i, data f, int lp, vector <Quarto *> q){
-    idnumero = num;
-    data_inicio = i;
-    data_fim = f;
+Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, vector <Quarto> quartos_res){
+    this->idnumero = idnumero;
+    this->data_inicio = data_inicio;
+    this->data_fim = data_fim;
     duracao = data_fim - data_inicio + 1;
-    lugaresp = lp;
-    quartos_res = q;
+    this->lugaresp = lugaresp;
+    this->quartos_res = quartos_res;
     int qsize = quartos_res.size();
     preco = 0;
     for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i]->preco_base;
+        preco += quartos_res[i].preco;
     }
 }
-Reserva::Reserva(int num, data i, data f, int lp, vector<Quarto *> q, bool pr) {
-    idnumero = num;
-    primeiravez = pr;
-    data_inicio = i;
-    data_fim = f;
+Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, vector <Quarto> quartos_res, bool primeiravez) {
+    this->idnumero = idnumero;
+    this->primeiravez = primeiravez;
+    this->data_inicio = data_inicio;
+    this->data_fim = data_fim;
     duracao = data_fim - data_inicio + 1;
-    lugaresp = lp;
-    quartos_res = q;
+    this->lugaresp = lugaresp;
+    this->quartos_res = quartos_res;
     int qsize = quartos_res.size();
     preco = 0;
     for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i]->preco_base;
+        preco += quartos_res[i].preco;
     }
 }
 
@@ -34,7 +34,12 @@ void Reserva::Info() const{
     cout << "Data de Início: " << data_inicio << " | ";
     cout << "Data de Fim: " << data_fim << " | ";
     cout << "Duração: " << duracao << " | ";
-    cout << "Lugares Esperados: " << lugaresp;
+    cout << "Lugares Esperados: " << lugaresp << " | ";
+    cout << "Quartos Reservados: ";
+    int qsize = quartos_res.size();
+    for(int i = 0; qsize > i; i++){
+        cout << quartos_res[i].numero << " ";
+    }
     cout << endl;
 }
 

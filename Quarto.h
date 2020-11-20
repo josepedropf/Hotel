@@ -14,9 +14,9 @@ class Quarto{
 public:
     tipo_quarto tquarto;
     int piso, numero, capacidade;
-    float preco_base, promo;
+    float preco, promo;
     bool ocupado = false;
-    Quarto(tipo_quarto tq, int p, int n, int c, float pb);
+    Quarto(tipo_quarto tquarto, int piso, int numero, int capacidade, float preco);
     ~Quarto() {};
     void Info() const;
     bool operator==(const Quarto &q2) const{return numero == q2.numero;}

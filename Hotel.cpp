@@ -1,18 +1,15 @@
 #include "Hotel.h"
 
+// Hotel Database Add
 
-// Inicializações
-/**
- * Construtor da Classe Hotel
- * @param nome nome do Hotel
- */
-Hotel::Hotel(string nome) {
-    nome = nome;
-    cout << "Bem Vindo ao Grande Hotel " << nome << "!" << endl;
+bool Hotel::AddProduto(Produto produto) {
+    for(int i = 0; produtos.size() > i; i++){
+        if(produtos[i] == produto) return false ;
+    }
+    produtos.push_back(produto);
+    return true;
 }
 
-
-// Hotel Database Add
 /**
  * Adiciona uma Reserva à base de dados do Hotel (vetor reservas), se esta for válida, isto é,
  * se não for sobreposta a outras já existentes e a capacidade desejada for igual ou inferior á dos quartos requeridos
@@ -36,7 +33,7 @@ bool Hotel::AddReserva(Reserva reserva) {
         return false;
     }
     for (int i = 0; qsize > i; i++){
-        capacidadetotal += reserva.quartos_res[i]->capacidade;
+        capacidadetotal += reserva.quartos_res[i].capacidade;
     }
     if(reserva.lugaresp <= capacidadetotal && (reserva.data_fim - reserva.data_inicio > 0)) reservas.push_back(reserva);
     else{
@@ -47,13 +44,27 @@ bool Hotel::AddReserva(Reserva reserva) {
     return true;
 }
 
+void Hotel::PopReserva(int idnumero) {
+    int rsize = reservas.size();
+    for (int i = 0; rsize > i; i++){
+        if(reservas[i].idnumero == idnumero){
+            reservas.erase(reservas.begin() + i);
+            break;
+        }
+    }
+}
+
 /**
  * Adiciona uma Reserva ao conjunto de reservas atuais do Hotel, ou seja,
  * aquelas que estão a ser usufruídas no momento (vetor reservas_atuais)
  * @param reserva Reserva a ser adicionada ao vetor reservas_atuais
  */
-void Hotel::AddReservasAtuais(Reserva reserva) {
+bool Hotel::AddReservasAtuais(Reserva reserva) {
+    for(int i = 0; reservas_atuais.size() > i; i++){
+        if(reservas_atuais[i] == reserva) return false ;
+    }
     reservas_atuais.push_back(reserva);
+    return true;
 }
 
 /**
@@ -61,8 +72,12 @@ void Hotel::AddReservasAtuais(Reserva reserva) {
  * que já foram usufruídas pelos clientes (vetor estadias)
  * @param reserva Reserva a ser adicionada ao vetor estadias
  */
-void Hotel::AddEstadia(Reserva reserva) {
+bool Hotel::AddEstadia(Reserva reserva) {
+    for(int i = 0; estadias.size() > i; i++){
+        if(estadias[i] == reserva) return false ;
+    }
     estadias.push_back(reserva);
+    return true;
 }
 
 /**
@@ -70,40 +85,68 @@ void Hotel::AddEstadia(Reserva reserva) {
  * (vetor clientes)
  * @param cliente Cliente a ser adicionado ao vetor clientes
  */
-void Hotel::AddCliente(Cliente cliente) {
+bool Hotel::AddCliente(Cliente cliente) {
+    for(int i = 0; clientes.size() > i; i++){
+        if(clientes[i] == cliente) return false ;
+    }
     clientes.push_back(cliente);
+    return true;
 }
 
 /**
  * Adiciona um Quarto à base de dados do Hotel (vetor quartos)
  * @param quarto Quarto a ser adicionado ao vetor quartos
  */
-void Hotel::AddQuarto(Quarto quarto) {
+bool Hotel::AddQuarto(Quarto quarto) {
+    for(int i = 0; quartos.size() > i; i++){
+        if(quartos[i] == quarto) return false ;
+    }
     quartos.push_back(quarto);
+    return true;
 }
 
 /**
  * Adiciona um Funcionário à base de dados do Hotel (vetor funcionários)
  * @param funcionario Funcionário a ser adicionado ao vetor funcionários
  */
-void Hotel::AddFuncionario(Funcionario funcionario) {
+bool Hotel::AddFuncionario(Funcionario funcionario) {
+    for(int i = 0; funcionarios.size() > i; i++){
+        if(funcionarios[i] == funcionario) return false ;
+    }
     funcionarios.push_back(funcionario);
+    return true;
 }
 
-void Hotel::AddFuncionarioRececao(F_Rececao funcionario_rec) {
+bool Hotel::AddFuncionarioRececao(F_Rececao funcionario_rec) {
+    for(int i = 0; funcionarios_rececao.size() > i; i++){
+        if(funcionarios_rececao[i] == funcionario_rec) return false ;
+    }
     funcionarios_rececao.push_back(funcionario_rec);
+    return true;
 }
 
-void Hotel::AddFuncionarioResponsavel(F_Responsavel funcionario_resp) {
+bool Hotel::AddFuncionarioResponsavel(F_Responsavel funcionario_resp) {
+    for(int i = 0; funcionarios_responsaveis.size() > i; i++){
+        if(funcionarios_responsaveis[i] == funcionario_resp) return false ;
+    }
     funcionarios_responsaveis.push_back(funcionario_resp);
+    return true;
 }
 
-void Hotel::AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza) {
+bool Hotel::AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza) {
+    for(int i = 0; funcionarios_limpeza.size() > i; i++){
+        if(funcionarios_limpeza[i] == funcionario_limpeza) return false ;
+    }
     funcionarios_limpeza.push_back(funcionario_limpeza);
+    return true;
 }
 
-void Hotel::AddFuncionarioGestor(F_Gestor funcionario_gestor) {
+bool Hotel::AddFuncionarioGestor(F_Gestor funcionario_gestor) {
+    for(int i = 0; funcionarios_gestores.size() > i; i++){
+        if(funcionarios_gestores[i] == funcionario_gestor) return false ;
+    }
     funcionarios_gestores.push_back(funcionario_gestor);
+    return true;
 }
 
  /**
@@ -113,20 +156,21 @@ void Hotel::AddFuncionarioGestor(F_Gestor funcionario_gestor) {
   * @param reserva Reserva que se pretende validar
   * @return true se a Reserva for válida, false caso contrário
   */
-bool Hotel::ValidarReserva(Cliente cliente, Reserva reserva) {
-    bool exist = false;
-    int crsize = cliente.reservas_cliente.size();
-    vector<Reserva> outras_reservas_cliente;
-    for(int i = 0; crsize > i; i++){
-        if(reserva.idnumero == cliente.reservas_cliente[i]->idnumero) exist = true;
-        else outras_reservas_cliente.push_back(*cliente.reservas_cliente[i]);
-    }
-    if(!exist) return false;
-    int outrasrsize = outras_reservas_cliente.size();
-    for(int i = 0; outrasrsize > i; i++){
-        if(reserva == outras_reservas_cliente[i]) return false;
-    }
+bool Hotel::Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numerosquartos) {
+     int qsize = quartos.size(), nsize = numerosquartos.size();
+     vector <Quarto> vq;
+     for (int a = 0; nsize > a; a++){
+         for (int i = 0; qsize > i; i++){
+             if(quartos[i].numero == numerosquartos[a]){
+                 vq.push_back(quartos[i]);
+                 break;
+             }
+         }
+     }
+     Reserva reserva(idnumero, data_inicial, data_final, lugaresperados, vq);
     if (AddReserva(reserva)) {
+        cliente.reservas_cliente.push_back(reserva);
+        sort(cliente.reservas_cliente.begin(), cliente.reservas_cliente.end(), Reserva::DataIcomp_Cr);
         if (!cliente.cliente_usual) {
             reserva.primeiravez = true;
         }
@@ -139,6 +183,14 @@ bool Hotel::ValidarReserva(Cliente cliente, Reserva reserva) {
     }
 }
 
+void Hotel::CancelarReserva(Cliente &cliente, int idreserva) {
+    int crsize = cliente.reservas_cliente.size();
+    for(int i = 0; crsize > i; i++){
+        if(cliente.reservas_cliente[i].idnumero == idreserva)  cliente.reservas_cliente.erase(cliente.reservas_cliente.begin() + i);
+    }
+    PopReserva(idreserva);
+}
+
 /**
  * Realiza o Check-In, a reserva mais recente do cliente deixa de pertencer ao seu vetor reservas_cliente
  * e passa a ser a sua estadia atual, visto que este entra no hotel
@@ -146,14 +198,14 @@ bool Hotel::ValidarReserva(Cliente cliente, Reserva reserva) {
  * @param cliente Cliente que está a realizar o Check-In
  */
 void Hotel::CheckIn(Cliente cliente) {
-    Reserva *reserva = cliente.reservas_cliente[0];
-    cliente.estadia_atual = reserva;
+    Reserva reserva = cliente.reservas_cliente[0];
+    cliente.estadia_atual = &reserva;
     int rindex = FindIndex(cliente.reservas_cliente, reserva);
     cliente.reservas_cliente.erase(cliente.reservas_cliente.begin() + rindex);
     cliente.nohotel = true;
-    rindex = FindIndex(reservas, *reserva);
+    rindex = FindIndex(reservas, reserva);
     reservas.erase(reservas.begin() + rindex);
-    AddReservasAtuais(*reserva);
+    AddReservasAtuais(reserva);
 }
 
 /**
@@ -163,7 +215,7 @@ void Hotel::CheckIn(Cliente cliente) {
  */
 void Hotel::CheckOut(Cliente cliente) {
     Reserva reserva = *cliente.estadia_atual;
-    cliente.estadias_anteriores.push_back(&reserva);
+    cliente.estadias_anteriores.push_back(reserva);
     cliente.estadia_atual = NULL;
     AddEstadia(reserva);
     int rindex = FindIndex(reservas, reserva);
@@ -450,7 +502,7 @@ tipo_turno Hotel::EscolherTurno() {
     int flsize = funcionarios_limpeza.size();
     int countdia = 0, countnoite = 0;
     for (int i = 0; flsize > i; i++){
-        if(funcionarios_limpeza[i].fturno == dia) countdia++;
+        if(funcionarios_limpeza[i].turno == dia) countdia++;
         else countnoite++;
     }
     if(countdia > countnoite) return noite;
@@ -561,41 +613,42 @@ Funcionario Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
 void Hotel::ImportarQuartos(string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
-    if(!inficheiro){
+    if(inficheiro.fail()){
         cout << endl << "O Ficheiro não abre!" << endl;
         throw FicheiroIncompativel(localizacao);
     }
     string line;
-    while(line != "Quartos"){
+    while(line != "Quartos" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
     int tquarto, piso, numero, capacidade;
     float preco;
     getline(inficheiro, line);
-    while(line != ""){
+    while(line != "" && !inficheiro.eof()){
         stringstream ss(line);
         ss >> tquarto >> piso >> numero >> capacidade >> preco;
         AddQuarto(Quarto(static_cast<tipo_quarto>(tquarto), piso, numero, capacidade, preco));
         getline(inficheiro, line);
     }
+    inficheiro.close();
 }
 
 void Hotel::ImportarClientes(string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
-    if (!inficheiro) {
+    if (inficheiro.fail()) {
         cout << endl << "O Ficheiro não abre!" << endl;
         throw FicheiroIncompativel(localizacao);
     }
     string line;
-    while (line != "Clientes") {
+    while (line != "Clientes" && !inficheiro.eof()) {
         getline(inficheiro, line);
         cout << endl << "DEBUG" << "line: " << line << endl;
     }
     string nomet= "", nomep = "";
     int nif, usual;
     getline(inficheiro, line);
-    while (line != "") {
+    while (line != "" && !inficheiro.eof()) {
         nomet= "";
         nomep = "";
         usual = -1;
@@ -610,17 +663,18 @@ void Hotel::ImportarClientes(string localizacao) {
         else AddCliente(Cliente(nomet, nif));
         getline(inficheiro, line);
     }
+    inficheiro.close();
 }
 
-void Hotel::ImportarFuncionario(string localizacao) {
+void Hotel::ImportarFuncionarios(string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
-    if (!inficheiro) {
+    if (inficheiro.fail()) {
         cout << endl << "O Ficheiro não abre!" << endl;
         throw FicheiroIncompativel(localizacao);
     }
     string line;
-    while (line != "Funcionários") {
+    while (line != "Funcionários" && !inficheiro.eof()) {
         getline(inficheiro, line);
         cout << endl << "DEBUG" << "line: " << line << endl;
     }
@@ -629,7 +683,7 @@ void Hotel::ImportarFuncionario(string localizacao) {
     int nif, anos_servico, avaliacao, turno, cargo, piso;
     float salario;
     getline(inficheiro, line);
-    while (line != "") {
+    while (line != "" && !inficheiro.eof()) {
         nomet= "";
         nomep = "";
         cargo = 0;
@@ -649,11 +703,9 @@ void Hotel::ImportarFuncionario(string localizacao) {
                 AddFuncionarioRececao(F_Rececao(nomet, nif, anos_servico, salario));
                 break;
             case fresponsavel:
-                while(ss){
-                    ss >> piso;
+                while(ss >> piso){
                     pisos.push_back(piso);
                 }
-                pisos.erase(pisos.end() - 1);
                 AddFuncionario(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
                 AddFuncionarioResponsavel(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
                 break;
@@ -679,4 +731,141 @@ void Hotel::ImportarFuncionario(string localizacao) {
         }
         getline(inficheiro, line);
     }
+    inficheiro.close();
+}
+
+void Hotel::ImportarProdutos(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if(inficheiro.fail()){
+        cout << endl << "O Ficheiro não abre!" << endl;
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while(line != "Produtos" && !inficheiro.eof()){
+        getline(inficheiro, line);
+    }
+    string nomet= "", nomep = "";
+    int tprod, qualidade, numero;
+    float preco;
+    getline(inficheiro, line);
+    while(line != "" && !inficheiro.eof()){
+        nomet= "";
+        nomep = "";
+        stringstream ss(line);
+        while(nomep != ","){
+            if(nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
+        }
+        ss >>numero >> tprod >> qualidade >> preco;
+        AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade), preco));
+        getline(inficheiro, line);
+    }
+    inficheiro.close();
+}
+
+void Hotel::ImportarReservas(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if(inficheiro.fail()){
+        cout << endl << "O Ficheiro não abre!" << endl;
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while(line != "Reservas" && !inficheiro.eof()){
+        getline(inficheiro, line);
+    }
+    int nifcliente, idnum, lugaresp, qnum, d;
+    vector <int> numerosquartos;
+    data datai, dataf;
+    getline(inficheiro, line);
+    while(line != "" && !inficheiro.eof()){
+        numerosquartos.clear();
+        stringstream ss(line);
+        ss >> nifcliente >> idnum;
+        ss >> d; datai.dia = abs(d);
+        ss >> d; datai.mes = abs(d);
+        ss >> d; datai.ano = abs(d);
+        ss >> d; dataf.dia = abs(d);
+        ss >> d; dataf.mes = abs(d);
+        ss >> d; dataf.ano = abs(d);
+        ss >> lugaresp;
+        while(ss >> qnum){
+            numerosquartos.push_back(qnum);
+        }
+        int csize = clientes.size(), cindex;
+        for (int i = 0; csize > i; i++){
+            if(clientes[i].nif == nifcliente){
+                cindex = i;
+                break;
+            }
+        }
+        Reservar(clientes[cindex], idnum, datai, dataf, lugaresp, numerosquartos);
+        getline(inficheiro, line);
+    }
+    inficheiro.close();
+}
+
+void Hotel::EscreverHotel(string nomedoficheiro) {
+    if(nomedoficheiro.substr(nomedoficheiro.size() - 4) != ".txt") nomedoficheiro += ".txt";
+    ofstream outficheiro(nomedoficheiro);
+    outficheiro << "Hotel" << endl << endl;
+    outficheiro << "Quartos" << endl;
+    int qsize = quartos.size();
+    for(int i = 0; qsize > i; i++){
+        outficheiro << quartos[i].tquarto << " " << quartos[i].piso << " " << quartos[i].numero << " " << quartos[i].capacidade << " " << quartos[i].preco << endl;
+    }
+    outficheiro << endl;
+    outficheiro << "Produtos" << endl;
+    int psize = produtos.size();
+    for(int i = 0; psize > i; i++){
+        outficheiro << produtos[i].nome << " , " << produtos[i].numero << " " << produtos[i].tprod << " " << produtos[i].qualidade << " " << produtos[i].preco << endl;
+    }
+    outficheiro << endl;
+    outficheiro << "Clientes" << endl;
+    int csize = clientes.size();
+    for(int i = 0; csize > i; i++){
+        outficheiro << clientes[i].nome << " , " << clientes[i].nif << " " << clientes[i].cliente_usual << endl;
+    }
+    outficheiro << endl;
+    outficheiro << "Funcionários" << endl;
+    int fsize = funcionarios.size();
+    int frsize = funcionarios_rececao.size();
+    int frrsize = funcionarios_responsaveis.size();
+    int flsize = funcionarios_limpeza.size();
+    int fgsize = funcionarios_gestores.size();
+    for(int i = 0; frsize > i; i++){
+        outficheiro << funcionarios_rececao[i].nome << " , " << funcionarios_rececao[i].nif << " " << funcionarios_rececao[i].anos_servico << " " << funcionarios_rececao[i].salario << " " << funcionarios_rececao[i].cargo << endl;
+    }
+    for(int i = 0; frrsize > i; i++){
+        string pisos = "";
+        for(int a = 0; funcionarios_responsaveis[i].pisos_resp.size() > a; a++){
+            pisos += to_string(funcionarios_responsaveis[i].pisos_resp[a]) + " ";
+        }
+        outficheiro << funcionarios_responsaveis[i].nome << " , " << funcionarios_responsaveis[i].nif << " " << funcionarios_responsaveis[i].anos_servico << " " << funcionarios_responsaveis[i].salario << " " << funcionarios_responsaveis[i].cargo << " " << pisos << endl;
+    }
+    for(int i = 0; flsize > i; i++){
+        outficheiro << funcionarios_limpeza[i].nome << " , " << funcionarios_limpeza[i].nif << " " << funcionarios_limpeza[i].anos_servico << " " << funcionarios_limpeza[i].salario << " " << funcionarios_limpeza[i].cargo << " " << funcionarios_limpeza[i].turno << endl;
+    }
+    for(int i = 0; fgsize > i; i++){
+        outficheiro << funcionarios_gestores[i].nome << " , " << funcionarios_gestores[i].nif << " " << funcionarios_gestores[i].anos_servico << " " << funcionarios_gestores[i].salario << " " << funcionarios_gestores[i].cargo << " " << funcionarios_gestores[i].av_prestacao << endl;
+    }
+    for(int i = 0; fsize > i; i++){
+        if(funcionarios[i].cargo == naodef) outficheiro << funcionarios[i].nome << " , " << funcionarios[i].nif << " " << funcionarios[i].anos_servico << " " << funcionarios[i].salario << " " << funcionarios[i].cargo << endl;
+    }
+    vector <Quarto *> vq;
+    outficheiro << endl;
+    outficheiro << "Reservas" << endl;
+    for(int i = 0; csize > i; i++){
+        for(int a = 0; clientes[i].reservas_cliente.size() > a; a++){
+            string numquartos = "";
+            int crqsize = clientes[i].reservas_cliente[a].quartos_res.size();
+            for(int b = 0; crqsize > b; b++){
+                numquartos += to_string(clientes[i].reservas_cliente[a].quartos_res[b].numero) + " ";
+            }
+            outficheiro << clientes[i].nif << " " << clientes[i].reservas_cliente[a].idnumero << " " << clientes[i].reservas_cliente[a].data_inicio << " " << clientes[i].reservas_cliente[a].data_fim << " " << clientes[i].reservas_cliente[a].idnumero << " " << clientes[i].reservas_cliente[a].lugaresp << " " << numquartos << endl;
+        }
+    }
+    outficheiro.close();
 }

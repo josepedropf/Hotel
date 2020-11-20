@@ -9,6 +9,8 @@
 
 #include "Data.h"
 #include "Reserva.h"
+#include "Exceptions.h"
+
 
 using namespace std;
 
@@ -17,16 +19,17 @@ public:
     string nome;
     int nif;
     bool cliente_usual, nohotel;
-    vector <Reserva *> estadias_anteriores, reservas_cliente;
+    float conta;
+    vector <Reserva> estadias_anteriores, reservas_cliente;
     Reserva *estadia_atual;
     Cliente(string nome, int nif);
     Cliente(string nome, int nif, bool usual);
+    Cliente(string nome, int nif, vector <Reserva> estadias_anteriores);
     ~Cliente() {};
     void Info() const;
-    bool operator==(const Cliente &c2) const{return (nome == c2.nome && nif == c2.nif);}
+    bool operator==(const Cliente &c2) const{return (nif == c2.nif);}
 
-    void Reservar(vector<Quarto> quartos, int num, data di, data df, int lp, vector <int> numq);
-    void Reservar(Reserva reserva);
+    float GetConta();
 };
 
 

@@ -22,7 +22,7 @@ using namespace std;
 
 class Hotel {
 protected:
-    string nome;
+
     vector <Produto> produtos;
     vector <Reserva> reservas;
     vector <Reserva> estadias;
@@ -36,7 +36,7 @@ protected:
     vector <F_Gestor> funcionarios_gestores;
 
 public:
-    Hotel(string nome);
+    Hotel() {};
     ~Hotel() {};
 
     template<class T>
@@ -61,22 +61,30 @@ public:
     }
 
 
+    bool AddProduto(Produto produto);
     bool AddReserva(Reserva reserva);
-    void AddReservasAtuais(Reserva reserva);
-    void AddEstadia(Reserva reserva);
-    void AddCliente(Cliente cliente);
-    void AddQuarto(Quarto quarto);
-    void AddFuncionario(Funcionario funcionario);
-    void AddFuncionarioRececao(F_Rececao funcionario_rec);
-    void AddFuncionarioResponsavel(F_Responsavel funcionario_resp);
-    void AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza);
-    void AddFuncionarioGestor(F_Gestor funcionario_gestor);
+    void PopReserva(int idnum);
+    bool AddReservasAtuais(Reserva reserva);
+    bool AddEstadia(Reserva reserva);
+    bool AddCliente(Cliente cliente);
+    bool AddQuarto(Quarto quarto);
+    bool AddFuncionario(Funcionario funcionario);
+    bool AddFuncionarioRececao(F_Rececao funcionario_rec);
+    bool AddFuncionarioResponsavel(F_Responsavel funcionario_resp);
+    bool AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza);
+    bool AddFuncionarioGestor(F_Gestor funcionario_gestor);
+
 
     void ImportarQuartos(string localizacao);
     void ImportarClientes(string localizacao);
-    void ImportarFuncionario(string localizacao);
+    void ImportarFuncionarios(string localizacao);
+    void ImportarProdutos(string localizacao);
+    void ImportarReservas(string localizacao);
 
-    bool ValidarReserva(Cliente cliente, Reserva reserva);
+    void EscreverHotel(string nomeficheiro);
+
+    bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numerosquartos);
+    void CancelarReserva(Cliente &cliente, int idreserva);
     void CheckIn(Cliente cliente);
     void CheckOut(Cliente cliente);
 
@@ -86,6 +94,7 @@ public:
     Funcionario Contratar(string nome, int nif);
     Funcionario Contratar(string nome, int nif, tipo_cargo cargo);
 
+    const vector<Produto> GetProdutos() {return produtos;}
     const vector <Reserva> GetReservas() {return reservas;}
     const vector <Reserva> GetReservasAtuais() {return reservas_atuais;}
     const vector <Reserva> GetEstadias() {return estadias;}
@@ -114,6 +123,7 @@ public:
     float CustosTotais(float impostos, float despesasfixas);
     float RendimentosTotais(int mes, int ano);
     float BalancoFin(int mes, int ano, float impostos, float despesasfixas);
+
 };
 
 #endif //HOTEL_HOTEL_H

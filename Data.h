@@ -19,6 +19,7 @@ inline ostream& operator<<(ostream &os, const data d){
     os << d.dia << "-" << d.mes << "-" << d.ano;
     return os;
 }
+
 inline data data::operator+=(const int duracao){
     dia += duracao;
     return *this;

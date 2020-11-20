@@ -1,0 +1,32 @@
+Hotel
+
+Quartos
+5 1 120 2 52.3
+8 3 305 5 23
+12 1 111 1 15.5
+12 2 221 1 30.5
+5 1 199 5 78.5
+
+Produtos
+arroz , 777 0 4 1.2
+skip , 202 1 5 5.6
+massa , 1222 0 1 4.36
+
+Clientes
+carlota , 1 1
+fred , 2 0
+ze pedro , 3 1
+André Soares Meira , 1234587424 1
+
+Funcionários
+frança , 456 1 250.75 1
+martim , 123 3 1000 2 1 5 
+Canas , 9999 0 1200 2 2 
+César Torres , 99995559 12 3000 2 1 2 
+pedro soeiro , 100 2 950.57 3 1
+lucas calvet , 20 5 12.5 4 1
+Diogo Pires , 1979801 5 1800 4 4
+tomas , 74 10 3000.56 0
+
+Reservas
+2 420 1-2-2020 20-2-2020 420 3 120 305 111 
