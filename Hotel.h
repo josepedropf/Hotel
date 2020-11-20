@@ -36,8 +36,10 @@ protected:
     vector <F_Gestor> funcionarios_gestores;
 
 public:
-    Hotel() {};
+    Hotel() {nome = "Grande Hotel Central";};
+    Hotel(string nome);
     ~Hotel() {};
+    string nome;
 
     template<class T>
     void PrintV(const vector<T>& v){
@@ -52,13 +54,11 @@ public:
     }
 
     template <class T>
-    int FindIndex(vector <T> v, T element){
-        int vsize = v.size();
-        for(int i = 0; vsize > i; i++){
-            if (v[i] == element) return i;
-        }
-        return -1;
-    }
+    int FindIndex(vector <T> v, T element);
+    template <class T>
+    void Apagar(vector <T> v, int index) {v.erase(v.begin() + index);}
+
+    int FindIndexReserva(vector <Reserva> vr, Reserva r);
 
 
     bool AddProduto(Produto produto);
@@ -85,16 +85,18 @@ public:
 
     bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numerosquartos);
     void CancelarReserva(Cliente &cliente, int idreserva);
-    void CheckIn(Cliente cliente);
-    void CheckOut(Cliente cliente);
+    void CheckIn(Cliente &cliente);
+    void CheckOut(Cliente &cliente);
 
     tipo_cargo EscolherCargo();
     tipo_turno EscolherTurno();
     int EscolherPiso();
     Funcionario Contratar(string nome, int nif);
     Funcionario Contratar(string nome, int nif, tipo_cargo cargo);
+    void Despedir(int nif, tipo_cargo cargo);
+    void Despedir(int nif);
 
-    const vector<Produto> GetProdutos() {return produtos;}
+    const vector <Produto> GetProdutos() {return produtos;}
     const vector <Reserva> GetReservas() {return reservas;}
     const vector <Reserva> GetReservasAtuais() {return reservas_atuais;}
     const vector <Reserva> GetEstadias() {return estadias;}

@@ -2,7 +2,7 @@
 #include <sstream>
 #include "Menu.h"
 
-void Menu::ImportarHotel(string localizacao) {
+void Menu::ImportarHotel(Hotel &H, string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
     if(inficheiro.fail()){
@@ -12,6 +12,8 @@ void Menu::ImportarHotel(string localizacao) {
     string line;
     getline(inficheiro, line);
     if(line != "Hotel") throw FicheiroIncompativel(localizacao);
+    getline(inficheiro, line);
+    if(line != "") H.nome = line;
     inficheiro.close();
     H.ImportarQuartos(localizacao);
     H.ImportarProdutos(localizacao);
@@ -20,9 +22,21 @@ void Menu::ImportarHotel(string localizacao) {
     H.ImportarReservas(localizacao);
 }
 
+void Menu::ImprimeTit(string titulo) {
+    string uptitulo = titulo;
+    for (int i = 0; titulo.size() > i; i++){
+        uptitulo[i] = toupper(titulo[i]);
+    }
+    cout << endl << endl << "|| " << uptitulo << " ||" << endl << endl;
+}
+
 void Menu::ImprimeOp(vector <string> opcoes) {
     for(int i = 0; opcoes.size() > i; i++){
-        cout << "[" << i << "] " << opcoes[i] << endl;
+        if(opcoes.size() <= 10) cout << "[" << i << "] " << opcoes[i] << endl;
+        else{
+            if(i <= 9) cout << "[0" << i << "] " << opcoes[i] << endl;
+            else cout << "[" << i << "] " << opcoes[i] << endl;
+        }
     }
     cout << "Escolha: ";
 }
@@ -30,6 +44,8 @@ void Menu::ImprimeOp(vector <string> opcoes) {
 void Menu::Inicial() {
     vector<string> opcoes = {"Importar Hotel a partir de Ficheiro", "Criar Hotel do início"};
     int resposta;
+    ImprimeOp(opcoes);
+    cin >> resposta;
     while (cin.fail() || (resposta != 0 && resposta != 1)){
         ImprimeOp(opcoes);
         cin >> resposta;
@@ -51,22 +67,21 @@ void Menu::Inicial() {
             inficheiro.open(localizacao);
         }
         inficheiro.close();
-        ImportarHotel(localizacao);
+        ImportarHotel(H, localizacao);
     }
 }
 
-void Menu::Coisas() {
-    cout << endl << "LISTA DE AÇÕES" << endl;
-    cout << "Para CLIENTES" << endl;
-    cout << "[0] Pesquisar Reservas" << endl;
-    cout << "[1] Fazer uma Reserva" << endl;
-    cout << "[2] Fazer Check-In" << endl;
-    cout << "[3] Fazer Check-Out" << endl;
-    cout << "Para FUNCIONÁRIOS GESTORES" << endl;
-    cout << "[0] Pesquisar Reservas" << endl;
-    cout << "[4] Pesquisar Funcionários" << endl;
-    cout << "[5] Aplicar uma Promoção" << endl;
-    cout << "[6] Escolher um Produto" << endl;
-    cout << "[7] Contratar um Funcionário" << endl;
-    cout << "[8] Ver Balanço Financeiro" << endl;
+void Menu::Importar() {
+    vector<string> opcoes = membros;
+    opcoes.push_back("Hotel");
+    for (int i = 0; opcoes.size() > i; i++){
+        opcoes[i] = "Importar " + opcoes[i];
+    }
+    ImprimeOp(opcoes);
+}
+
+void Menu::Principal() {
+    vector <string> opcoes = {"Importar...", "Ver Informação...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Contratar / Despedir", "Check-in / Check-out", "Finanças", "Outros", "Exportar"};
+    ImprimeOp(opcoes);
+
 }

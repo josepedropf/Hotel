@@ -1,5 +1,9 @@
 #include "Hotel.h"
 
+Hotel::Hotel(string nome) {
+    this->nome = nome;
+}
+
 // Hotel Database Add
 
 bool Hotel::AddProduto(Produto produto) {
@@ -197,13 +201,13 @@ void Hotel::CancelarReserva(Cliente &cliente, int idreserva) {
  * Atualiza também outras informações como por exemplo o facto de o cliente se encontrar no hotel passando nohotel a true
  * @param cliente Cliente que está a realizar o Check-In
  */
-void Hotel::CheckIn(Cliente cliente) {
+void Hotel::CheckIn(Cliente &cliente) {
     Reserva reserva = cliente.reservas_cliente[0];
     cliente.estadia_atual = &reserva;
-    int rindex = FindIndex(cliente.reservas_cliente, reserva);
+    int rindex = FindIndexReserva(cliente.reservas_cliente, reserva);
     cliente.reservas_cliente.erase(cliente.reservas_cliente.begin() + rindex);
     cliente.nohotel = true;
-    rindex = FindIndex(reservas, reserva);
+    rindex = FindIndexReserva(reservas, reserva);
     reservas.erase(reservas.begin() + rindex);
     AddReservasAtuais(reserva);
 }
@@ -213,12 +217,12 @@ void Hotel::CheckIn(Cliente cliente) {
  * Atualiza outras informações: o facto do cliente já não estar no hotel passando nohotel a false
  * @param cliente Cliente que está a realizar o Check-Out
  */
-void Hotel::CheckOut(Cliente cliente) {
+void Hotel::CheckOut(Cliente &cliente) {
     Reserva reserva = *cliente.estadia_atual;
     cliente.estadias_anteriores.push_back(reserva);
     cliente.estadia_atual = NULL;
     AddEstadia(reserva);
-    int rindex = FindIndex(reservas, reserva);
+    int rindex = FindIndexReserva(reservas, reserva);
     reservas_atuais.erase(reservas.begin() + rindex);
     cliente.nohotel = false;
     if(!cliente.cliente_usual) cliente.cliente_usual = true;
@@ -338,9 +342,7 @@ vector<Reserva> Hotel::ReservasSobrepostas(vector<Reserva> reservastotais, data 
     int vmin = 0, vmax = ri.size();
     int vmedio = vmax/2;
     int vmedioant = 0;
-    //cout << endl << "1) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl;
     while(vmedio != vmax || vmedio != vmin){
-        //cout << endl << "1) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl << "vmedioant " << vmedioant << endl;
         if(ri[vmedio].data_inicio <= dataf) vmin = vmedio;
         if(ri[vmedio].data_inicio > dataf) vmax = vmedio;
         vmedioant = vmedio;
@@ -358,9 +360,7 @@ vector<Reserva> Hotel::ReservasSobrepostas(vector<Reserva> reservastotais, data 
     vmedio = vmax/2;
     vmedioant = 0;
     done = false;
-    //cout << endl << "2) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl;
     while(vmedio != vmax || vmedio != vmin){
-        //cout << endl << "2) vm " << vmedio << endl << "vmin " << vmin << endl << "vmax " << vmax << endl << "vmedioant " << vmedioant << endl << endl;
         if(ri[vmedio].data_fim < datai) vmin = vmedio;
         if(ri[vmedio].data_fim >= datai) vmax = vmedio;
         vmedioant = vmedio;
@@ -610,6 +610,70 @@ Funcionario Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
     return F;
 }
 
+void Hotel::Despedir(int nif, tipo_cargo cargo){
+    switch (cargo){
+        case frececao:
+            for(int i = 0; funcionarios_rececao.size() > i; i++){
+                if(funcionarios_rececao[i].nif == nif){
+                    funcionarios_rececao.erase(funcionarios_rececao.begin() + i);
+                    break;
+                }
+            }
+            break;
+        case fresponsavel:
+            for(int i = 0; funcionarios_responsaveis.size() > i; i++){
+                if(funcionarios_responsaveis[i].nif == nif){
+                    funcionarios_responsaveis.erase(funcionarios_responsaveis.begin() + i);
+                    break;
+                }
+            }
+            break;
+        case flimpeza:
+            for(int i = 0; funcionarios_limpeza.size() > i; i++){
+                if(funcionarios_limpeza[i].nif == nif){
+                    funcionarios_limpeza.erase(funcionarios_limpeza.begin() + i);
+                    break;
+                }
+            }
+            break;
+        case fgestor:
+            for(int i = 0; funcionarios_gestores.size() > i; i++){
+                if(funcionarios_gestores[i].nif == nif){
+                    funcionarios_gestores.erase(funcionarios_gestores.begin() + i);
+                    break;
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    for(int i = 0; funcionarios.size() > i; i++){
+        if(funcionarios[i].nif == nif){
+            funcionarios.erase(funcionarios.begin() + i);
+            break;
+        }
+    }
+}
+
+void Hotel::Despedir(int nif) {
+    int cmaior = funcionarios_rececao.size();
+    tipo_cargo cargoesc = frececao;
+    if(funcionarios_responsaveis.size() > cmaior){
+        cargoesc = fresponsavel;
+        cmaior = funcionarios_responsaveis.size();
+    }
+    if(funcionarios_limpeza.size() > cmaior){
+        cargoesc = flimpeza;
+        cmaior = funcionarios_limpeza.size();
+    }
+    if(funcionarios_gestores.size() > cmaior){
+        cargoesc = fgestor;
+        cmaior = funcionarios_gestores.size();
+    }
+
+    Despedir(nif, cargoesc);
+}
+
 void Hotel::ImportarQuartos(string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
@@ -810,7 +874,8 @@ void Hotel::ImportarReservas(string localizacao) {
 void Hotel::EscreverHotel(string nomedoficheiro) {
     if(nomedoficheiro.substr(nomedoficheiro.size() - 4) != ".txt") nomedoficheiro += ".txt";
     ofstream outficheiro(nomedoficheiro);
-    outficheiro << "Hotel" << endl << endl;
+    outficheiro << "Hotel" << endl;
+    outficheiro << nome << endl << endl;
     outficheiro << "Quartos" << endl;
     int qsize = quartos.size();
     for(int i = 0; qsize > i; i++){
@@ -868,4 +933,24 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
         }
     }
     outficheiro.close();
+}
+
+//Utils
+
+int Hotel::FindIndexReserva(vector <Reserva> vr, Reserva r){
+    int vrsize = vr.size();
+    for(int i = 0; vrsize > i; i++){
+        if (vr[i].idnumero == r.idnumero) return i;
+    }
+    return -1;
+}
+
+
+template <class T>
+int Hotel::FindIndex(vector <T> v, T element){
+    int vsize = v.size();
+    for(int i = 0; vsize > i; i++){
+        if (v[i] == element) return i;
+    }
+    return -1;
 }

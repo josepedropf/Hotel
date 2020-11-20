@@ -19,7 +19,6 @@ public:
     string nome;
     int nif;
     bool cliente_usual, nohotel;
-    float conta;
     vector <Reserva> estadias_anteriores, reservas_cliente;
     Reserva *estadia_atual;
     Cliente(string nome, int nif);
@@ -30,6 +29,9 @@ public:
     bool operator==(const Cliente &c2) const{return (nif == c2.nif);}
 
     float GetConta();
+
+private:
+    float conta;
 };
 
 

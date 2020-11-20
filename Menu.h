@@ -15,12 +15,17 @@ using namespace std;
 class Menu{
 private:
     Hotel H;
+    vector <string> membros = {"Cliente", "Funcionário", "Produto", "Quarto", "Reserva", "Servico"};
+    vector <string> membros_semRes = {"Cliente", "Funcionário", "Produto", "Quarto", "Servico"};
 public:
     Menu() {};
-    void ImportarHotel(string localizacao);
+    void ImportarHotel(Hotel &H, string localizacao);
+    void ImprimeTit(string titulo);
     void ImprimeOp(vector <string> opcoes);
     void Inicial();
-    void Coisas();
+    void Importar();
+
+    void Principal();
 };
 
 #endif //HOTEL_MENU_H
