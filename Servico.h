@@ -9,8 +9,9 @@
 #include <list>
 
 #include "Data.h"
-#include "Produto.h"
 #include "Funcionario.h"
+
+using namespace std;
 
 class Servico{
 public:

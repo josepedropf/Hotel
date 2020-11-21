@@ -5,6 +5,8 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa) {
     this->idnumero = abs(idnumero);
     this->data_realizacao = data_realizacao;
     this->taxa = taxa;
+    //funcionarios_ocupados = {};
+    //produtos_consumidos = {};
     custo = 0;
     margem_lucro = 0;
     preco_consumidor = taxa;
@@ -17,6 +19,7 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, li
     this->data_realizacao = data_realizacao;
     this->taxa = taxa;
     this->funcionarios_ocupados = funcionarios_ocupados;
+    //produtos_consumidos = {};
     custo = 0;
     margem_lucro = 0;
     preco_consumidor = taxa;
@@ -30,6 +33,7 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, li
     this->taxa = taxa;
     this->produtos_consumidos = produtos_consumidos;
     this->margem_lucro = fabs(margem_lucro);
+    //funcionarios_ocupados = {};
     custo = 0;
     for(auto it = produtos_consumidos.begin(); it != produtos_consumidos.end(); it++){
         custo += (*it)->preco;

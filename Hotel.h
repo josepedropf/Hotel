@@ -4,6 +4,7 @@
 #include <iostream>
 #include <list>
 #include <string>
+#include <cmath>
 #include <algorithm>
 #include <fstream>
 #include <sstream>
@@ -55,7 +56,7 @@ public:
     const list <F_Responsavel> GetFuncionariosResponsaveis() {return funcionarios_responsaveis;}
     const list <F_Limpeza> GetFuncionariosLimpeza() {return funcionarios_limpeza;}
     const list <F_Gestor> GetFuncionariosGestores() {return funcionarios_gestores;}
-    const list <Servico> GetServico() {return servicos;}
+    const list <Servico> GetServicos() {return servicos;}
 
     bool AddProduto(Produto produto);
     bool AddReserva(Reserva reserva);
@@ -104,8 +105,8 @@ public:
     tipo_cargo EscolherCargo();
     tipo_turno EscolherTurno();
     int EscolherPiso();
-    Funcionario Contratar(string nome, int nif, tipo_cargo cargo);
-    Funcionario Contratar(string nome, int nif);
+    void Contratar(string nome, int nif, tipo_cargo cargo);
+    void Contratar(string nome, int nif);
     void Despedir(int nif, tipo_cargo cargo);
     void Despedir(int nif);
 
@@ -126,6 +127,7 @@ public:
     void ImportarFuncionarios(string localizacao);
     void ImportarProdutos(string localizacao);
     void ImportarReservas(string localizacao);
+    void ImportarServico(string localizacao);
 
     void EscreverHotel(string nomeficheiro);
 
@@ -136,17 +138,6 @@ public:
     void ApagarElementoV(vector <T> v, int index) {v.erase(v.begin() + index);}
     template <class T>
     void ApagarElementoL(list <T> l, T elemento);
-
-    Cliente EncontrarCliente(const list <Cliente> &l, int nif);
-    Cliente EncontrarCliente(int nif);
-    Funcionario EncontrarFuncionario(const list <Funcionario> &l, int nif);
-    Funcionario EncontrarFuncionario(int nif);
-    Reserva EncontrarReserva(const list <Reserva> &l, int idnumero);
-    Reserva EncontrarReserva(int idnumero);
-    Quarto EncontrarQuarto(const list <Quarto> &l, int numero);
-    Quarto EncontrarQuarto(int numero);
-    Produto EncontrarProduto(const list <Produto> &l, int numero);
-    Produto EncontrarProduto(int numero);
 
     int EncontrarIndexReserva(vector <Reserva> vr, Reserva r);
     int EncontrarIndexReserva(vector <Reserva *> vr, Reserva *r);

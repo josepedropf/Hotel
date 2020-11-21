@@ -1,10 +1,9 @@
-#include "Hotel.h"
 #include "Menu.h"
 
 using namespace std;
 
 int main() {
-    Hotel H("da Marateca");
+    Hotel Ho("da Marateca");
     Menu M;
 
 
@@ -177,7 +176,7 @@ int main() {
     //H.Pesquisa_F_Salario(1);
 
 
-
+    /*
     H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
     list <Quarto> q = H.GetQuartos();
     M.PrintList(q);
@@ -227,6 +226,11 @@ int main() {
 
     H.Reservar(3, 2734, {.dia = 3, .mes = 11, .ano = 2022}, {.dia = 22, .mes = 11, .ano = 2022}, 1, {199});
 
+    H.PrestarServico(1, "jantar", 1122, {.dia = 6, .mes = 10, .ano = 2018}, 5);
+    H.PrestarServico(2, "almoço", 1598, {.dia = 7, .mes = 10, .ano = 2018}, 2, {9999});
+    H.PrestarServico(3, "massagem completa", 696969, {.dia = 8, .mes = 10, .ano = 2018}, 2.5, {202}, 25);
+    H.PrestarServico(1, "comprar mercadoria", 4682, {.dia = 10, .mes = 10, .ano = 2018}, 1, {74, 100}, {777, 1222}, 30);
+
     H.EscreverHotel("Marateca01");
 
     float balanco = H.BalancoFin(11, 2023, 2000, 1000);
@@ -235,7 +239,15 @@ int main() {
 
     //list <Funcionario *> pc = H.PointerListFunc(H.GetFuncionarios());
     //M.PrintPointerListFunc(pc);
+    */
 
 
+    Ho.Contratar("Ana", 741);
+    Ho.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
+    Ho.ImportarServico("C:\\Users\\MSI\\Desktop\\h1.txt");
+    Ho.AddQuarto(Quarto(suite, 1, 145, 4, 45.7));
+
+
+    M.PrintList(Ho.GetServicos());
 
 }

@@ -267,7 +267,6 @@ void Hotel::CheckOut(Cliente &cliente) {
     cliente.estadia_atual = NULL;
     AddEstadia(reserva);
     ApagarReservaL(reservas_atuais, reserva);
-    cliente.servicos_consumidos.clear();
     cliente.nohotel = false;
     if(!cliente.cliente_usual) cliente.cliente_usual = true;
 }
@@ -592,12 +591,11 @@ int Hotel::EscolherPiso() {
 }
 
 
-Funcionario Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
+void Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
     if(cargo == frececao){
         F_Rececao FR(nome, nif, 0, 800);
         AddFuncionario(FR);
         AddFuncionarioRececao(FR);
-        return FR;
     }
     if(cargo == fresponsavel){
         vector <int> pisos;
@@ -605,28 +603,24 @@ Funcionario Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
         F_Responsavel FRR(nome, nif, 0, 1200, pisos);
         AddFuncionario(FRR);
         AddFuncionarioResponsavel(FRR);
-        return FRR;
     }
     if(cargo == flimpeza){
         tipo_turno turno = EscolherTurno();
         F_Limpeza FL(nome, nif, 0, 800, turno);
         AddFuncionario(FL);
         AddFuncionarioLimpeza(FL);
-        return FL;
     }
     if(cargo == fgestor){
         F_Gestor FG(nome, nif, 0, 2000);
         AddFuncionario(FG);
-        return FG;
     }
     Funcionario F(nome, nif, 0, 600);
     AddFuncionario(F);
-    return F;
 }
 
-Funcionario Hotel::Contratar(string nome, int nif){
+void Hotel::Contratar(string nome, int nif){
     tipo_cargo cargo = EscolherCargo();
-    Contratar(nome, nif, cargo);
+    return Contratar(nome, nif, cargo);
 }
 
 void Hotel::Despedir(int nif, tipo_cargo cargo){
@@ -995,25 +989,94 @@ void Hotel::ImportarReservas(string localizacao) {
     inficheiro.close();
 }
 
+void Hotel::ImportarServico(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if(inficheiro.fail()){
+        cout << endl << "O Ficheiro não abre!" << endl;
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while(line != "Serviços" && !inficheiro.eof()){
+        getline(inficheiro, line);
+    }
+    string nomet, nomep, controlo, sf, sp;
+    int idnum, nifcliente, d;
+    data data_realizacao;
+    float taxa, mlucro;
+    vector <int> fnifs, pnums;
+    getline(inficheiro, line);
+    while(line != "" && !inficheiro.eof()){
+        nomet= "";
+        nomep = "";
+        sf = "";
+        sp = "";
+        controlo = "";
+        stringstream ss(line);
+        ss >> nifcliente;
+        while(nomep != ","){
+            if(nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
+        }
+        ss >> idnum;
+        ss >> d; data_realizacao.dia = abs(d);
+        ss >> d; data_realizacao.mes = abs(d);
+        ss >> d; data_realizacao.ano = abs(d);
+        ss >> taxa;
+        ss >> controlo;
+        if (controlo == "") PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa);
+        else{
+            if (controlo == "f"){
+                while(ss >> sf && sf != ","){
+                    if(sf != "" && sf != ",") fnifs.push_back(stoi(sf));
+                }
+                ss >> controlo;
+                if(controlo == "p"){
+                    while(ss >> sp && sp != ","){
+                        if(sp != "" && sp != ",") pnums.push_back(stoi(sp));
+                    }
+                    ss >> mlucro;
+                    PrestarServico(nifcliente, nome, idnum, data_realizacao, taxa, fnifs, pnums, mlucro);
+                }
+                else PrestarServico(nifcliente, nome, idnum, data_realizacao, taxa, fnifs);
+            }
+            else{
+                while(ss >> sp && sp != ","){
+                    if(sp != "" && sp != ",") pnums.push_back(stoi(sp));
+                }
+                ss >> mlucro;
+                PrestarServico(nifcliente, nome, idnum, data_realizacao, taxa, pnums, mlucro);
+            }
+        }
+        getline(inficheiro, line);
+    }
+    inficheiro.close();
+}
+
 void Hotel::EscreverHotel(string nomedoficheiro) {
     if(nomedoficheiro.substr(nomedoficheiro.size() - 4) != ".txt") nomedoficheiro += ".txt";
     ofstream outficheiro(nomedoficheiro);
     outficheiro << "Hotel" << endl;
     outficheiro << nome << endl << endl;
+
     outficheiro << "Quartos" << endl;
     for(auto it = quartos.begin(); it != quartos.end(); it++){
         outficheiro << (*it).tquarto << " " << (*it).piso << " " << (*it).numero << " " << (*it).capacidade << " " << (*it).preco << endl;
     }
+
     outficheiro << endl;
     outficheiro << "Produtos" << endl;
     for(auto it = produtos.begin(); it != produtos.end(); it++){
         outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << endl;
     }
+
     outficheiro << endl;
     outficheiro << "Clientes" << endl;
     for(auto it = clientes.begin(); it != clientes.end(); it++){
         outficheiro << (*it).nome << " , " << (*it).nif << " " << (*it).cliente_usual << endl;
     }
+
     outficheiro << endl;
     outficheiro << "Funcionários" << endl;
     for(auto it = funcionarios_rececao.begin(); it != funcionarios_rececao.end(); it++){
@@ -1035,7 +1098,43 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     for(auto it = funcionarios.begin(); it != funcionarios.end(); it++){
         if((*it).cargo == naodef) outficheiro << (*it).nome << " , " << (*it).nif << " " << (*it).anos_servico << " " << (*it).salario << " " << (*it).cargo << endl;
     }
-    list <Quarto *> vq;
+
+    outficheiro << endl;
+    outficheiro << "Serviços" << endl;
+    for(auto it = servicos.begin(); it != servicos.end(); it++){
+        bool cliente_enc = false;
+        string cliente_nif = "";
+        for(auto itc = clientes.begin(); itc != clientes.end() && !cliente_enc; itc++){
+            for(auto itsc = (*itc).servicos_consumidos.begin(); itsc != (*itc).servicos_consumidos.end() && !cliente_enc; itsc++){
+                if(*(*itsc) == (*it)){
+                    cliente_nif = to_string((*itc).nif);
+                    cliente_enc = true;
+                    break;
+                }
+            }
+        }
+        string focup = "f ";
+        string prodcons = "p ";
+        for(auto itf = (*it).funcionarios_ocupados.begin(); itf != (*it).funcionarios_ocupados.end(); itf++){
+            focup += to_string((*itf)->nif) + " ";
+        }
+        for(auto itp = (*it).produtos_consumidos.begin(); itp != (*it).produtos_consumidos.end(); itp++){
+            prodcons += to_string((*itp)->numero) + " ";
+        }
+        outficheiro << cliente_nif << " " << (*it).nome << " , " << (*it).idnumero << " " << (*it).data_realizacao << " " << (*it).taxa;
+        if(focup == "f " && prodcons == "p ") outficheiro << endl;
+        else{
+            if(focup != "f "){
+                outficheiro << " " << focup;
+                if(prodcons != "p ") outficheiro << ", " << prodcons + ", " << (*it).margem_lucro << endl;
+                else outficheiro << endl;
+            }
+            else{
+                if(prodcons != "p ") outficheiro << " " << prodcons + " " << (*it).margem_lucro << endl;
+            }
+        }
+    }
+
     outficheiro << endl;
     outficheiro << "Reservas" << endl;
     for(auto it = clientes.begin(); it != clientes.end(); it++){
@@ -1085,67 +1184,6 @@ void Hotel::ApagarElementoL(list<T> l, T elemento) {
             it = l.erase(it);
             break;
         }
-    }
-}
-
-
-Cliente Hotel::EncontrarCliente(const list<Cliente> &l, int nif){
-    for(auto it = l.begin(); it != l.end(); it++){
-        if((*it).nif == nif) return *it;
-    }
-}
-
-Cliente Hotel::EncontrarCliente(int nif) {
-    for(auto it = clientes.begin(); it != clientes.end(); it++){
-        if((*it).nif == nif) return *it;
-    }
-}
-
-Funcionario Hotel::EncontrarFuncionario(const list<Funcionario> &l, int nif){
-    for(auto it = l.begin(); it != l.end(); it++){
-        if((*it).nif == nif) return *it;
-    }
-}
-
-Funcionario Hotel::EncontrarFuncionario(int nif) {
-    for(auto it = funcionarios.begin(); it != funcionarios.end(); it++){
-        if((*it).nif == nif) return *it;
-    }
-}
-
-Reserva Hotel::EncontrarReserva(const list<Reserva> &l, int idnumero){
-    for(auto it = l.begin(); it != l.end(); it++){
-        if((*it).idnumero == idnumero) return *it;
-    }
-}
-
-Reserva Hotel::EncontrarReserva(int idnumero) {
-    for(auto it = reservas.begin(); it != reservas.end(); it++){
-        if((*it).idnumero == idnumero) return *it;
-    }
-}
-
-Quarto Hotel::EncontrarQuarto(const list<Quarto> &l, int numero){
-    for(auto it = l.begin(); it != l.end(); it++){
-        if((*it).numero == numero) return *it;
-    }
-}
-
-Quarto Hotel::EncontrarQuarto(int numero) {
-    for(auto it = quartos.begin(); it != quartos.end(); it++){
-        if((*it).numero == numero) return *it;
-    }
-}
-
-Produto Hotel::EncontrarProduto(const list<Produto> &l, int numero){
-    for(auto it = l.begin(); it != l.end(); it++){
-        if((*it).numero == numero) return *it;
-    }
-}
-
-Produto Hotel::EncontrarProduto(int numero) {
-    for(auto it = produtos.begin(); it != produtos.end(); it++){
-        if((*it).numero == numero) return *it;
     }
 }
 
