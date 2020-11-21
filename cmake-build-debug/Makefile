@@ -358,6 +358,33 @@ Reserva.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Reserva.cpp.s
 .PHONY : Reserva.cpp.s
 
+Servico.obj: Servico.cpp.obj
+
+.PHONY : Servico.obj
+
+# target to build an object file
+Servico.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Servico.cpp.obj
+.PHONY : Servico.cpp.obj
+
+Servico.i: Servico.cpp.i
+
+.PHONY : Servico.i
+
+# target to preprocess a source file
+Servico.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Servico.cpp.i
+.PHONY : Servico.cpp.i
+
+Servico.s: Servico.cpp.s
+
+.PHONY : Servico.s
+
+# target to generate assembly for a file
+Servico.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Servico.cpp.s
+.PHONY : Servico.cpp.s
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -418,6 +445,9 @@ help:
 	@echo ... Reserva.obj
 	@echo ... Reserva.i
 	@echo ... Reserva.s
+	@echo ... Servico.obj
+	@echo ... Servico.i
+	@echo ... Servico.s
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s

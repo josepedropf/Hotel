@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <list>
 
 #include "Quarto.h"
 #include "Produto.h"
@@ -59,8 +60,8 @@ public:
     nota_avaliacao av_prestacao = razoavel;
     F_Gestor(string nome, int nif, int anos_servico, float salario);
     F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao);
-    void Promocoes(vector <Quarto> &quartos_promo);
-    Produto Escolher_Prod(vector <Produto *> prods);
+    void Promocoes(list <Quarto *> quartos_promo);
+    Produto Escolher_Prod(list <Produto *> prods);
     virtual void Info() const;
 };
 

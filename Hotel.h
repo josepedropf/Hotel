@@ -2,7 +2,7 @@
 #define HOTEL_HOTEL_H
 
 #include <iostream>
-#include <vector>
+#include <list>
 #include <string>
 #include <algorithm>
 #include <fstream>
@@ -14,6 +14,7 @@
 #include "Quarto.h"
 #include "Funcionario.h"
 #include "Cliente.h"
+#include "Servico.h"
 #include "Data.h"
 #include "Exceptions.h"
 
@@ -23,17 +24,18 @@ using namespace std;
 class Hotel {
 protected:
 
-    vector <Produto> produtos;
-    vector <Reserva> reservas;
-    vector <Reserva> estadias;
-    vector <Reserva> reservas_atuais;
-    vector <Cliente> clientes;
-    vector <Quarto> quartos;
-    vector <Funcionario> funcionarios;
-    vector <F_Rececao> funcionarios_rececao;
-    vector <F_Responsavel> funcionarios_responsaveis;
-    vector <F_Limpeza> funcionarios_limpeza;
-    vector <F_Gestor> funcionarios_gestores;
+    list <Produto> produtos;
+    list <Reserva> reservas;
+    list <Reserva> estadias;
+    list <Reserva> reservas_atuais;
+    list <Cliente> clientes;
+    list <Quarto> quartos;
+    list <Funcionario> funcionarios;
+    list <F_Rececao> funcionarios_rececao;
+    list <F_Responsavel> funcionarios_responsaveis;
+    list <F_Limpeza> funcionarios_limpeza;
+    list <F_Gestor> funcionarios_gestores;
+    list <Servico> servicos;
 
 public:
     Hotel() {nome = "Grande Hotel Central";};
@@ -42,12 +44,18 @@ public:
     string nome;
 
 
-    template <class T>
-    int FindIndex(vector <T> v, T element);
-    template <class T>
-    void Apagar(vector <T> v, int index) {v.erase(v.begin() + index);}
-
-    int FindIndexReserva(vector <Reserva> vr, Reserva r);
+    const list <Produto> GetProdutos() {return produtos;}
+    const list <Reserva> GetReservas() {return reservas;}
+    const list <Reserva> GetReservasAtuais() {return reservas_atuais;}
+    const list <Reserva> GetEstadias() {return estadias;}
+    const list <Cliente> GetClientes() {return clientes;}
+    const list <Quarto> GetQuartos() {return quartos;}
+    const list <Funcionario> GetFuncionarios() {return funcionarios;}
+    const list <F_Rececao> GetFuncionariosRececao() {return funcionarios_rececao;}
+    const list <F_Responsavel> GetFuncionariosResponsaveis() {return funcionarios_responsaveis;}
+    const list <F_Limpeza> GetFuncionariosLimpeza() {return funcionarios_limpeza;}
+    const list <F_Gestor> GetFuncionariosGestores() {return funcionarios_gestores;}
+    const list <Servico> GetServico() {return servicos;}
 
     bool AddProduto(Produto produto);
     bool AddReserva(Reserva reserva);
@@ -61,6 +69,56 @@ public:
     bool AddFuncionarioResponsavel(F_Responsavel funcionario_resp);
     bool AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza);
     bool AddFuncionarioGestor(F_Gestor funcionario_gestor);
+    bool AddServico(Servico servico);
+
+
+    bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
+    bool Reservar(int nif, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
+    void CancelarReserva(Cliente &cliente, int idreserva);
+    void CancelarReserva(int nif, int idreserva);
+    void CheckIn(Cliente &cliente);
+    void CheckIn(int nif);
+    void CheckOut(Cliente &cliente);
+    void CheckOut(int nif);
+
+    const list <Funcionario> Pesquisa_F_Salario(bool inverso);
+    const list <Funcionario> Pesquisa_F_Cargo();
+    const list <Reserva> RestringirClientesNovos(bool clientes_novos);
+    const list <Reserva> RestringirClientesNovos(bool clientes_novos, list<Reserva> creservas);
+    const list <Reserva> Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const list <Reserva> Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const list <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const list <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list <Reserva> creservas);
+    const list <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
+    const list <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list <Reserva> creservas);
+
+    list <Reserva *> ReservasSobrepostas(list <Reserva> reservastotais, data datai, data dataf);
+    list <Reserva *> Reservas_Fin(int mesp, int anop);
+    list <Quarto *> Quartos_Disponiveis(data data_inicial, data data_final);
+
+    float CustosTotais(float impostos, float despesasfixas);
+    data DiaFinal(int mesp, int anop);
+    float RendimentosTotais(int mes, int ano);
+    float BalancoFin(int mes, int ano, float impostos, float despesasfixas);
+
+    tipo_cargo EscolherCargo();
+    tipo_turno EscolherTurno();
+    int EscolherPiso();
+    Funcionario Contratar(string nome, int nif, tipo_cargo cargo);
+    Funcionario Contratar(string nome, int nif);
+    void Despedir(int nif, tipo_cargo cargo);
+    void Despedir(int nif);
+
+    void PrestarServico(Cliente &cliente, Servico servico);
+    void PrestarServico(int nif, Servico servico);
+    void PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa);
+    void PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> funcsnif);
+    void PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> numprods, float margem_lucro);
+    void PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> funcsnif, vector <int> numprods, float margem_lucro);
+
+    void Promocoes(F_Gestor fgestor, vector<int> numquartos);
+    Produto EscolherProduto(F_Gestor fgestor, vector<int> numprodutos);
+    Produto EscolherProduto(F_Gestor fgestor, list<Produto *> lprodutos);
 
 
     void ImportarQuartos(string localizacao);
@@ -71,49 +129,45 @@ public:
 
     void EscreverHotel(string nomeficheiro);
 
-    bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numerosquartos);
-    void CancelarReserva(Cliente &cliente, int idreserva);
-    void CheckIn(Cliente &cliente);
-    void CheckOut(Cliente &cliente);
 
-    tipo_cargo EscolherCargo();
-    tipo_turno EscolherTurno();
-    int EscolherPiso();
-    Funcionario Contratar(string nome, int nif);
-    Funcionario Contratar(string nome, int nif, tipo_cargo cargo);
-    void Despedir(int nif, tipo_cargo cargo);
-    void Despedir(int nif);
+    template <class T>
+    int EncontrarIndex(vector <T> v, T elemento);
+    template <class T>
+    void ApagarElementoV(vector <T> v, int index) {v.erase(v.begin() + index);}
+    template <class T>
+    void ApagarElementoL(list <T> l, T elemento);
 
-    const vector <Produto> GetProdutos() {return produtos;}
-    const vector <Reserva> GetReservas() {return reservas;}
-    const vector <Reserva> GetReservasAtuais() {return reservas_atuais;}
-    const vector <Reserva> GetEstadias() {return estadias;}
-    const vector <Cliente> GetClientes() {return clientes;}
-    const vector <Quarto> GetQuartos() {return quartos;}
-    const vector <Funcionario> GetFuncionarios() {return funcionarios;}
-    const vector <F_Rececao> GetFuncionariosRececao() {return funcionarios_rececao;}
-    const vector <F_Responsavel> GetFuncionariosResponsaveis() {return funcionarios_responsaveis;}
-    const vector <F_Limpeza> GetFuncionariosLimpeza() {return funcionarios_limpeza;}
-    const vector <F_Gestor> GetFuncionariosGestores() {return funcionarios_gestores;}
+    Cliente EncontrarCliente(const list <Cliente> &l, int nif);
+    Cliente EncontrarCliente(int nif);
+    Funcionario EncontrarFuncionario(const list <Funcionario> &l, int nif);
+    Funcionario EncontrarFuncionario(int nif);
+    Reserva EncontrarReserva(const list <Reserva> &l, int idnumero);
+    Reserva EncontrarReserva(int idnumero);
+    Quarto EncontrarQuarto(const list <Quarto> &l, int numero);
+    Quarto EncontrarQuarto(int numero);
+    Produto EncontrarProduto(const list <Produto> &l, int numero);
+    Produto EncontrarProduto(int numero);
 
-    data DiaFinal(int mesp, int anop);
-    const vector <Funcionario> Pesquisa_F_Salario(bool inverso);
-    const vector <Funcionario> Pesquisa_F_Cargo();
-    const vector <Reserva> Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> reserva);
-    const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
-    const vector <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, vector <Reserva> reserva);
+    int EncontrarIndexReserva(vector <Reserva> vr, Reserva r);
+    int EncontrarIndexReserva(vector <Reserva *> vr, Reserva *r);
+    void ApagarReservaL(list <Reserva> lr, Reserva r);
+    void ApagarReservaL(list <Reserva *> lr, Reserva *r);
 
-    vector <Reserva> ReservasSobrepostas(vector <Reserva> reservastotais, data datai, data dataf);
-    vector <Reserva> Reservas_Fin(int mesp, int anop);
-    vector <Quarto> Quartos_Disponiveis(data data_inicial, data data_final);
+    template <class T>
+    vector<T> LtoV(const list <T> &l);
+    template <class T>
+    list<T> VtoL(const vector <T> &v);
 
-    float CustosTotais(float impostos, float despesasfixas);
-    float RendimentosTotais(int mes, int ano);
-    float BalancoFin(int mes, int ano, float impostos, float despesasfixas);
-
+    list <Reserva *> PointerListReserva(list <Reserva> l);
+    list <Funcionario *> PointerListFunc(list <Funcionario> l);
+    list <Quarto *> PointerListQuarto(list <Quarto> l);
+    list <Cliente *> PointerListCliente(list <Cliente> l);
+    list <Produto *> PointerListProduto(list <Produto> l);
+    list <Reserva> ListReserva(list <Reserva *> pl);
+    list <Funcionario> ListFunc(list <Funcionario *> pl);
+    list <Quarto> ListQuarto(list <Quarto *> pl);
+    list <Cliente> ListCliente(list <Cliente *> pl);
+    list <Produto> ListProduto(list <Produto *> pl);
 };
 
 #endif //HOTEL_HOTEL_H

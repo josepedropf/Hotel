@@ -10,7 +10,7 @@
 using namespace std;
 
 enum nota_avaliacao {ma = 1, insuficiente = 2, razoavel = 3, boa = 4, excelente = 5};
-enum tipo_produto {restauracao = 0, limpeza = 1};
+enum tipo_produto {restauracao = 0, limpeza = 1, souvenir = 2};
 
 class Produto{
 public:

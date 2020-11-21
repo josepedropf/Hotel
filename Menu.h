@@ -2,11 +2,13 @@
 #define HOTEL_MENU_H
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <vector>
+#include <list>
 #include <string>
 #include <algorithm>
 
-#include "Exceptions.h"
 #include "Hotel.h"
 
 using namespace std;
@@ -18,9 +20,15 @@ private:
     vector <string> membros_semRes = {"Cliente", "Funcionário", "Produto", "Quarto", "Servico"};
 public:
     Menu() {};
+    ~Menu() {};
 
     template<class T>
     void PrintV(const vector<T>& v);
+    template<class T>
+    void PrintList(const list<T>& l);
+
+    void PrintPointerListReserva(list<Reserva *> pl);
+    void PrintPointerListFunc(list <Funcionario *> pl);
 
     void ImportarHotel(Hotel &H, string localizacao);
 

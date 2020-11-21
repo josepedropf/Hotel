@@ -1,7 +1,7 @@
 #include "Reserva.h"
 
-Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, vector <Quarto> quartos_res){
-    this->idnumero = idnumero;
+Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res){
+    this->idnumero = abs(idnumero);
     this->data_inicio = data_inicio;
     this->data_fim = data_fim;
     duracao = data_fim - data_inicio + 1;
@@ -9,12 +9,12 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, ve
     this->quartos_res = quartos_res;
     int qsize = quartos_res.size();
     preco = 0;
-    for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco;
+    for (auto it = quartos_res.begin(); it != quartos_res.end(); it++){
+        preco += (*it)->preco;
     }
 }
-Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, vector <Quarto> quartos_res, bool primeiravez) {
-    this->idnumero = idnumero;
+Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez) {
+    this->idnumero = abs(idnumero);
     this->primeiravez = primeiravez;
     this->data_inicio = data_inicio;
     this->data_fim = data_fim;
@@ -23,8 +23,8 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, ve
     this->quartos_res = quartos_res;
     int qsize = quartos_res.size();
     preco = 0;
-    for (int i = 0; qsize > i; i++){
-        preco += quartos_res[i].preco;
+    for (auto it = quartos_res.begin(); it != quartos_res.end(); it++){
+        preco += (*it)->preco;
     }
 }
 
@@ -36,9 +36,8 @@ void Reserva::Info() const{
     cout << "Duração: " << duracao << " | ";
     cout << "Lugares Esperados: " << lugaresp << " | ";
     cout << "Quartos Reservados: ";
-    int qsize = quartos_res.size();
-    for(int i = 0; qsize > i; i++){
-        cout << quartos_res[i].numero << " ";
+    for(auto it = quartos_res.begin(); it != quartos_res.end(); it++){
+        cout << (*it)->numero << " ";
     }
     cout << endl;
 }
@@ -46,10 +45,9 @@ void Reserva::Info() const{
 bool Reserva::operator==(const Reserva &r2) const {
     if(idnumero == r2.idnumero) return true;
     bool quartoscom = false;
-    int q1size = quartos_res.size(), q2size = r2.quartos_res.size();
-    for(int a = 0; q1size > a; a++){
-        for(int b = 0; q2size > b; b++){
-            if(quartos_res[a] == r2.quartos_res[b]){
+    for(auto it = quartos_res.begin(); it != quartos_res.end(); it++){
+        for(auto itt = r2.quartos_res.begin(); itt != r2.quartos_res.end(); itt++){
+            if((*it) == (*itt)){
                 quartoscom = true;
                 break;
             }

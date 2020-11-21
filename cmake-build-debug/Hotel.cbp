@@ -133,6 +133,12 @@
 		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h">
 			<Option target="Hotel"/>
 		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Servico.cpp">
+			<Option target="Hotel"/>
+		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/Servico.h">
+			<Option target="Hotel"/>
+		</Unit>
 		<Unit filename="C:/Users/MSI/Desktop/Hotel/Hotel/main.cpp">
 			<Option target="Hotel"/>
 		</Unit>

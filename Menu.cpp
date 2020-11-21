@@ -1,5 +1,3 @@
-#include <fstream>
-#include <sstream>
 #include "Menu.h"
 
 template<class T>
@@ -9,6 +7,38 @@ void Menu::PrintV(const vector<T> &v) {
     cout << "|||-> " << endl << endl;
     for (int i = 0; vsize > i; i++){
         v[i].Info();
+        cout << endl;
+    }
+    cout << "<-||| " << endl;
+}
+
+template<class T>
+void Menu::PrintList(const list<T> &l) {
+    cout << endl;
+    cout << "|||-> " << endl << endl;
+    for (auto it = l.begin(); it != l.end(); it++){
+        (*it).Info();
+        cout << endl;
+    }
+    cout << "<-||| " << endl;
+}
+
+
+void Menu::PrintPointerListReserva(list<Reserva *> pl) {
+    cout << endl;
+    cout << "|||-> " << endl << endl;
+    for (auto it = pl.begin(); it != pl.end(); it++){
+        (*(*it)).Info();
+        cout << endl;
+    }
+    cout << "<-||| " << endl;
+}
+
+void Menu::PrintPointerListFunc(list<Funcionario *> pl) {
+    cout << endl;
+    cout << "|||-> " << endl << endl;
+    for (auto it = pl.begin(); it != pl.end(); it++){
+        (*(*it)).Info();
         cout << endl;
     }
     cout << "<-||| " << endl;
@@ -129,27 +159,27 @@ void Menu::Importar() {
         switch (resposta) {
             case 0:
                 H.ImportarClientes(localizacao);
-                PrintV(H.GetClientes());
+                PrintList(H.GetClientes());
                 break;
             case 1:
                 H.ImportarFuncionarios(localizacao);
-                PrintV(H.GetFuncionariosRececao());
-                PrintV(H.GetFuncionariosResponsaveis());
-                PrintV(H.GetFuncionariosLimpeza());
-                PrintV(H.GetFuncionariosGestores());
-                PrintV(H.GetFuncionarios());
+                PrintList(H.GetFuncionariosRececao());
+                PrintList(H.GetFuncionariosResponsaveis());
+                PrintList(H.GetFuncionariosLimpeza());
+                PrintList(H.GetFuncionariosGestores());
+                PrintList(H.GetFuncionarios());
                 break;
             case 2:
                 H.ImportarProdutos(localizacao);
-                PrintV(H.GetProdutos());
+                PrintList(H.GetProdutos());
                 break;
             case 3:
                 H.ImportarQuartos(localizacao);
-                PrintV(H.GetQuartos());
+                PrintList(H.GetQuartos());
                 break;
             case 4:
                 H.ImportarReservas(localizacao);
-                PrintV(H.GetReservas());
+                PrintList(H.GetReservas());
                 break;
             case 5:
                 //Importar Servicos;

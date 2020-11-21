@@ -3,7 +3,7 @@
 
 Funcionario::Funcionario(string nome, int nif, int anos_servico, float salario) {
     this->nome = nome;
-    this->nif = nif;
+    this->nif = abs(nif);
     this->anos_servico = anos_servico;
     this->salario = salario;
     cargo = naodef;
@@ -11,7 +11,7 @@ Funcionario::Funcionario(string nome, int nif, int anos_servico, float salario) 
 
 Funcionario::Funcionario(string nome, int nif, int anos_servico, float salario, tipo_cargo c) {
     this->nome = nome;
-    this->nif = nif;
+    this->nif = abs(nif);
     this->anos_servico = anos_servico;
     this->salario = salario;
     cargo = c;
@@ -89,21 +89,19 @@ void F_Gestor::Info() const{
 }
 
 // Gestor Funcs
-void F_Gestor::Promocoes(vector<Quarto> &quartos_promo) {
-    int qsize = quartos_promo.size();
-    for(int i = 0; qsize > i; i++){
-        Quarto quarto = quartos_promo[i];
-        quarto.preco *= float(float(100 - quarto.promo)/ 100);
+void F_Gestor::Promocoes(list <Quarto *> quartos_promo) {
+    for(auto it = quartos_promo.begin(); it != quartos_promo.end(); it++){
+        (*it)->preco *= float(float(100 - (*it)->promo) / 100.0);
     }
 }
 
-Produto F_Gestor::Escolher_Prod(vector<Produto *> prods) {
-    int prodsize = prods.size();
-    Produto escolhido = *prods[0];
-    for (int i = 0; prodsize > i; i++){
-        if(prods[i]->preco < escolhido.preco) escolhido = *prods[i];
-        else if(prods[i]->preco == escolhido.preco){
-            if(prods[i]->qualidade > escolhido.qualidade) escolhido = *prods[i];
+Produto F_Gestor::Escolher_Prod(list <Produto *> prods) {
+    auto it = prods.begin();
+    Produto escolhido = *(*it);
+    for (it; it != prods.end(); it++){
+        if((*it)->preco < escolhido.preco) escolhido = *(*it);
+        else if((*it)->preco == escolhido.preco){
+            if((*it)->qualidade > escolhido.qualidade) escolhido = *(*it);
         }
     }
     return escolhido;

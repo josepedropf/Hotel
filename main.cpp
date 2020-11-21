@@ -1,9 +1,11 @@
 #include "Hotel.h"
+#include "Menu.h"
 
 using namespace std;
 
 int main() {
     Hotel H("da Marateca");
+    Menu M;
 
 
     //Quarto Q205(suite, 2, 205, 3, 55.67);
@@ -174,40 +176,66 @@ int main() {
     //H.Pesquisa_F_Salario(0);
     //H.Pesquisa_F_Salario(1);
 
-    //H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
-    //vector <Quarto> q = H.GetQuartos();
-    //H.PrintV(q);
 
 
-    //H.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
-    //vector <Cliente> c = H.GetClientes();
-    //H.PrintV(c);
+    H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    list <Quarto> q = H.GetQuartos();
+    M.PrintList(q);
 
-    //H.ImportarFuncionarios("C:\\Users\\MSI\\Desktop\\h1.txt");
-    //vector <Funcionario> f = H.GetFuncionarios();
-    //H.PrintV(f);
 
-    //H.Contratar("Canas", 9999, fresponsavel);
-    //vector<F_Responsavel> frr = H.GetFuncionariosResponsaveis();
-    //H.PrintV(frr);
+    H.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
+    list <Cliente> c = H.GetClientes();
+    M.PrintList(c);
 
-    //H.ImportarProdutos("C:\\Users\\MSI\\Desktop\\h1.txt");
-    //vector<Produto> p = H.GetProdutos();
-    //H.PrintV(p);
+    H.ImportarFuncionarios("C:\\Users\\MSI\\Desktop\\h1.txt");
+    list <Funcionario> f = H.GetFuncionarios();
+    M.PrintList(f);
 
-    //H.ImportarReservas("C:\\Users\\MSI\\Desktop\\h1.txt");
-    //vector<Reserva> r = H.GetReservas();
-    //H.PrintV(r);
+    H.Contratar("Canas", 9999, fresponsavel);
+    list <F_Responsavel> frr = H.GetFuncionariosResponsaveis();
+    M.PrintList(frr);
 
-    /*
+    H.ImportarProdutos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    list <Produto> p = H.GetProdutos();
+    M.PrintList(p);
+
+    H.ImportarReservas("C:\\Users\\MSI\\Desktop\\h1.txt");
+    list <Reserva> r = H.GetReservas();
+    M.PrintList(r);
+
+
     H.AddProduto(Produto("massa", 1222, restauracao, ma, 4.36));
+    p = H.GetProdutos();
+    M.PrintList(p);
+
     H.AddCliente(Cliente("André Soares Meira", 1234587424, true));
+    c = H.GetClientes();
+    M.PrintList(c);
+
     H.AddQuarto(Quarto(suite, 1, 199, 5, 78.5));
+    q = H.GetQuartos();
+    M.PrintList(q);
+
     H.AddFuncionarioGestor(F_Gestor("Diogo Pires", 1979801, 5, 1800, boa));
+    f = H.GetFuncionarios();
+    M.PrintList(f);
+
     H.AddFuncionarioResponsavel(F_Responsavel("César Torres", 99995559, 12, 3000, {1, 2}));
-    H.PrintV(r);
+    f = H.GetFuncionarios();
+    M.PrintList(f);
+
+
+    H.Reservar(3, 2734, {.dia = 3, .mes = 11, .ano = 2022}, {.dia = 22, .mes = 11, .ano = 2022}, 1, {199});
+
     H.EscreverHotel("Marateca01");
-     */
+
+    float balanco = H.BalancoFin(11, 2023, 2000, 1000);
+    cout << endl << "Balanço: " << balanco << endl;
+
+
+    //list <Funcionario *> pc = H.PointerListFunc(H.GetFuncionarios());
+    //M.PrintPointerListFunc(pc);
+
 
 
 }

@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/MSI/Desktop/Hotel/Hotel/Produto.cpp" "C:/Users/MSI/Desktop/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Produto.cpp.obj"
   "C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.cpp" "C:/Users/MSI/Desktop/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Quarto.cpp.obj"
   "C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.cpp" "C:/Users/MSI/Desktop/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Reserva.cpp.obj"
+  "C:/Users/MSI/Desktop/Hotel/Hotel/Servico.cpp" "C:/Users/MSI/Desktop/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Servico.cpp.obj"
   "C:/Users/MSI/Desktop/Hotel/Hotel/main.cpp" "C:/Users/MSI/Desktop/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

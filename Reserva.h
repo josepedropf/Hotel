@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <list>
 #include <string>
 #include <algorithm>
 
@@ -16,9 +17,8 @@ public:
     data data_inicio, data_fim;
     int lugaresp, duracao, idnumero;
     float preco;
-    vector <Quarto> quartos_res;
+    list <Quarto *> quartos_res;
     bool primeiravez = true;
-    vector <Quarto> GetQuartosRes() {return quartos_res;}
     static bool PrimeiraReserva(Reserva r1, Reserva r2) {return r1.primeiravez > r2.primeiravez;}
     static bool Duracaocomp_Decr(Reserva r1, Reserva r2) {return r1.duracao > r2.duracao;}
     static bool Duracaocomp_Cr(Reserva r1, Reserva r2) {return r1.duracao < r2.duracao;}
@@ -29,9 +29,11 @@ public:
     static bool DataIcomp_Cr(Reserva r1, Reserva r2) {return r1.data_inicio < r2.data_inicio;}
     static bool P_DataIcomp_Cr(Reserva *r1, Reserva *r2) {return r1->data_inicio < r2->data_inicio;}
     static bool DataFcomp_Decr(Reserva r1, Reserva r2) {return r1.data_fim > r2.data_fim;}
+    static bool P_DataFcomp_Decr(Reserva *r1, Reserva *r2) {return r1->data_fim > r2->data_fim;}
     static bool DataFcomp_Cr(Reserva r1, Reserva r2) {return r1.data_fim < r2.data_fim;}
-    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, vector <Quarto> quartos_res);
-    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, vector <Quarto> quartos_res, bool primeiravez);
+    static bool P_DataFcomp_Cr(Reserva *r1, Reserva *r2) {return r1->data_fim < r2->data_fim;}
+    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res);
+    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez);
     ~Reserva() {};
     bool operator==(const Reserva &r2) const;
     void Info() const;

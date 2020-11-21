@@ -3,24 +3,33 @@
 
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include <string>
 #include <algorithm>
+#include <list>
 
 #include "Data.h"
+#include "Produto.h"
 #include "Funcionario.h"
-#include "Cliente.h"
-
-using namespace std;
 
 class Servico{
 public:
     string nome;
-    float custo, preco;
-    vector <Funcionario> func_ocupados;
-    vector <Cliente> clientes_servidos;
-    bool extra;
-
+    int idnumero;
+    data data_realizacao;
+    float margem_lucro, custo, preco_consumidor, taxa, lucro;
+    list <Produto *> produtos_consumidos;
+    list <Funcionario *> funcionarios_ocupados;
+    Servico(string nome, int idnumero, data data_realizacao, float taxa);
+    Servico(string nome, int idnumero, data data_realizacao, float taxa, list <Funcionario *> funcionarios_ocupados);
+    Servico(string nome, int idnumero, data data_realizacao, float taxa, list <Funcionario *> funcionarios_ocupados, list <Produto *> produtos_consumidos, float margem_lucro);
+    Servico(string nome, int idnumero, data data_realizacao, float taxa, list <Produto *> produtos_consumidos, float margem_lucro);
+    ~Servico() {};
+    void Info() const;
+    bool operator==(const Servico &s2) const{return idnumero == s2.idnumero;}
 };
+
+
 
 
 #endif //HOTEL_SERVICO_H

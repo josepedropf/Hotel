@@ -3,7 +3,7 @@
 Quarto::Quarto(tipo_quarto tquarto, int piso, int numero, int capacidade, float preco) {
     this->tquarto = tquarto;
     this->piso = piso;
-    this->numero = numero;
+    this->numero = abs(numero);
     this->capacidade = capacidade;
     this->preco = preco;
     this->promo = tquarto;
