@@ -42,6 +42,22 @@ void Menu::ImportarHotel(Hotel &H, string localizacao) {
     H.ImportarServicos(localizacao);
 }
 
+void Menu::PrintHotel() {
+    cout << endl << endl << "||| " << "BEM-VINDO AO GRANDE HOTEL " << H.nome << " |||" << endl << endl;
+    PrintList(H.GetQuartos());
+    PrintList(H.GetProdutos());
+    PrintList(H.GetFuncionariosGestores());
+    PrintList(H.GetFuncionariosResponsaveis());
+    PrintList(H.GetFuncionariosLimpeza());
+    PrintList(H.GetFuncionariosGestores());
+    PrintList(H.GetFuncionarios());
+    PrintList(H.GetClientes());
+    PrintList(H.GetServicos());
+    PrintList(H.GetEstadias());
+    PrintList(H.GetReservasAtuais());
+    PrintList(H.GetReservas());
+}
+
 string Menu::NomeFicheiro(){
     string localizacao;
     ifstream inficheiro;
@@ -108,6 +124,49 @@ unsigned Menu::ProcessarInputInt(vector<string> opcoes, string titulo) {
     return resposta;
 }
 
+
+template<class T>
+bool Menu::ProcuraValida(int id, list<T> l) {
+    for(auto it = l.begin(); it != l.end(); it++){
+        if((*it).ID() == id) return true;
+    }
+    return false;
+}
+
+template<class T>
+T Menu::EfetuarProcura(int id, list<T> l) {
+    for(auto it = l.begin(); it != l.end(); it++){
+        if((*it).ID() == id) return (*it);
+    }
+}
+
+template<class T>
+int Menu::ProcessarInputProcura(string titulo, list<T> l) {
+    int resposta;
+    ImprimeTit(titulo);
+    cout << "[-X] Voltar" << endl;
+    cout << "[-1] Ver Info" << endl;
+    cout << "[+X] O ID do Elemento que Procura" << endl;
+    cout << "Escolha: ";
+    cin >> resposta;
+    while(cin.fail() || resposta == -1 || (resposta >= 0 && !ProcuraValida(resposta, l))){
+        ImprimeTit(titulo);
+        if(resposta == -1) PrintList(l);
+        cout << "[-X] Voltar" << endl;
+        cout << "[-1] Ver Info" << endl;
+        cout << "[+X] O ID do Elemento que Procura" << endl;
+        if(cin.fail()) cout << "Input Inválido! Tem de ser um número inteiro." << endl;
+        else{
+            cout << "Não foi encontrado nenhum elemento correspondente à sua Pesquisa." << endl;
+            cout << "Escolha [-1] para a Informação dos elementos da Classe que escolheu ou tente pesquisar novamente." << endl;
+        }
+        cout << "Escolha: ";
+        cin >> resposta;
+    }
+    if(resposta < -1) return -1;
+    else return resposta;
+}
+
 void Menu::Inicial() {
     string titulo = "Início";
     vector<string> opcoes = {"Importar Hotel a partir de Ficheiro", "Criar Hotel do Início"};
@@ -116,6 +175,7 @@ void Menu::Inicial() {
     if(resposta == 0){
         string localizacao = NomeFicheiro();
         ImportarHotel(H, localizacao);
+        PrintHotel();
     }
     return Principal();
 }
@@ -160,11 +220,12 @@ void Menu::Importar() {
                 PrintList(H.GetReservas());
                 break;
             case 5:
-                //Importar Servicos;
+                H.ImportarServicos(localizacao);
+                PrintList(H.GetServicos());
                 break;
             case 6:
                 ImportarHotel(H, localizacao);
-                //PrintHotel;
+                PrintHotel();
                 break;
             case 7:
                 return Principal();
@@ -178,27 +239,208 @@ void Menu::VerInfo() {
     unsigned resposta, segresp;
     vector<string> opcoes = membros;
     opcoes.push_back("Hotel");
-    for (int i = 0; opcoes.size() > i; i++){
+    for (int i = 0; opcoes.size() > i; i++) {
         opcoes[i] = "Ver Info " + opcoes[i];
     }
     opcoes.push_back("Voltar");
     resposta = ProcessarInputInt(opcoes, "Ver Informação");
-    if(resposta == 7) return Principal();
-    if (resposta == 6){
-        //PrintHotel
+    if (resposta == 7) return Principal();
+    if (resposta == 6) {
+        PrintHotel();
         return VerInfo();
     }
-    vector<string> segopcoes = {"Ver Informação de Todos", "Ver Informação de 1 em Específico", "Voltar", "Voltar ao Menu Principal"};
+    vector<string> segopcoes = {"Ver Informação de Todos", "Ver Informação de 1 em Específico", "Voltar",
+                                "Voltar ao Menu Principal"};
     segresp = ProcessarInputInt(segopcoes, opcoes[resposta]);
-    if(segresp == 3) return Principal();
-    if(segresp == 2) return VerInfo();
-
+    unsigned tresposta;
+    string sectit = segopcoes[segresp] + " " + opcoes[resposta];
+    vector<string> topcoes;
+    vector<string> resopcoes = {"Estadia", "Reserva Atual", "Reserva"};
+    for (int i = 0; resopcoes.size() > i; i++) {
+        resopcoes[i] = "Ver Info de " + resopcoes[i];
+    }
+    resopcoes.push_back("Voltar");
+    resopcoes.push_back("Voltar ao Menu Principal");
+    for (int i = 0; tfuncionarios.size() > i; i++) {
+        topcoes.push_back("Ver Info Funcionários " + tfuncionarios[i]);
+    }
+    topcoes.push_back("Voltar");
+    topcoes.push_back("Voltar ao Menu Principal");
+    if (segresp == 3) return Principal();
+    if (segresp == 2) return VerInfo();
+    if (segresp == 0) {
+        switch (resposta) {
+            case 0:
+                PrintList(H.GetClientes());
+                return VerInfo();
+            case 1:
+                tresposta = ProcessarInputInt(topcoes, sectit);
+                switch (tresposta) {
+                    case 0:
+                        PrintList(H.GetFuncionarios());
+                        break;
+                    case 1:
+                        PrintList(H.GetFuncionariosRececao());
+                        break;
+                    case 2:
+                        PrintList(H.GetFuncionariosResponsaveis());
+                        break;
+                    case 3:
+                        PrintList(H.GetFuncionariosLimpeza());
+                        break;
+                    case 4:
+                        PrintList(H.GetFuncionariosGestores());
+                        break;
+                    case 5:
+                        return VerInfo();
+                    case 6:
+                        return Principal();
+                    default:
+                        break;
+                }
+                return VerInfo();
+            case 2:
+                PrintList(H.GetProdutos());
+                return VerInfo();
+            case 3:
+                PrintList(H.GetQuartos());
+                return VerInfo();
+            case 4:
+                PrintList(H.GetEstadias());
+                PrintList(H.GetReservasAtuais());
+                PrintList(H.GetReservas());
+                return VerInfo();
+            case 5:
+                PrintList(H.GetServicos());
+                return VerInfo();
+            default:
+                return VerInfo();
+        }
+    }
+    int procurainput;
+    if (segresp == 1) {
+        switch (resposta) {
+            case 0:
+                procurainput = ProcessarInputProcura(sectit, H.GetClientes());
+                if (procurainput == -1) return VerInfo();
+                else EfetuarProcura(procurainput, H.GetClientes()).Info();
+                break;
+            case 1:
+                tresposta = ProcessarInputInt(topcoes, sectit);
+                switch (tresposta) {
+                    case 0:
+                        procurainput = ProcessarInputProcura(sectit, H.GetFuncionarios());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetFuncionarios()).Info();
+                        break;
+                    case 1:
+                        procurainput = ProcessarInputProcura(sectit, H.GetFuncionariosRececao());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetFuncionariosRececao()).Info();
+                        break;
+                    case 2:
+                        procurainput = ProcessarInputProcura(sectit, H.GetFuncionariosResponsaveis());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetFuncionariosResponsaveis()).Info();
+                        break;
+                    case 3:
+                        procurainput = ProcessarInputProcura(sectit, H.GetFuncionariosLimpeza());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetFuncionariosLimpeza()).Info();
+                        break;
+                    case 4:
+                        procurainput = ProcessarInputProcura(sectit, H.GetFuncionariosGestores());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetFuncionariosGestores()).Info();
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 2:
+                procurainput = ProcessarInputProcura(sectit, H.GetProdutos());
+                if (procurainput == -1) return VerInfo();
+                else EfetuarProcura(procurainput, H.GetProdutos()).Info();
+                break;
+            case 3:
+                procurainput = ProcessarInputProcura(sectit, H.GetQuartos());
+                if (procurainput == -1) return VerInfo();
+                else EfetuarProcura(procurainput, H.GetQuartos()).Info();
+                break;
+            case 4:
+                tresposta = ProcessarInputInt(resopcoes, sectit);
+                switch (tresposta) {
+                    case 0:
+                        procurainput = ProcessarInputProcura(sectit, H.GetEstadias());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetEstadias()).Info();
+                        break;
+                    case 1:
+                        procurainput = ProcessarInputProcura(sectit, H.GetReservasAtuais());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetReservasAtuais()).Info();
+                        break;
+                    case 2:
+                        procurainput = ProcessarInputProcura(sectit, H.GetReservas());
+                        if (procurainput == -1) return VerInfo();
+                        else EfetuarProcura(procurainput, H.GetReservas()).Info();
+                        break;
+                    case 3:
+                        return VerInfo();
+                    case 4:
+                        return Principal();
+                    default:
+                        break;
+                }
+            case 5:
+                procurainput = ProcessarInputProcura(sectit, H.GetServicos());
+                if (procurainput == -1) return VerInfo();
+                else EfetuarProcura(procurainput, H.GetServicos()).Info();
+                break;
+            default:
+                break;
+        }
+    }
+    return VerInfo();
 }
 
 void Menu::Principal() {
-    string titulo = "Bem-vindo ao " + H.nome;
+    unsigned resposta;
+    string titulo = "Bem-vindo ao grande Hotel " + H.nome;
     ImprimeTit(titulo);
     vector <string> opcoes = {"Importar...", "Ver Informação...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Contratar / Despedir", "Check-in / Check-out", "Finanças", "Outros", "Exportar"};
-    //ImprimeOp(opcoes);
-
+    resposta = ProcessarInputInt(opcoes, titulo);
+    switch (resposta){
+        case 0:
+            return Importar();
+        case 1:
+            return VerInfo();
+        case 2:
+            Importar();
+            break;
+        case 3:
+            Importar();
+            break;
+        case 4:
+            Importar();
+            break;
+        case 5:
+            Importar();
+            break;
+        case 6:
+            Importar();
+            break;
+        case 7:
+            Importar();
+            break;
+        case 8:
+            Importar();
+            break;
+        case 9:
+            Importar();
+            break;
+        default:
+            return Principal();
+    }
+    return Principal();
 }

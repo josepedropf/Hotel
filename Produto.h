@@ -22,6 +22,7 @@ public:
     Produto(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco);
     ~Produto() {};
     void Info() const;
+    int ID() const {return numero;}
     bool operator==(const Produto &p2) const{return numero == p2.numero;}
 };
 

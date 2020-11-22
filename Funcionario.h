@@ -28,6 +28,7 @@ public:
     Funcionario(string nome, int nif, int anos_servico, float salario, tipo_cargo cargo);
     ~Funcionario() {};
     virtual void Info() const;
+    int ID() const {return nif;}
     bool operator==(Funcionario & f2) {return nif == f2.nif;}
 };
 

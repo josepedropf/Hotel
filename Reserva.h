@@ -37,6 +37,7 @@ public:
     ~Reserva() {};
     bool operator==(const Reserva &r2) const;
     void Info() const;
+    int ID() const {return idnumero;}
 };
 
 

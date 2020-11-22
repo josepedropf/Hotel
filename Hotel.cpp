@@ -832,7 +832,6 @@ void Hotel::ImportarClientes(string localizacao) {
     string line;
     while (line != "Clientes" && !inficheiro.eof()) {
         getline(inficheiro, line);
-        cout << endl << "DEBUG" << "line: " << line << endl;
     }
     string nomet= "", nomep = "";
     int nif, usual;
@@ -865,7 +864,6 @@ void Hotel::ImportarFuncionarios(string localizacao) {
     string line;
     while (line != "Funcionários" && !inficheiro.eof()) {
         getline(inficheiro, line);
-        cout << endl << "DEBUG" << "line: " << line << endl;
     }
     string nomet= "", nomep = "";
     vector <int> pisos;

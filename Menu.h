@@ -18,6 +18,7 @@ class Menu{
 private:
     Hotel H;
     vector <string> membros = {"Cliente", "Funcionário", "Produto", "Quarto", "Reserva", "Servico"};
+    vector <string> tfuncionarios = {"Normais", "Rececão", "Responsáveis", "Limpeza", "Gestores"};
     vector <string> membros_semRes = {"Cliente", "Funcionário", "Produto", "Quarto", "Servico"};
 public:
     Menu() {};
@@ -50,12 +51,23 @@ public:
     void PrintPointerListFunc(list <Funcionario *> pl);
 
     void ImportarHotel(Hotel &H, string localizacao);
+    void PrintHotel();
 
     string NomeFicheiro();
     void ImprimeTit(string titulo);
     void ImprimeOp(vector <string> opcoes, bool aviso);
+
     unsigned ProcessarInputInt(vector <string> opcoes, string titulo, unsigned liminf, unsigned limsup);
     unsigned ProcessarInputInt(vector <string> opcoes, string titulo);
+
+    template<class T>
+    bool ProcuraValida(int id, list <T> l);
+    template<class T>
+    T EfetuarProcura(int id, list <T> l);
+
+    template<class T>
+    int ProcessarInputProcura(string titulo, list <T> l);
+
 
     void Inicial();
 

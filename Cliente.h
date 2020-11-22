@@ -29,6 +29,7 @@ public:
     Cliente(string nome, int nif, list <Reserva *> estadias_anteriores);
     ~Cliente() {};
     void Info() const;
+    int ID() const {return nif;}
     bool operator==(const Cliente &c2) const{return (nif == c2.nif);}
 
     float GetConta();

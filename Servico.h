@@ -27,6 +27,7 @@ public:
     Servico(string nome, int idnumero, data data_realizacao, float taxa, list <Produto *> produtos_consumidos, float margem_lucro);
     ~Servico() {};
     void Info() const;
+    int ID() const {return idnumero;}
     bool operator==(const Servico &s2) const{return idnumero == s2.idnumero;}
 };
 
