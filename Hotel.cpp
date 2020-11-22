@@ -989,7 +989,7 @@ void Hotel::ImportarReservas(string localizacao) {
     inficheiro.close();
 }
 
-void Hotel::ImportarServico(string localizacao) {
+void Hotel::ImportarServicos(string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
     if(inficheiro.fail()){
@@ -1007,6 +1007,8 @@ void Hotel::ImportarServico(string localizacao) {
     vector <int> fnifs, pnums;
     getline(inficheiro, line);
     while(line != "" && !inficheiro.eof()){
+        fnifs.clear();
+        pnums.clear();
         nomet= "";
         nomep = "";
         sf = "";
@@ -1037,16 +1039,16 @@ void Hotel::ImportarServico(string localizacao) {
                         if(sp != "" && sp != ",") pnums.push_back(stoi(sp));
                     }
                     ss >> mlucro;
-                    PrestarServico(nifcliente, nome, idnum, data_realizacao, taxa, fnifs, pnums, mlucro);
+                    PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, fnifs, pnums, mlucro);
                 }
-                else PrestarServico(nifcliente, nome, idnum, data_realizacao, taxa, fnifs);
+                else PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, fnifs);
             }
             else{
                 while(ss >> sp && sp != ","){
                     if(sp != "" && sp != ",") pnums.push_back(stoi(sp));
                 }
                 ss >> mlucro;
-                PrestarServico(nifcliente, nome, idnum, data_realizacao, taxa, pnums, mlucro);
+                PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, pnums, mlucro);
             }
         }
         getline(inficheiro, line);
@@ -1130,7 +1132,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
                 else outficheiro << endl;
             }
             else{
-                if(prodcons != "p ") outficheiro << " " << prodcons + " " << (*it).margem_lucro << endl;
+                if(prodcons != "p ") outficheiro << " " << prodcons + ", " << (*it).margem_lucro << endl;
             }
         }
     }

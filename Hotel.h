@@ -127,7 +127,7 @@ public:
     void ImportarFuncionarios(string localizacao);
     void ImportarProdutos(string localizacao);
     void ImportarReservas(string localizacao);
-    void ImportarServico(string localizacao);
+    void ImportarServicos(string localizacao);
 
     void EscreverHotel(string nomeficheiro);
 

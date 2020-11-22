@@ -176,56 +176,57 @@ int main() {
     //H.Pesquisa_F_Salario(1);
 
 
-    /*
-    H.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
-    list <Quarto> q = H.GetQuartos();
-    M.PrintList(q);
+
+    Ho.ImportarQuartos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //list <Quarto> q = H.GetQuartos();
+    //M.PrintList(q);
 
 
-    H.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
-    list <Cliente> c = H.GetClientes();
-    M.PrintList(c);
+    Ho.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //list <Cliente> c = H.GetClientes();
+    //M.PrintList(c);
 
-    H.ImportarFuncionarios("C:\\Users\\MSI\\Desktop\\h1.txt");
-    list <Funcionario> f = H.GetFuncionarios();
-    M.PrintList(f);
+    Ho.ImportarFuncionarios("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //list <Funcionario> f = H.GetFuncionarios();
+    //M.PrintList(f);
 
-    H.Contratar("Canas", 9999, fresponsavel);
-    list <F_Responsavel> frr = H.GetFuncionariosResponsaveis();
-    M.PrintList(frr);
+    Ho.Contratar("Canas", 9999, fresponsavel);
+    //list <F_Responsavel> frr = H.GetFuncionariosResponsaveis();
+    //M.PrintList(frr);
 
-    H.ImportarProdutos("C:\\Users\\MSI\\Desktop\\h1.txt");
-    list <Produto> p = H.GetProdutos();
-    M.PrintList(p);
+    Ho.ImportarProdutos("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //list <Produto> p = H.GetProdutos();
+    //M.PrintList(p);
 
-    H.ImportarReservas("C:\\Users\\MSI\\Desktop\\h1.txt");
-    list <Reserva> r = H.GetReservas();
-    M.PrintList(r);
-
-
-    H.AddProduto(Produto("massa", 1222, restauracao, ma, 4.36));
-    p = H.GetProdutos();
-    M.PrintList(p);
-
-    H.AddCliente(Cliente("André Soares Meira", 1234587424, true));
-    c = H.GetClientes();
-    M.PrintList(c);
-
-    H.AddQuarto(Quarto(suite, 1, 199, 5, 78.5));
-    q = H.GetQuartos();
-    M.PrintList(q);
-
-    H.AddFuncionarioGestor(F_Gestor("Diogo Pires", 1979801, 5, 1800, boa));
-    f = H.GetFuncionarios();
-    M.PrintList(f);
-
-    H.AddFuncionarioResponsavel(F_Responsavel("César Torres", 99995559, 12, 3000, {1, 2}));
-    f = H.GetFuncionarios();
-    M.PrintList(f);
+    Ho.ImportarReservas("C:\\Users\\MSI\\Desktop\\h1.txt");
+    //list <Reserva> r = H.GetReservas();
+    //M.PrintList(r);
 
 
-    H.Reservar(3, 2734, {.dia = 3, .mes = 11, .ano = 2022}, {.dia = 22, .mes = 11, .ano = 2022}, 1, {199});
+    Ho.AddProduto(Produto("massa", 1222, restauracao, ma, 4.36));
+    //p = H.GetProdutos();
+    //M.PrintList(p);
 
+    Ho.AddCliente(Cliente("André Soares Meira", 1234587424, true));
+    //c = H.GetClientes();
+    //M.PrintList(c);
+
+    Ho.AddQuarto(Quarto(suite, 1, 199, 5, 78.5));
+    //q = H.GetQuartos();
+    //M.PrintList(q);
+
+    Ho.AddFuncionarioGestor(F_Gestor("Diogo Pires", 1979801, 5, 1800, boa));
+    //f = H.GetFuncionarios();
+    //M.PrintList(f);
+
+    Ho.AddFuncionarioResponsavel(F_Responsavel("César Torres", 99995559, 12, 3000, {1, 2}));
+    //f = H.GetFuncionarios();
+    //M.PrintList(f);
+
+
+    Ho.Reservar(3, 2734, {.dia = 3, .mes = 11, .ano = 2022}, {.dia = 22, .mes = 11, .ano = 2022}, 1, {199});
+
+        /*
     H.PrestarServico(1, "jantar", 1122, {.dia = 6, .mes = 10, .ano = 2018}, 5);
     H.PrestarServico(2, "almoço", 1598, {.dia = 7, .mes = 10, .ano = 2018}, 2, {9999});
     H.PrestarServico(3, "massagem completa", 696969, {.dia = 8, .mes = 10, .ano = 2018}, 2.5, {202}, 25);
@@ -242,12 +243,12 @@ int main() {
     */
 
 
-    Ho.Contratar("Ana", 741);
-    Ho.ImportarClientes("C:\\Users\\MSI\\Desktop\\h1.txt");
-    Ho.ImportarServico("C:\\Users\\MSI\\Desktop\\h1.txt");
+    Ho.ImportarServicos("C:\\Users\\MSI\\Desktop\\h1.txt");
     Ho.AddQuarto(Quarto(suite, 1, 145, 4, 45.7));
 
 
     M.PrintList(Ho.GetServicos());
+
+    Ho.EscreverHotel("Marateca02");
 
 }

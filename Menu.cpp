@@ -1,28 +1,5 @@
 #include "Menu.h"
 
-template<class T>
-void Menu::PrintV(const vector<T> &v) {
-    int vsize = v.size();
-    cout << endl;
-    cout << "|||-> " << endl << endl;
-    for (int i = 0; vsize > i; i++){
-        v[i].Info();
-        cout << endl;
-    }
-    cout << "<-||| " << endl;
-}
-
-template<class T>
-void Menu::PrintList(const list<T> &l) {
-    cout << endl;
-    cout << "|||-> " << endl << endl;
-    for (auto it = l.begin(); it != l.end(); it++){
-        (*it).Info();
-        cout << endl;
-    }
-    cout << "<-||| " << endl;
-}
-
 
 void Menu::PrintPointerListReserva(list<Reserva *> pl) {
     cout << endl;
@@ -62,6 +39,7 @@ void Menu::ImportarHotel(Hotel &H, string localizacao) {
     H.ImportarClientes(localizacao);
     H.ImportarFuncionarios(localizacao);
     H.ImportarReservas(localizacao);
+    H.ImportarServicos(localizacao);
 }
 
 string Menu::NomeFicheiro(){

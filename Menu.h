@@ -24,9 +24,27 @@ public:
     ~Menu() {};
 
     template<class T>
-    void PrintV(const vector<T>& v);
+    void PrintV(const vector<T> &v) {
+        int vsize = v.size();
+        cout << endl;
+        cout << "|||-> " << endl << endl;
+        for (int i = 0; vsize > i; i++){
+            v[i].Info();
+            cout << endl;
+        }
+        cout << "<-||| " << endl;
+    }
+
     template<class T>
-    void PrintList(const list<T>& l);
+    void PrintList(const list<T> &l) {
+        cout << endl;
+        cout << "|||-> " << endl << endl;
+        for (auto it = l.begin(); it != l.end(); it++){
+            (*it).Info();
+            cout << endl;
+        }
+        cout << "<-||| " << endl;
+    }
 
     void PrintPointerListReserva(list<Reserva *> pl);
     void PrintPointerListFunc(list <Funcionario *> pl);
