@@ -139,6 +139,20 @@ public:
     template <class T>
     void ApagarElementoL(list <T> l, T elemento);
 
+    template <class T>
+    void ApagarElementoID(list <T> &l, int id){
+        for(auto it = l.begin(); it != l.end(); it++){
+            if((*it).ID() == id){
+                it = l.erase(it);
+                break;
+            }
+        }
+    }
+    
+    void ApagarCliente(int id) {return ApagarElementoID(clientes, id);}
+    void ApagarQuarto(int id) {return ApagarElementoID(quartos, id);}
+    void ApagarProduto(int id) {return ApagarElementoID(produtos, id);}
+
     int EncontrarIndexReserva(vector <Reserva> vr, Reserva r);
     int EncontrarIndexReserva(vector <Reserva *> vr, Reserva *r);
     void ApagarReservaL(list <Reserva> lr, Reserva r);

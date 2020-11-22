@@ -27,6 +27,8 @@ public:
     Funcionario(string nome, int nif, int anos_servico, float salario);
     Funcionario(string nome, int nif, int anos_servico, float salario, tipo_cargo cargo);
     ~Funcionario() {};
+    void AddAnoServico() {anos_servico++; salario += salario * 0.05;}
+    void SetSalario(float novosalario) {salario = novosalario;}
     virtual void Info() const;
     int ID() const {return nif;}
     bool operator==(Funcionario & f2) {return nif == f2.nif;}
@@ -44,6 +46,7 @@ public:
     vector <int> pisos_resp;
     F_Responsavel(string nome, int nif, int anos_servico, float salario);
     F_Responsavel(string nome, int nif, int anos_servico, float salario, vector<int> pisos_resp);
+    void AddPiso(int piso) {pisos_resp.push_back(piso);}
     virtual void Info() const;
 };
 
@@ -53,6 +56,7 @@ class F_Limpeza : public Funcionario{
 public:
     tipo_turno turno;
     F_Limpeza(string nome, int nif, int anos_servico, float salario, tipo_turno turno);
+    void SetTurno(tipo_turno novoturno) {turno = novoturno;}
     virtual void Info() const;
 };
 
@@ -63,6 +67,7 @@ public:
     F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao);
     void Promocoes(list <Quarto *> quartos_promo);
     Produto Escolher_Prod(list <Produto *> prods);
+    void SetAvaliacao(nota_avaliacao nova_avaliacao) {av_prestacao = nova_avaliacao;}
     virtual void Info() const;
 };
 

@@ -63,17 +63,25 @@ string Menu::NomeFicheiro(){
     ifstream inficheiro;
     cout<<"Introduza o nome do ficheiro: ";
     cin>>localizacao;
-    if(localizacao.substr(localizacao.length() - 4) != ".txt") localizacao += ".txt";
+    if(!cin.fail()){
+        if(localizacao.substr(localizacao.size() < 4 || localizacao.length() - 4) != ".txt") localizacao += ".txt";
+    }
     inficheiro.open(localizacao);
-    while(inficheiro.fail())
+    while(cin.fail() || inficheiro.fail())
     {
+        cin.clear();
+        cin.ignore(1000, '\n');
         inficheiro.clear();
         cout << "Nome do ficheiro incorreto." << endl;
         cout<<"Introduza o nome do ficheiro: ";
         cin>>localizacao;
-        if(localizacao.substr(localizacao.length() - 4) != ".txt") localizacao += ".txt";
+        if(!cin.fail()){
+            if(localizacao.substr(localizacao.size() < 4 || localizacao.length() - 4) != ".txt") localizacao += ".txt";
+        }
         inficheiro.open(localizacao);
     }
+    cin.clear();
+    cin.ignore(1000, '\n');
     inficheiro.close();
     return localizacao;
 }
@@ -86,7 +94,7 @@ void Menu::ImprimeTit(string titulo) {
     cout << endl << endl << "|| " << uptitulo << " ||" << endl << endl;
 }
 
-void Menu::ImprimeOp(vector <string> opcoes, bool aviso) {
+void Menu::ImprimeOp(vector <string> opcoes, bool aviso, bool enm) {
     for(int i = 0; opcoes.size() > i; i++) {
         if (opcoes.size() <= 10) cout << "[" << i << "] " << opcoes[i] << endl;
         else {
@@ -95,35 +103,306 @@ void Menu::ImprimeOp(vector <string> opcoes, bool aviso) {
         }
     }
     if(aviso) cout << "Input inválido. Insira um número entre 0 e " << opcoes.size() - 1 << "." << endl;
-    cout << "Escolha: ";
+    if(!enm) cout << "Escolha: ";
 }
 
 unsigned Menu::ProcessarInputInt(vector<string> opcoes, string titulo, unsigned liminf, unsigned limsup) {
     unsigned resposta;
     ImprimeTit(titulo);
-    ImprimeOp(opcoes, false);
+    ImprimeOp(opcoes, false, false);
     cin >> resposta;
     while (cin.fail() || resposta < liminf || resposta > limsup){
+        cin.clear();
+        cin.ignore(1000, '\n');
         ImprimeTit(titulo);
-        ImprimeOp(opcoes, true);
+        ImprimeOp(opcoes, true, false);
         cin >> resposta;
     }
+    cin.clear();
+    cin.ignore(1000, '\n');
     return resposta;
 }
 
 unsigned Menu::ProcessarInputInt(vector<string> opcoes, string titulo) {
     unsigned liminf = 0, limsup = opcoes.size() - 1, resposta;
     ImprimeTit(titulo);
-    ImprimeOp(opcoes, false);
+    ImprimeOp(opcoes, false, false);
     cin >> resposta;
     while (cin.fail() || resposta < liminf || resposta > limsup){
+        cin.clear();
+        cin.ignore(1000, '\n');
         ImprimeTit(titulo);
-        ImprimeOp(opcoes, true);
+        ImprimeOp(opcoes, true, false);
         cin >> resposta;
     }
+    cin.clear();
+    cin.ignore(1000, '\n');
     return resposta;
 }
 
+template<class T>
+T Menu::InputRestrita(string texto) {
+    T resposta;
+    cout << endl << texto;
+    cin >> resposta;
+    while (cin.fail()){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto;
+        cin >> resposta;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
+
+string Menu::InputNome(string texto) {
+    string resposta;
+    cout << endl << texto;
+    getline(cin, resposta);
+    while (cin.fail()){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto;
+        getline(cin, resposta);
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
+
+data Menu::InputData(string texto) {
+    data resposta;
+    int dia, mes, ano;
+    bool mespr = false;
+    vector <int> mesproibido;
+    cout << endl << texto << endl << "Introduza o dia: ";
+    cin >> dia;
+    while (cin.fail() || dia < 1 || dia > 31){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto << endl << "Introduza o dia: ";
+        cin >> dia;
+    }
+    if(dia > 28) mesproibido.push_back(2);
+    if(dia > 30){
+        mesproibido.push_back(4);
+        mesproibido.push_back(6);
+        mesproibido.push_back(9);
+        mesproibido.push_back(11);
+    }
+    cout << endl << texto << endl << "Introduza o mês: ";
+    cin >> mes;
+    if(!cin.fail() && mes >= 1 && mes <= 12){
+        for(int i = 0; mesproibido.size() > i; i++){
+            if(mesproibido[i] == mes) {
+                mespr = true;
+                break;
+            }
+        }
+    }
+    while (cin.fail() || mes < 1 || mes > 12 || mespr){
+        mespr = false;
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto << endl << "Introduza o mês: ";
+        cin >> mes;
+        if(!cin.fail() && mes >= 1 && mes <= 12){
+            for(int i = 0; mesproibido.size() > i; i++){
+                if(mesproibido[i] == mes) {
+                    mespr = true;
+                    break;
+                }
+            }
+        }
+    }
+    cout << endl << texto << endl << "Introduza o ano: ";
+    cin >> ano;
+    while (cin.fail()){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto << endl << "Introduza o ano: ";
+        cin >> ano;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    resposta = {.dia = dia, .mes = mes, .ano = ano};
+    return resposta;
+}
+
+nota_avaliacao Menu::InputNota(string texto){
+    int respint;
+    nota_avaliacao resposta;
+    vector<string> opcoes = {"Má" , "Insuficiente", "Razoável", "Boa", "Excelente"};
+    ImprimeOp(opcoes, false, true);
+    cout << texto;
+    cin >> respint;
+    while(cin.fail() || respint < 0 || respint > 4){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeOp(opcoes, true, true);
+        cout << texto;
+        cin >> respint;
+    }
+    switch (respint){
+        case 0:
+            resposta = ma;
+            break;
+        case 1:
+            resposta = insuficiente;
+            break;
+        case 2:
+            resposta = razoavel;
+            break;
+        case 3:
+            resposta = boa;
+            break;
+        case 4:
+            resposta = excelente;
+            break;
+        default:
+            resposta = razoavel;
+            break;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
+
+tipo_cargo Menu::InputCargo(string texto) {
+    int respint;
+    tipo_cargo resposta;
+    vector<string> opcoes = {"Normal" , "Receção", "Responsável", "Limpeza", "Gestor"};
+    ImprimeOp(opcoes, false, true);
+    cout << texto;
+    cin >> respint;
+    while(cin.fail() || respint < 0 || respint > 4){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeOp(opcoes, true, true);
+        cout << texto;
+        cin >> respint;
+    }
+    switch (respint){
+        case 0:
+            resposta = naodef;
+            break;
+        case 1:
+            resposta = frececao;
+            break;
+        case 2:
+            resposta = fresponsavel;
+            break;
+        case 3:
+            resposta = flimpeza;
+            break;
+        case 4:
+            resposta = fgestor;
+            break;
+        default:
+            resposta = naodef;
+            break;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
+
+tipo_turno Menu::InputTurno(string texto) {
+    int respint;
+    tipo_turno resposta;
+    vector<string> opcoes = {"Dia" , "Noite"};
+    ImprimeOp(opcoes, false, true);
+    cout << texto;
+    cin >> respint;
+    while(cin.fail() || respint < 0 || respint > 1){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeOp(opcoes, true, true);
+        cout << texto;
+        cin >> respint;
+    }
+    switch (respint){
+        case 0:
+            resposta = dia;
+            break;
+        case 1:
+            resposta = noite;
+            break;
+        default:
+            resposta = dia;
+            break;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
+
+tipo_produto Menu::InputTProd(string texto) {
+    int respint;
+    tipo_produto resposta;
+    vector<string> opcoes = {"Restauração" , "Limpeza", "Souvenir"};
+    ImprimeOp(opcoes, false, true);
+    cout << texto;
+    cin >> respint;
+    while(cin.fail() || respint < 0 || respint > 2){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeOp(opcoes, true, true);
+        cout << texto;
+        cin >> respint;
+    }
+    switch (respint){
+        case 0:
+            resposta = restauracao;
+            break;
+        case 1:
+            resposta = limpeza;
+            break;
+        case 2:
+            resposta = souvenir;
+            break;
+        default:
+            resposta = souvenir;
+            break;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
+
+tipo_quarto Menu::InputTQuarto(string texto) {
+    int respint;
+    tipo_quarto resposta;
+    vector<string> opcoes = {"Sem Vista" , "Com Vista", "Suíte"};
+    ImprimeOp(opcoes, false, true);
+    cout << texto;
+    cin >> respint;
+    while(cin.fail() || respint < 0 || respint > 2){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeOp(opcoes, true, true);
+        cout << texto;
+        cin >> respint;
+    }
+    switch (respint){
+        case 0:
+            resposta = sem_vista;
+            break;
+        case 1:
+            resposta = com_vista;
+            break;
+        case 2:
+            resposta = suite;
+            break;
+        default:
+            resposta = sem_vista;
+            break;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resposta;
+}
 
 template<class T>
 bool Menu::ProcuraValida(int id, list<T> l) {
@@ -404,6 +683,98 @@ void Menu::VerInfo() {
     return VerInfo();
 }
 
+void Menu::Adicionar() {
+    unsigned resposta;
+    string titulo = "Adicionar";
+    vector <string> opcoes = {"Cliente", "Produto", "Quarto"};
+    for(int i = 0; opcoes.size() > i; i++){
+        opcoes[i] = "Adicionar " + opcoes[i];
+    }
+    opcoes.push_back("Voltar");
+    resposta = ProcessarInputInt(opcoes, titulo);
+    if(resposta == 0){
+        int nif = InputRestrita<int>("Insira o NIF do Cliente: ");
+        string nome = InputNome("Insira o nome do Cliente: ");
+        bool usual = InputRestrita<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
+        while(!H.AddCliente(Cliente(nome, nif, usual))){
+            cout << "O Cliente que inseriu já existe!" << endl;
+            InputRestrita<int>("Insira o NIF do Cliente");
+            InputNome("Insira o nome do Cliente");
+            InputRestrita<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
+        }
+        EfetuarProcura(nif, H.GetClientes()).Info();
+        return Adicionar();
+    }
+    if(resposta == 1){
+        int numero = InputRestrita<int>("Insira o Número do Produto: ");
+        string nome = InputNome("Insira o nome do Produto: ");
+        tipo_produto tp = InputTProd("Insira o Tipo do Produto: ");
+        nota_avaliacao nav = InputNota("Insira a Qualidade do Produto: ");
+        float preco = InputRestrita<float>("Insira o Preço do Produto: ");
+        while(!H.AddProduto(Produto(nome, numero, tp, nav, preco))){
+            cout << "O Produto que inseriu já existe!" << endl;
+            numero = InputRestrita<int>("Insira o Número do Produto: ");
+            nome = InputNome("Insira o nome do Produto: ");
+            tp = InputTProd("Insira o Tipo do Produto: ");
+            nav = InputNota("Insira a Qualidade do Produto: ");
+            preco = InputRestrita<float>("Insira o Preço do Produto: ");
+        }
+        EfetuarProcura(numero, H.GetProdutos()).Info();
+        return Adicionar();
+    }
+    if(resposta == 2){
+        int numero = InputRestrita<int>("Insira o Número do Quarto: ");
+        tipo_quarto tq = InputTQuarto("Insira o Tipo de Quarto: ");
+        int piso = InputRestrita<int>("Insira o Piso do Quarto: ");
+        int capacidade = InputRestrita<int>("Insira a Capacidade do Quarto: ");
+        float preco = InputRestrita<float>("Insira o Preço do Quarto: ");
+        while(!H.AddQuarto(Quarto(tq, piso, numero, capacidade, preco))){
+            cout << "O Quarto que inseriu já existe!" << endl;
+            numero = InputRestrita<int>("Insira o Número do Quarto: ");
+            tq = InputTQuarto("Insira o Tipo de Quarto: ");
+            piso = InputRestrita<int>("Insira o Piso do Quarto: ");
+            capacidade = InputRestrita<int>("Insira a Capacidade do Quarto: ");
+            preco = InputRestrita<float>("Insira o Preço do Quarto: ");
+        }
+        EfetuarProcura(numero, H.GetQuartos()).Info();
+        return Adicionar();
+    }
+    if(resposta == 3) return Principal();
+    return Adicionar();
+}
+
+
+void Menu::Apagar() {
+    unsigned resposta;
+    int id;
+    string titulo = "Apagar", mensagem = "Insira o ID do membro que pretende apagar: ";
+    vector <string> opcoes = {"Cliente", "Produto", "Quarto"};
+    for(int i = 0; opcoes.size() > i; i++){
+        opcoes[i] = "Apagar " + opcoes[i];
+    }
+    opcoes.push_back("Voltar");
+    resposta = ProcessarInputInt(opcoes, titulo);
+    if(resposta == 0){
+        id = InputRestrita<int>(mensagem);
+        H.ApagarCliente(id);
+        return Apagar();
+    }
+    if(resposta == 1){
+        id = InputRestrita<int>(mensagem);
+        H.ApagarProduto(id);
+        return Apagar();
+    }
+    if(resposta == 2){
+        id = InputRestrita<int>(mensagem);
+        H.ApagarQuarto(id);
+        return Apagar();
+    }
+    if(resposta == 3) return Principal();
+    return Apagar();
+}
+
+
+
 void Menu::Principal() {
     unsigned resposta;
     string titulo = "Bem-vindo ao grande Hotel " + H.nome;
@@ -416,11 +787,9 @@ void Menu::Principal() {
         case 1:
             return VerInfo();
         case 2:
-            Importar();
-            break;
+            return Adicionar();
         case 3:
-            Importar();
-            break;
+            return Apagar();
         case 4:
             Importar();
             break;

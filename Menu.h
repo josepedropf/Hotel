@@ -55,10 +55,20 @@ public:
 
     string NomeFicheiro();
     void ImprimeTit(string titulo);
-    void ImprimeOp(vector <string> opcoes, bool aviso);
+    void ImprimeOp(vector <string> opcoes, bool aviso, bool enm);
 
     unsigned ProcessarInputInt(vector <string> opcoes, string titulo, unsigned liminf, unsigned limsup);
     unsigned ProcessarInputInt(vector <string> opcoes, string titulo);
+
+    template<class T>
+    T InputRestrita(string texto);
+    string InputNome(string texto);
+    data InputData(string texto);
+    nota_avaliacao InputNota(string texto);
+    tipo_cargo InputCargo(string texto);
+    tipo_turno InputTurno(string texto);
+    tipo_produto InputTProd(string texto);
+    tipo_quarto InputTQuarto(string texto);
 
     template<class T>
     bool ProcuraValida(int id, list <T> l);
@@ -73,6 +83,8 @@ public:
 
     void Importar();
     void VerInfo();
+    void Adicionar();
+    void Apagar();
 
     void Principal();
 
