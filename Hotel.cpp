@@ -176,6 +176,7 @@ bool Hotel::Reservar(Cliente &cliente, int idnumero, data data_inicial, data dat
              }
          }
      }
+     if (data_inicial >= data_final) return false;
      Reserva reserva(idnumero, data_inicial, data_final, lugaresperados, vq);
     if (AddReserva(reserva)) {
         for(auto it = reservas.begin(); it != reservas.end(); it++){
@@ -206,6 +207,7 @@ bool Hotel::Reservar(int nif, int idnumero, data data_inicial, data data_final, 
             break;
         }
     }
+    if (data_inicial >= data_final) return false;
     if(found) return Reservar((*it), idnumero, data_inicial, data_final, lugaresperados, numquartos);
     else return false;
 }

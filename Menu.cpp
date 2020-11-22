@@ -140,8 +140,104 @@ unsigned Menu::ProcessarInputInt(vector<string> opcoes, string titulo) {
     return resposta;
 }
 
+vector <int> Menu::ProcessarIntIndef(string colecao_sing, string colecao_plural, int lim) {
+    vector <int> respostas;
+    int resp;
+    bool repetido = false;
+    cout << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
+    cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+    cout << "Introduza [-X] ou " << colecao_sing << ": ";
+    cin >> resp;
+    if(resp >= 0){
+        repetido = false;
+        for(int i = 0; respostas.size() > i; i++){
+            if(respostas[i] == resp){
+                repetido = true;
+                break;
+            }
+        }
+        if(!repetido) respostas.push_back(resp);
+    }
+    while (cin.fail() || resp >= 0 || respostas.size() >= lim){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
+        cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+        cout << "Introduza [-X] ou " << colecao_sing << ": ";
+        cin >> resp;
+        if(resp >= 0){
+            repetido = false;
+            for(int i = 0; respostas.size() > i; i++){
+                if(respostas[i] == resp){
+                    repetido = true;
+                    break;
+                }
+            }
+            if(!repetido) respostas.push_back(resp);
+        }
+    }
+    return respostas;
+}
+
 template<class T>
-T Menu::InputRestrita(string texto) {
+vector <int> Menu::ProcessarIntIndef(string colecao_sing, string colecao_plural, int lim, list <T> l){
+    vector <int> respostas;
+    int resp;
+    bool repetido = false, pertence = false;
+    cout << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
+    cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+    cout << "Introduza [-X] ou " << colecao_sing << ": ";
+    cin >> resp;
+    if(resp >= 0){
+        repetido = false;
+        pertence = false;
+        for(int i = 0; respostas.size() > i; i++){
+            if(respostas[i] == resp){
+                repetido = true;
+                break;
+            }
+        }
+        for(auto it = l.begin(); it != l.end(); it++){
+            if((*it).ID() == resp){
+                pertence = true;
+                break;
+            }
+        }
+        if(!repetido && pertence) respostas.push_back(resp);
+    }
+    while (cin.fail() || resp >= 0 || respostas.size() < lim){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        if(resp >= 0 && !pertence) cout << "Membro Inexistente! Insira um ID Válido para um membro que exista." << endl;
+        if(resp < 0 && respostas.size() < lim) cout << "Coleção Insuficiente! Insira umais inputs até atingir o mínimo de " << lim << endl;
+        cout << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
+        cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+        cout << "Introduza [-X] ou " << colecao_sing << ": ";
+        cin >> resp;
+        if(resp >= 0){
+            repetido = false;
+            pertence = false;
+            for(int i = 0; respostas.size() > i; i++){
+                if(respostas[i] == resp){
+                    repetido = true;
+                    break;
+                }
+            }
+            for(auto it = l.begin(); it != l.end(); it++){
+                if((*it).ID() == resp){
+                    pertence = true;
+                    break;
+                }
+            }
+            if(!repetido && pertence) respostas.push_back(resp);
+        }
+    }
+    return respostas;
+}
+
+
+template<class T>
+T Menu::InputRestrito(string texto) {
     T resposta;
     cout << endl << texto;
     cin >> resposta;
@@ -460,6 +556,7 @@ void Menu::Inicial() {
 }
 
 void Menu::Importar() {
+    string titulo = "Importar";
     unsigned resposta;
     vector<string> opcoes = membros;
     for (int i = 0; opcoes.size() > i; i++){
@@ -470,7 +567,7 @@ void Menu::Importar() {
         opcoes[i] = "Importar " + opcoes[i];
     }
     opcoes.push_back("Voltar");
-    resposta = ProcessarInputInt(opcoes, "Importar");
+    resposta = ProcessarInputInt(opcoes, titulo);
     string localizacao;
     if(resposta != 7) localizacao = NomeFicheiro();
         switch (resposta) {
@@ -515,6 +612,7 @@ void Menu::Importar() {
 }
 
 void Menu::VerInfo() {
+    string titulo = "Ver Informação";
     unsigned resposta, segresp;
     vector<string> opcoes = membros;
     opcoes.push_back("Hotel");
@@ -522,7 +620,7 @@ void Menu::VerInfo() {
         opcoes[i] = "Ver Info " + opcoes[i];
     }
     opcoes.push_back("Voltar");
-    resposta = ProcessarInputInt(opcoes, "Ver Informação");
+    resposta = ProcessarInputInt(opcoes, titulo);
     if (resposta == 7) return Principal();
     if (resposta == 6) {
         PrintHotel();
@@ -693,48 +791,48 @@ void Menu::Adicionar() {
     opcoes.push_back("Voltar");
     resposta = ProcessarInputInt(opcoes, titulo);
     if(resposta == 0){
-        int nif = InputRestrita<int>("Insira o NIF do Cliente: ");
+        int nif = InputRestrito<int>("Insira o NIF do Cliente: ");
         string nome = InputNome("Insira o nome do Cliente: ");
-        bool usual = InputRestrita<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
+        bool usual = InputRestrito<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
         while(!H.AddCliente(Cliente(nome, nif, usual))){
             cout << "O Cliente que inseriu já existe!" << endl;
-            InputRestrita<int>("Insira o NIF do Cliente");
+            InputRestrito<int>("Insira o NIF do Cliente");
             InputNome("Insira o nome do Cliente");
-            InputRestrita<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
+            InputRestrito<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
         }
         EfetuarProcura(nif, H.GetClientes()).Info();
         return Adicionar();
     }
     if(resposta == 1){
-        int numero = InputRestrita<int>("Insira o Número do Produto: ");
+        int numero = InputRestrito<int>("Insira o Número do Produto: ");
         string nome = InputNome("Insira o nome do Produto: ");
         tipo_produto tp = InputTProd("Insira o Tipo do Produto: ");
         nota_avaliacao nav = InputNota("Insira a Qualidade do Produto: ");
-        float preco = InputRestrita<float>("Insira o Preço do Produto: ");
+        float preco = InputRestrito<float>("Insira o Preço do Produto: ");
         while(!H.AddProduto(Produto(nome, numero, tp, nav, preco))){
             cout << "O Produto que inseriu já existe!" << endl;
-            numero = InputRestrita<int>("Insira o Número do Produto: ");
+            numero = InputRestrito<int>("Insira o Número do Produto: ");
             nome = InputNome("Insira o nome do Produto: ");
             tp = InputTProd("Insira o Tipo do Produto: ");
             nav = InputNota("Insira a Qualidade do Produto: ");
-            preco = InputRestrita<float>("Insira o Preço do Produto: ");
+            preco = InputRestrito<float>("Insira o Preço do Produto: ");
         }
         EfetuarProcura(numero, H.GetProdutos()).Info();
         return Adicionar();
     }
     if(resposta == 2){
-        int numero = InputRestrita<int>("Insira o Número do Quarto: ");
+        int numero = InputRestrito<int>("Insira o Número do Quarto: ");
         tipo_quarto tq = InputTQuarto("Insira o Tipo de Quarto: ");
-        int piso = InputRestrita<int>("Insira o Piso do Quarto: ");
-        int capacidade = InputRestrita<int>("Insira a Capacidade do Quarto: ");
-        float preco = InputRestrita<float>("Insira o Preço do Quarto: ");
+        int piso = InputRestrito<int>("Insira o Piso do Quarto: ");
+        int capacidade = InputRestrito<int>("Insira a Capacidade do Quarto: ");
+        float preco = InputRestrito<float>("Insira o Preço do Quarto: ");
         while(!H.AddQuarto(Quarto(tq, piso, numero, capacidade, preco))){
             cout << "O Quarto que inseriu já existe!" << endl;
-            numero = InputRestrita<int>("Insira o Número do Quarto: ");
+            numero = InputRestrito<int>("Insira o Número do Quarto: ");
             tq = InputTQuarto("Insira o Tipo de Quarto: ");
-            piso = InputRestrita<int>("Insira o Piso do Quarto: ");
-            capacidade = InputRestrita<int>("Insira a Capacidade do Quarto: ");
-            preco = InputRestrita<float>("Insira o Preço do Quarto: ");
+            piso = InputRestrito<int>("Insira o Piso do Quarto: ");
+            capacidade = InputRestrito<int>("Insira a Capacidade do Quarto: ");
+            preco = InputRestrito<float>("Insira o Preço do Quarto: ");
         }
         EfetuarProcura(numero, H.GetQuartos()).Info();
         return Adicionar();
@@ -755,30 +853,71 @@ void Menu::Apagar() {
     opcoes.push_back("Voltar");
     resposta = ProcessarInputInt(opcoes, titulo);
     if(resposta == 0){
-        id = InputRestrita<int>(mensagem);
+        id = InputRestrito<int>(mensagem);
         H.ApagarCliente(id);
+        PrintList(H.GetClientes());
         return Apagar();
     }
     if(resposta == 1){
-        id = InputRestrita<int>(mensagem);
+        id = InputRestrito<int>(mensagem);
         H.ApagarProduto(id);
+        PrintList(H.GetProdutos());
         return Apagar();
     }
     if(resposta == 2){
-        id = InputRestrita<int>(mensagem);
+        id = InputRestrito<int>(mensagem);
         H.ApagarQuarto(id);
+        PrintList(H.GetQuartos());
         return Apagar();
     }
     if(resposta == 3) return Principal();
     return Apagar();
 }
 
+void Menu::MReserva() {
+    string titulo = "Reservar / Cancelar Reserva";
+    unsigned resposta;
+    vector <string> opcoes = {"Reservar", "Cancelar Reserva", "Voltar"};
+    resposta = ProcessarInputInt(opcoes, titulo);
+    if(resposta == 0){
+        int nifcliente  = ProcessarInputProcura("Reservar", H.GetClientes());
+        if(nifcliente < 0) return MReserva();
+        else{
+            int idnumero = InputRestrito<int>("Insira o ID da Reserva: ");
+            data datai = InputData("Insira a Data de Início da Reserva: ");
+            data dataf = InputData("Insira a Data de Fim da Reserva: ");
+            int lugares = InputRestrito<int>("Insira o Número de Lugares Esperados: ");
+            vector <int> nquartos = ProcessarIntIndef("o número do quarto a reservar", "Números de Quartos a Reservar", 1, H.GetQuartos());
+            while(!H.Reservar(nifcliente, idnumero, datai, dataf, lugares, nquartos)){
+                cout << "Impossível Realizar a Reserva pretendida" << endl;
+                idnumero = InputRestrito<int>("Insira o ID da Reserva: ");
+                datai = InputData("Insira a Data de Início da Reserva: ");
+                dataf = InputData("Insira a Data de Fim da Reserva: ");
+                lugares = InputRestrito<int>("Insira o Número de Lugares Esperados: ");
+                nquartos = ProcessarIntIndef("o número do quarto a reservar", "Números de Quartos a Reservar", 1, H.GetQuartos());
+            }
+            PrintList(H.GetReservas());
+            return MReserva();
+        }
+    }
+    if (resposta == 1){
+        int nifcliente  = ProcessarInputProcura("Reservar", H.GetClientes());
+        if(nifcliente < 0) return MReserva();
+        else{
+            int idnumero = InputRestrito<int>("Insira o ID da Reserva: ");
+            H.CancelarReserva(nifcliente, idnumero);
+            PrintList(H.GetReservas());
+            return MReserva();
+        }
+    }
+    if (resposta == 2) return Principal();
+    return MReserva();
+}
 
 
 void Menu::Principal() {
     unsigned resposta;
     string titulo = "Bem-vindo ao grande Hotel " + H.nome;
-    ImprimeTit(titulo);
     vector <string> opcoes = {"Importar...", "Ver Informação...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Contratar / Despedir", "Check-in / Check-out", "Finanças", "Outros", "Exportar"};
     resposta = ProcessarInputInt(opcoes, titulo);
     switch (resposta){
@@ -791,8 +930,7 @@ void Menu::Principal() {
         case 3:
             return Apagar();
         case 4:
-            Importar();
-            break;
+            return MReserva();
         case 5:
             Importar();
             break;

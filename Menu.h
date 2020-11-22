@@ -60,8 +60,12 @@ public:
     unsigned ProcessarInputInt(vector <string> opcoes, string titulo, unsigned liminf, unsigned limsup);
     unsigned ProcessarInputInt(vector <string> opcoes, string titulo);
 
+    vector <int> ProcessarIntIndef(string colecao_sing, string colecao_plural, int lim);
     template<class T>
-    T InputRestrita(string texto);
+    vector <int> ProcessarIntIndef(string colecao_sing, string colecao_plural, int lim, list <T> l);
+
+    template<class T>
+    T InputRestrito(string texto);
     string InputNome(string texto);
     data InputData(string texto);
     nota_avaliacao InputNota(string texto);
@@ -85,6 +89,7 @@ public:
     void VerInfo();
     void Adicionar();
     void Apagar();
+    void MReserva();
 
     void Principal();
 

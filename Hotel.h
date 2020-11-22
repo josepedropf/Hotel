@@ -148,7 +148,7 @@ public:
             }
         }
     }
-    
+
     void ApagarCliente(int id) {return ApagarElementoID(clientes, id);}
     void ApagarQuarto(int id) {return ApagarElementoID(quartos, id);}
     void ApagarProduto(int id) {return ApagarElementoID(produtos, id);}
@@ -173,6 +173,7 @@ public:
     list <Quarto> ListQuarto(list <Quarto *> pl);
     list <Cliente> ListCliente(list <Cliente *> pl);
     list <Produto> ListProduto(list <Produto *> pl);
+
 };
 
 #endif //HOTEL_HOTEL_H
