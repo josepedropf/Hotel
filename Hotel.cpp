@@ -1,9 +1,17 @@
 #include "Hotel.h"
 
+/**
+ * Construtor da classe Hotel
+ * @param nome nome do Hotel
+ */
 Hotel::Hotel(string nome) {
     this->nome = nome;
 }
 
+/**
+ * Constroi uma lista com apontadores para Clientes que se encontram no Hotel
+ * @return lista com apontadores para Clientes que se encontram no Hotel
+ */
 const list <Cliente *> Hotel::GetClientesnoHotel() {
     list <Cliente *> resultado;
     for(auto it = clientes.begin(); it != clientes.end(); it++){
@@ -13,6 +21,11 @@ const list <Cliente *> Hotel::GetClientesnoHotel() {
 }
 
 // Hotel Database Add
+/**
+ * Adicionar Produto à lista de Produtos
+ * @param produto Produto a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
+ */
 bool Hotel::AddProduto(Produto produto) {
     for(auto it = produtos.begin(); it != produtos.end(); it++){
         if(*it == produto) return false ;
@@ -22,10 +35,9 @@ bool Hotel::AddProduto(Produto produto) {
 }
 
 /**
- * Adiciona uma Reserva à base de dados do Hotel (vetor reservas), se esta for válida, isto é,
- * se não for sobreposta a outras já existentes e a capacidade desejada for igual ou inferior á dos quartos requeridos
- * @param reserva Reserva a ser adicionada
- * @return true se a reserva for válida e portanto adicionada, false caso contrário
+ * Adicionar Reserva à lista de reservas
+ * @param reserva Reserva a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
  */
 bool Hotel::AddReserva(Reserva reserva) {
     bool sobreposta = false;
@@ -51,6 +63,10 @@ bool Hotel::AddReserva(Reserva reserva) {
     return true;
 }
 
+/**
+ * Retirar a Reserva com o idnumero especificado da lista de reservas
+ * @param idnumero di da Reserva a retirar
+ */
 void Hotel::PopReserva(int idnumero) {
     for (auto it = reservas.begin(); it != reservas.end(); it++){
         if((*it).idnumero == idnumero){
@@ -61,9 +77,9 @@ void Hotel::PopReserva(int idnumero) {
 }
 
 /**
- * Adiciona uma Reserva ao conjunto de reservas atuais do Hotel, ou seja,
- * aquelas que estão a ser usufruídas no momento (vetor reservas_atuais)
- * @param reserva Reserva a ser adicionada ao vetor reservas_atuais
+ ** Adicionar Reserva à lista de reservas_atuais
+ * @param reserva Reserva a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
  */
 bool Hotel::AddReservasAtuais(Reserva reserva) {
     for(auto it = reservas_atuais.begin(); it != reservas_atuais.end(); it++){
@@ -74,9 +90,9 @@ bool Hotel::AddReservasAtuais(Reserva reserva) {
 }
 
 /**
- * Adiciona uma Reserva ao conjunto de estadias anteriores efetuadas no Hotel, isto é,
- * que já foram usufruídas pelos clientes (vetor estadias)
- * @param reserva Reserva a ser adicionada ao vetor estadias
+ * Adicionar Reserva à lista de estadias
+ * @param reserva Reserva a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
  */
 bool Hotel::AddEstadia(Reserva reserva) {
     for(auto it = estadias.begin(); it != estadias.end(); it++){
@@ -87,9 +103,9 @@ bool Hotel::AddEstadia(Reserva reserva) {
 }
 
 /**
- * Adiciona um Cliente à base de dados do Hotel (um perfil que se mantem se o mesmo fizer reservas no futuro)
- * (vetor clientes)
- * @param cliente Cliente a ser adicionado ao vetor clientes
+ * Adicionar Cliente à lista de clientes
+ * @param cliente Cliente a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
  */
 bool Hotel::AddCliente(Cliente cliente) {
     for(auto it = clientes.begin(); it != clientes.end(); it++){
@@ -100,8 +116,9 @@ bool Hotel::AddCliente(Cliente cliente) {
 }
 
 /**
- * Adiciona um Quarto à base de dados do Hotel (vetor quartos)
- * @param quarto Quarto a ser adicionado ao vetor quartos
+ * Adicionar Quarto à lista de quartos
+ * @param quarto Quarto a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
  */
 bool Hotel::AddQuarto(Quarto quarto) {
     for(auto it = quartos.begin(); it != quartos.end(); it++){
@@ -112,8 +129,9 @@ bool Hotel::AddQuarto(Quarto quarto) {
 }
 
 /**
- * Adiciona um Funcionário à base de dados do Hotel (vetor funcionários)
- * @param funcionario Funcionário a ser adicionado ao vetor funcionários
+ * Adicionar Funcionário à lista de funcionarios
+ * @param funcionario Funcionário a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
  */
 bool Hotel::AddFuncionario(Funcionario funcionario) {
     for(auto it = funcionarios.begin(); it != funcionarios.end(); it++){
@@ -123,6 +141,11 @@ bool Hotel::AddFuncionario(Funcionario funcionario) {
     return true;
 }
 
+/**
+ * Adicionar Funcionário à lista de funcionarios_rececao
+ * @param funcionario_rec Funcionário da Receção a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
+ */
 bool Hotel::AddFuncionarioRececao(F_Rececao funcionario_rec) {
     for(auto it = funcionarios_rececao.begin(); it != funcionarios_rececao.end(); it++){
         if((*it) == funcionario_rec) return false ;
@@ -131,6 +154,11 @@ bool Hotel::AddFuncionarioRececao(F_Rececao funcionario_rec) {
     return true;
 }
 
+/**
+ * Adicionar Funcionário à lista de funcionarios_responsaveis
+ * @param funcionario_resp Funcionário Responsável a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
+ */
 bool Hotel::AddFuncionarioResponsavel(F_Responsavel funcionario_resp) {
     for(auto it = funcionarios_responsaveis.begin(); it != funcionarios_responsaveis.end(); it++){
         if((*it) == funcionario_resp) return false ;
@@ -139,6 +167,11 @@ bool Hotel::AddFuncionarioResponsavel(F_Responsavel funcionario_resp) {
     return true;
 }
 
+/**
+ * Adicionar Funcionário à lista de funcionarios_limpeza
+ * @param funcionario_limpeza Funcionário de Limpeza a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
+ */
 bool Hotel::AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza) {
     for(auto it = funcionarios_limpeza.begin(); it != funcionarios_limpeza.end(); it++){
         if((*it) == funcionario_limpeza) return false ;
@@ -147,6 +180,11 @@ bool Hotel::AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza) {
     return true;
 }
 
+/**
+ * Adicionar Funcionário à lista de funcionarios_gestores
+ * @param funcionario_gestor Funcionário Gestor a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
+ */
 bool Hotel::AddFuncionarioGestor(F_Gestor funcionario_gestor) {
     for(auto it = funcionarios_gestores.begin(); it != funcionarios_gestores.end(); it++){
         if((*it) == funcionario_gestor) return false ;
@@ -155,6 +193,11 @@ bool Hotel::AddFuncionarioGestor(F_Gestor funcionario_gestor) {
     return true;
 }
 
+/**
+ * Adicionar Serviço à lista de servicos
+ * @param servico Serviço a adicionar
+ * @return verdadeiro se foi possível adicionar o novo elemento, falso caso contrário
+ */
 bool Hotel::AddServico(Servico servico) {
     for(auto it = servicos.begin(); it != servicos.end(); it++){
         if((*it) == servico) return false ;
@@ -163,13 +206,16 @@ bool Hotel::AddServico(Servico servico) {
     return true;
 }
 
- /**
-  * Valida a Reserva feita pelo cliente, certeficando-se que esta não se sobrepõe a outras feitas pelo mesmo cliente.
-  * Além disso adiciona o cliente à base de dados chamando a AddCliente caso seja a primeira reserva deste.
-  * @param cliente Cliente que efetuou a reserva que queremos validar
-  * @param reserva Reserva que se pretende validar
-  * @return true se a Reserva for válida, false caso contrário
-  */
+/**
+ * Criar a Reserva e adicioná-la à lista de reservas e de reservas do Cliente
+ * @param cliente Cliente que efetua a Reserva
+ * @param idnumero número identificador da Reserva
+ * @param data_inicial data de inicio da Reserva
+ * @param data_final data do final da Reserva
+ * @param lugaresperados capacidade esperada na Reserva
+ * @param numquartos vecotr<int> com os números dos quartos a reservar
+ * @return verdadeiro se foi possível criar a Reserva e adicioná-la às listas
+ */
 bool Hotel::Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos) {
      int nsize = numquartos.size();
      list <Quarto *> vq;
@@ -207,6 +253,16 @@ bool Hotel::Reservar(Cliente &cliente, int idnumero, data data_inicial, data dat
     return false;
     }
 
+/**
+ * Criar a Reserva e adicioná-la à lista de reservas e de reservas do Cliente com o nif indicado
+ * @param nif nif do Cliente que efetua a Reserva
+ * @param idnumero número identificador da Reserva
+ * @param data_inicial data de inicio da Reserva
+ * @param data_final data do final da Reserva
+ * @param lugaresperados capacidade esperada na Reserva
+ * @param numquartos vecotr<int> com os números dos quartos a reservar
+ * @return verdadeiro se foi possível criar a Reserva e adicioná-la às listas
+ */
 bool Hotel::Reservar(int nif, int idnumero, data data_inicial, data data_final, int lugaresperados, vector<int> numquartos) {
     auto it = clientes.begin();
     bool found = false;
@@ -221,6 +277,11 @@ bool Hotel::Reservar(int nif, int idnumero, data data_inicial, data data_final, 
     else return false;
 }
 
+/**
+ * Elimina a Reserva da lista reservas e da lista de reservas do Cliente que a efetuou
+ * @param cliente Cliente que efetuou a Reserva
+ * @param idreserva id da Reserva a cancelar
+ */
 void Hotel::CancelarReserva(Cliente &cliente, int idreserva) {
     bool encontrado = false;
     for(auto it = cliente.reservas_cliente.begin(); it != cliente.reservas_cliente.end(); it++){
@@ -233,6 +294,11 @@ void Hotel::CancelarReserva(Cliente &cliente, int idreserva) {
     if(encontrado) PopReserva(idreserva);
 }
 
+/**
+ * Elimina a Reserva da lista reservas e da lista de reservas do Cliente que a efetuou
+ * @param nif nif do Cliente que efetuou a Reserva
+ * @param idreserva id da Reserva a cancelar
+ */
 void Hotel::CancelarReserva(int nif, int idreserva) {
     auto it = clientes.begin();
     bool found = false;
@@ -246,10 +312,8 @@ void Hotel::CancelarReserva(int nif, int idreserva) {
 }
 
 /**
- * Realiza o Check-In, a reserva mais recente do cliente deixa de pertencer ao seu vetor reservas_cliente
- * e passa a ser a sua estadia atual, visto que este entra no hotel
- * Atualiza também outras informações como por exemplo o facto de o cliente se encontrar no hotel passando nohotel a true
- * @param cliente Cliente que está a realizar o Check-In
+ * Efetua o Check-In, a estadia atual do Cliente passa a apontar para a sua Reserva mais recente, que sai da lista das reservas e passa para a das reservas_atuais
+ * @param cliente Cliente que está a entrar no Hotel
  */
 void Hotel::CheckIn(Cliente &cliente) {
     Reserva reserva = *cliente.reservas_cliente.front();
@@ -265,6 +329,10 @@ void Hotel::CheckIn(Cliente &cliente) {
     ApagarReservaL(reservas, reserva);
 }
 
+/**
+ * Efetua o Check-In, a estadia atual do Cliente passa a apontar para a sua Reserva mais recente, que sai da lista das reservas e passa para a das reservas_atuais
+ * @param nif nif do Cliente que está a entrar no Hotel
+ */
 void Hotel::CheckIn(int nif) {
     auto it = clientes.begin();
     bool found = false;
@@ -278,9 +346,8 @@ void Hotel::CheckIn(int nif) {
 }
 
 /**
- * Realiza o Check-Out, a estadia atual do cliente em questão passa a pertencer às suas estadias_anteriores
- * Atualiza outras informações: o facto do cliente já não estar no hotel passando nohotel a false
- * @param cliente Cliente que está a realizar o Check-Out
+ * Efetua o Check-Out, a estadia atual do Cliente deixade existir e a que ele acaba de gozar passa para a lista estadias
+ * @param cliente Cliente a sair do Hotel
  */
 void Hotel::CheckOut(Cliente &cliente) {
     Reserva reserva = *cliente.estadia_atual;
@@ -297,6 +364,10 @@ void Hotel::CheckOut(Cliente &cliente) {
     if(!cliente.cliente_usual) cliente.cliente_usual = true;
 }
 
+/**
+ * Efetua o Check-Out, a estadia atual do Cliente deixade existir e a que ele acaba de gozar passa para a lista estadias
+ * @param nif nif do Cliente a sair do Hotel
+ */
 void Hotel::CheckOut(int nif) {
     auto it = clientes.begin();
     bool found = false;
@@ -421,6 +492,12 @@ const list<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes_n
     return pesquisa_preco;
 }
 
+/**
+ * Retorna uma lista de apontadores para Reservas que tenham pelo menos um dia no intervalo dado nos argumentos
+ * @param datai data inicial do intervalo
+ * @param dataf data final do intervalo
+ * @return lista de apontadores para Reservas que tenham pelo menos um dia no intervalo dado nos argumentos
+ */
 list<Reserva *> Hotel::ReservasSobrepostas(data datai, data dataf) {
     UpdateReservasTotais();
     bool done = false;
@@ -466,12 +543,24 @@ list<Reserva *> Hotel::ReservasSobrepostas(data datai, data dataf) {
     return resultado;
 }
 
+/**
+ * Chama a ReservasSobrepostas com argumentos correspondentes ao m~es que recebe nos seus parâmetros
+ * @param mesp mês
+ * @param anop ano
+ * @return lista de apontadores para Reservas que tenham pelo menos um dia no mês definido nos parâmetros
+ */
 list <Reserva *> Hotel::Reservas_Fin(int mesp, int anop){
     data dataf = DiaFinal(mesp, anop);
     data datai = {.dia = 1, .mes = mesp, .ano = anop};
     return ReservasSobrepostas(datai, dataf);
 }
 
+/**
+ * Retorna uma lista de apontadores para Serviços que tenham sido efetuados no mês definido nos parâmetros
+ * @param mesp mês
+ * @param anop ano
+ * @return lista de apontadores para Serviços que tenham sido efetuados no mês definido nos parâmetros
+ */
 list <Servico *> Hotel::Servicos_Fin(int mesp, int anop){
     data data_inicial = {.dia = 1, .mes = mesp, .ano = anop};
     data data_final = DiaFinal(mesp, anop);
@@ -482,6 +571,12 @@ list <Servico *> Hotel::Servicos_Fin(int mesp, int anop){
     return resultado;
 }
 
+/**
+ * Retorna uma lista de apontadores para Quartos disponíveis em todos os dias do intervalo recebido
+ * @param data_inicial data inicial do intervalo
+ * @param data_final data final do intervalo
+ * @return lista de apontadores para Quartos disponíveis em todos os dias do intervalo recebido
+ */
 list<Quarto *> Hotel::Quartos_Disponiveis(data data_inicial, data data_final) {
     list <Quarto > quartos_disponiveis = quartos;
     list <Reserva *> reservas_sobrepostas = ReservasSobrepostas(data_inicial, data_final);
@@ -504,7 +599,12 @@ list<Quarto *> Hotel::Quartos_Disponiveis(data data_inicial, data data_final) {
 }
 
 // Hotel Finances Functions
-
+/**
+ * Calcula os Custos mensais de operação do Hotel
+ * @param impostos valor gasto em impostos no mês
+ * @param despesasfixas valor gasto em despesas fixas (água, eletricidade...) no mês
+ * @return o valor dos Custos mensais
+ */
 float Hotel::CustosTotais(float impostos, float despesasfixas) {
     float salarios = 0;
     float preco_produtos = 0;
@@ -517,12 +617,24 @@ float Hotel::CustosTotais(float impostos, float despesasfixas) {
     return impostos + despesasfixas + preco_produtos + salarios;
 }
 
+/**
+ * Compõe a data final do mês
+ * @param mesp mês
+ * @param anop ano
+ * @return data final do mês
+ */
 data Hotel::DiaFinal(int mesp, int anop) {
     if (mesp == 2) return {.dia = 28, .mes = mesp, .ano= anop};
     else if (mesp == 4 || mesp == 6 || mesp == 9 || mesp == 11) return {.dia = 30, .mes = mesp, .ano= anop};
     else return {.dia = 31, .mes = mesp, .ano= anop};
 }
 
+/**
+ * Calcula o Rendimento Total do mês para o Hotel
+ * @param mes mês
+ * @param ano ano
+ * @return o valor do Rendimento Mensal
+ */
 float Hotel::RendimentosTotais(int mes, int ano) {
     data data_inicial = {.dia = 1, .mes = mes, .ano = ano};
     data data_final = DiaFinal(mes, ano);
@@ -548,10 +660,22 @@ float Hotel::RendimentosTotais(int mes, int ano) {
     return rendimento;
     }
 
+/**
+ * Calcula o Balanço Financeiro (lucro ou prejuízo) de um determinado mês do Hotel
+ * @param mes mês
+ * @param ano ano
+ * @param impostos valor gasto em impostos no mês
+ * @param despesasfixas valor gasto em despesas fixas (água, eletricidade...) no mês
+ * @return o valor do Balanço Financeiro (positivo ou negativo, caso seja lucro ou prejuízo)
+ */
 float Hotel::BalancoFin(int mes, int ano, float impostos, float despesasfixas) {
     return RendimentosTotais(mes, ano) - CustosTotais(impostos, despesasfixas);
 }
 
+/**
+ * Escolhe o cargo com menos trabalhadores no momento
+ * @return cargo com menos trabalhadores no momento
+ */
 tipo_cargo Hotel::EscolherCargo() {
     tipo_cargo cargo;
     int n_rececaosimples = 0, n_rececaoresp = 0, n_limpeza = 0, n_gestor = 0;
@@ -593,6 +717,10 @@ tipo_cargo Hotel::EscolherCargo() {
     return cargo;
 }
 
+/**
+ * Escolhe o turno com menos Funcionários de Limpeza
+ * @return turno com menos Funcionários de Limpeza
+ */
 tipo_turno Hotel::EscolherTurno() {
     int countdia = 0, countnoite = 0;
     for (auto it = funcionarios_limpeza.begin(); it != funcionarios_limpeza.end(); it++){
@@ -603,6 +731,10 @@ tipo_turno Hotel::EscolherTurno() {
     else return dia;
 }
 
+/**
+ * Escolhe o piso com menos Funcionários Responsáveis ou o primeiro sem nenhum
+ * @return o número do piso com menos Funcionários Responsáveis ou o primeiro sem nenhum
+ */
 int Hotel::EscolherPiso() {
     vector <int> pisos, pvigiados;
     vector <pair<int, int>> pcounter;
@@ -637,7 +769,12 @@ int Hotel::EscolherPiso() {
     return pisoesc;
 }
 
-
+/**
+ * Contrata um Funcionário com os dados recebidos e do cargo especificado, adicionando-o à lista funcionarios e à especifica do seu cargo
+ * @param nome nome do Funcionário a contratar
+ * @param nif nif do Funcionário a contratar
+ * @param cargo cargo do Funcionário a contratar
+ */
 void Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
     if(cargo == frececao){
         F_Rececao FR(nome, nif, 0, 800);
@@ -665,11 +802,20 @@ void Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
     AddFuncionario(F);
 }
 
+/**
+ Contrata um Funcionário com os dados recebidos e com o cargo com menos Funcionários, adicionando-o à lista funcionarios e à especifica do seu cargo
+ * @param nome nome do Funcionário a contratar
+ * @param nif nif do Funcionário a contratar
+ */
 void Hotel::Contratar(string nome, int nif){
     tipo_cargo cargo = EscolherCargo();
     return Contratar(nome, nif, cargo);
 }
 
+/**
+ * Despede o Funcionário com o nif indicado, apagando-o da lista funcionarios e da especifica ao seu cargo
+ * @param nif
+ */
 void Hotel::Despedir(int nif){
     tipo_cargo cargo;
     for(auto it = funcionarios.begin(); it != funcionarios.end(); it++){
@@ -722,6 +868,10 @@ void Hotel::Despedir(int nif){
     }
 }
 
+/**
+ * Adiciona um ano de serviço ao Funcionário com o nif especificado
+ * @param idf nif do Funcionário
+ */
 void Hotel::AddAnoServico(int idf) {
     for (auto it = funcionarios.begin(); it != funcionarios.end(); it++){
         if((*it).ID() == idf){
@@ -732,6 +882,11 @@ void Hotel::AddAnoServico(int idf) {
     }
 }
 
+/**
+ * Artibui um novo salário ao Funcionário com o nif indicado
+ * @param idf nif do Funcionário
+ * @param novosalario salário mensal a atribuir ao Funcionário
+ */
 void Hotel::SetSalario(int idf, float novosalario) {
     for (auto it = funcionarios.begin(); it != funcionarios.end(); it++){
         if((*it).ID() == idf){
@@ -741,6 +896,12 @@ void Hotel::SetSalario(int idf, float novosalario) {
     }
 }
 
+/**
+ * Cria um Serviço e adiciona-o à lista servicos e à do Cliente que requesitou o Serviço
+ * @param cliente Cliente que requesitou o Serviço
+ * @param servico Serviço a ser prestado
+ * @return verdadeiro se o Serviço foi prestado, falso caso contrário
+ */
 bool Hotel::PrestarServico(Cliente &cliente, Servico servico) {
     if (!AddServico(servico)) return false;
     for(auto it = servicos.begin(); it != servicos.end(); it++){
