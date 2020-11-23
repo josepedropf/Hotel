@@ -17,9 +17,9 @@ using namespace std;
 class Menu{
 private:
     Hotel H;
-    vector <string> membros = {"Cliente", "Funcionário", "Produto", "Quarto", "Reserva", "Servico"};
-    vector <string> tfuncionarios = {"Normais", "Rececão", "Responsáveis", "Limpeza", "Gestores"};
-    vector <string> membros_semRes = {"Cliente", "Funcionário", "Produto", "Quarto", "Servico"};
+    vector <string> membros = {"Cliente", "Funcionario", "Produto", "Quarto", "Reserva", "Servico"};
+    vector <string> tfuncionarios = {"Normais", "Rececao", "Responsaveis", "Limpeza", "Gestores"};
+    vector <string> membros_semRes = {"Cliente", "Funcionario", "Produto", "Quarto", "Servico"};
 public:
     Menu() {};
     ~Menu() {};

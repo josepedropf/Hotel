@@ -1,5 +1,12 @@
 #include "Servico.h"
 
+/**
+ * Construtor da classe Servico
+ * @param nome nome do Serviço
+ * @param idnumero identificador do Serviço
+ * @param data_realizacao data em que o Serviço foi realizado
+ * @param taxa taxa aplicável ao Serviço
+ */
 Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa) {
     this->nome = nome;
     this->idnumero = abs(idnumero);
@@ -13,6 +20,14 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa) {
     lucro = taxa;
 }
 
+/**
+ * Construtor da classe Servico
+ * @param nome nome do Serviço
+ * @param idnumero identificador do Serviço
+ * @param data_realizacao data em que o Serviço foi realizado
+ * @param taxa taxa aplicável ao Serviço
+ * @param funcionarios_ocupados lista de apontadores para Funcionários ocupados com o Serviço
+ */
 Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, list<Funcionario *> funcionarios_ocupados) {
     this->nome = nome;
     this->idnumero = abs(idnumero);
@@ -26,6 +41,15 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, li
     lucro = taxa;
 }
 
+/**
+ * Construtor da classe Servico
+ * @param nome nome do Serviço
+ * @param idnumero identificador do Serviço
+ * @param data_realizacao data em que o Serviço foi realizado
+ * @param taxa taxa aplicável ao Serviço
+ * @param produtos_consumidos lista de apontadores para Produtos consumidos no Serviço
+ * @param margem_lucro percentagem de lucro do Hotel por Produto vendido
+ */
 Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, list<Produto *> produtos_consumidos, float margem_lucro) {
     this->nome = nome;
     this->idnumero = abs(idnumero);
@@ -42,6 +66,16 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, li
     lucro = preco_consumidor - custo;
 }
 
+/**
+ * Construtor da classe Servico
+ * @param nome nome do Serviço
+ * @param idnumero identificador do Serviço
+ * @param data_realizacao data em que o Serviço foi realizado
+ * @param taxa taxa aplicável ao Serviço
+ * @param funcionarios_ocupados lista de apontadores para Funcionários ocupados com o Serviço
+ * @param produtos_consumidos lista de apontadores para Produtos consumidos no Serviço
+ * @param margem_lucro percentagem de lucro do Hotel por Produto vendido
+ */
 Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, list<Funcionario *> funcionarios_ocupados, list<Produto *> produtos_consumidos, float margem_lucro) {
     this->nome = nome;
     this->idnumero = abs(idnumero);
@@ -58,14 +92,17 @@ Servico::Servico(string nome, int idnumero, data data_realizacao, float taxa, li
     lucro = preco_consumidor - custo;
 }
 
+/**
+ * Imprime as Informações do Serviço
+ */
 void Servico::Info() const {
-    cout << "<SERVIÇO>" << endl;
+    cout << "<SERVICO>" << endl;
     cout << "Nome: " << nome << " | ";
-    cout << "Número ID: " << idnumero << " | ";
+    cout << "Numero ID: " << idnumero << " | ";
     cout << "Data de Realização: " << data_realizacao << " | ";
     cout << "Custo ao Hotel: " << custo << " | ";
     cout << "Taxa: " << taxa << " | ";
-    cout << "Preço de Consumo: " << preco_consumidor << " | ";
+    cout << "Preco de Consumo: " << preco_consumidor << " | ";
     cout << "Margem de Lucro do Hotel: " << margem_lucro << "% | ";
     cout << "Lucro do Hotel: " << lucro << " | ";
     if(!produtos_consumidos.empty()) {
@@ -77,7 +114,7 @@ void Servico::Info() const {
         if(!funcionarios_ocupados.empty()) cout << " | ";
     }
     if(!funcionarios_ocupados.empty()){
-        cout << "Funcionários Ocupados: ";
+        cout << "Funcionarios Ocupados: ";
         for(auto it = funcionarios_ocupados.begin(); it != funcionarios_ocupados.end(); it++){
             cout << (*it)->nome;
             if(*it != funcionarios_ocupados.back()) cout << ", ";

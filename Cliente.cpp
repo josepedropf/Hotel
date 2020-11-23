@@ -1,5 +1,10 @@
 #include "Cliente.h"
 
+/**
+ * Construtor da classe Cliente
+ * @param nome nome do Cliente
+ * @param nif nif do Cliente
+ */
 Cliente::Cliente(string nome, int nif) {
     this->nome = nome;
     this->nif = abs(nif);
@@ -9,6 +14,12 @@ Cliente::Cliente(string nome, int nif) {
     conta = 0;
 }
 
+/**
+ * Construtor da classe Cliente
+ * @param nome nome do Cliente
+ * @param nif nif do Cliente
+ * @param usual verdadeiro se o Cliente já tiver estado pelo menos uma vez no Hotel
+ */
 Cliente::Cliente(string nome, int nif, bool usual) {
     this->nome = nome;
     this->nif = abs(nif);
@@ -18,6 +29,12 @@ Cliente::Cliente(string nome, int nif, bool usual) {
     conta = 0;
 }
 
+/**
+ * Construtor da classe Cliente
+ * @param nome nome do Cliente
+ * @param nif nif do Cliente
+ * @param estadias_anteriores lista de apontadores para Reservas que representam estadias anteriores do Cliente
+ */
 Cliente::Cliente(string nome, int nif, list <Reserva *> estadias_anteriores) {
     this->nome = nome;
     this->nif = abs(nif);
@@ -27,6 +44,9 @@ Cliente::Cliente(string nome, int nif, list <Reserva *> estadias_anteriores) {
     conta = 0;
 }
 
+/**
+ * Imprime as Informações do Cliente
+ */
 void Cliente::Info() const{
     cout << "<CLIENTE>" << endl;
     cout << "Nome: " << nome << " | ";
@@ -51,7 +71,10 @@ void Cliente::Info() const{
     cout << endl;
 }
 
-
+/**
+ * Calcula e devolve a conta do Cliente, que é um atriibuto privado
+ * @return o valor da conta do Cliente em questão
+ */
 float Cliente::GetConta() {
     conta = 0;
     for(auto it = reservas_cliente.begin(); it != reservas_cliente.end(); it++){

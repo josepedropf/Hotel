@@ -13,7 +13,6 @@ const list <Cliente *> Hotel::GetClientesnoHotel() {
 }
 
 // Hotel Database Add
-
 bool Hotel::AddProduto(Produto produto) {
     for(auto it = produtos.begin(); it != produtos.end(); it++){
         if(*it == produto) return false ;

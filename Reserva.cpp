@@ -1,5 +1,13 @@
 #include "Reserva.h"
 
+/**
+ * Construtor da classe Reserva
+ * @param idnumero identificador da Reserva
+ * @param data_inicio data de incio da Reserva
+ * @param data_fim data do final ad Reserva
+ * @param lugaresp capacidade pretendida na Reserva
+ * @param quartos_res lista de apontadores para os Quartos a reservar
+ */
 Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res){
     this->idnumero = abs(idnumero);
     this->data_inicio = data_inicio;
@@ -13,6 +21,16 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, li
         preco += (*it)->preco;
     }
 }
+
+/**
+ * Construtor da classe Reserva
+ * @param idnumero identificador da Reserva
+ * @param data_inicio data de incio da Reserva
+ * @param data_fim data do final ad Reserva
+ * @param lugaresp capacidade pretendida na Reserva
+ * @param quartos_res lista de apontadores para os Quartos a reservar
+ * @param primeiravez verdadeiro se a Reserva for efetuada por um Cliente que nunca veio antes ao Hotel, falso caso contrário
+ */
 Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez) {
     this->idnumero = abs(idnumero);
     this->primeiravez = primeiravez;
@@ -28,12 +46,15 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, li
     }
 }
 
+/**
+ * Imprime as Informações da Reserva
+ */
 void Reserva::Info() const{
     cout << "<RESERVA>" << endl;
-    cout << "Número ID: " << idnumero << " | ";
-    cout << "Data de Início: " << data_inicio << " | ";
+    cout << "Numero ID: " << idnumero << " | ";
+    cout << "Data de Inicio: " << data_inicio << " | ";
     cout << "Data de Fim: " << data_fim << " | ";
-    cout << "Duração: " << duracao << " | ";
+    cout << "Duracao: " << duracao << " | ";
     cout << "Lugares Esperados: " << lugaresp << " | ";
     cout << "Quartos Reservados: ";
     for(auto it = quartos_res.begin(); it != quartos_res.end(); it++){
@@ -42,6 +63,11 @@ void Reserva::Info() const{
     cout << endl;
 }
 
+/**
+ * Indica se duas Reservas se sobrepõem
+ * @param r2 Segunda Reserva
+ * @return verdadeiro se ocorrer sobreposição de Reservas, falso caso contrário
+ */
 bool Reserva::operator==(const Reserva &r2) const {
     if(idnumero == r2.idnumero) return true;
     bool quartoscom = false;

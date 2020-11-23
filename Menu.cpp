@@ -35,7 +35,7 @@ void Menu::ImportarHotel(Hotel &H, string localizacao) {
     ifstream inficheiro;
     inficheiro.open(localizacao);
     if(inficheiro.fail()){
-        cout << endl << "O Ficheiro não abre!" << endl;
+        cout << endl << "O Ficheiro nao abre!" << endl;
         throw FicheiroIncompativel(localizacao);
     }
     string line;
@@ -112,7 +112,7 @@ void Menu::ImprimeOp(vector <string> opcoes, bool aviso, bool enm) {
             else cout << "[" << i << "] " << opcoes[i] << endl;
         }
     }
-    if(aviso) cout << "Input inválido. Insira um número entre 0 e " << opcoes.size() - 1 << "." << endl;
+    if(aviso) cout << "Input invalido. Insira um número entre 0 e " << opcoes.size() - 1 << "." << endl;
     if(!enm) cout << "Escolha: ";
 }
 
@@ -154,8 +154,8 @@ vector <int> Menu::ProcessarIntIndef(string colecao_sing, string colecao_plural,
     vector <int> respostas;
     int resp;
     bool repetido = false;
-    cout << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
-    cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+    cout << "[-X] para parar de introduzir mais inputs a colecao de " << colecao_plural << endl;
+    cout << "[+X] para adicionar input a colecao de " << colecao_plural << endl;
     cout << "Introduza [-X] ou " << colecao_sing << ": ";
     cin >> resp;
     if(resp >= 0){
@@ -171,8 +171,8 @@ vector <int> Menu::ProcessarIntIndef(string colecao_sing, string colecao_plural,
     while (cin.fail() || resp >= 0 || respostas.size() < lim){
         cin.clear();
         cin.ignore(1000, '\n');
-        cout << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
-        cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+        cout << "[-X] para parar de introduzir mais inputs a colecao de " << colecao_plural << endl;
+        cout << "[+X] para adicionar input a colecao de " << colecao_plural << endl;
         cout << "Introduza [-X] ou " << colecao_sing << ": ";
         cin >> resp;
         if(resp >= 0){
@@ -194,8 +194,8 @@ vector <int> Menu::ProcessarIntIndef(string colecao_sing, string colecao_plural,
     vector <int> respostas;
     int resp;
     bool repetido = false, pertence = false;
-    cout << endl << "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
-    cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+    cout << endl << "[-X] para parar de introduzir mais inputs a colecao de " << colecao_plural << endl;
+    cout << "[+X] para adicionar input a colecao de " << colecao_plural << endl;
     cout << "Introduza [-X] ou " << colecao_sing << ": ";
     cin >> resp;
     if(resp >= 0){
@@ -218,10 +218,10 @@ vector <int> Menu::ProcessarIntIndef(string colecao_sing, string colecao_plural,
     while (cin.fail() || resp >= 0 || respostas.size() < lim){
         cin.clear();
         cin.ignore(1000, '\n');
-        if(resp >= 0 && !pertence) cout << endl << "Membro Inexistente! Insira um ID Válido para um membro que exista." << endl;
-        if(resp < 0 && respostas.size() < lim) cout << endl << "Coleção Insuficiente! Insira umais inputs até atingir o mínimo de " << lim << endl;
-        cout << endl <<  "[-X] para parar de introduzir mais inputs à coleção de " << colecao_plural << endl;
-        cout << "[+X] para adicionar input à coleção de " << colecao_plural << endl;
+        if(resp >= 0 && !pertence) cout << endl << "Membro Inexistente! Insira um ID Valido para um membro que exista." << endl;
+        if(resp < 0 && respostas.size() < lim) cout << endl << "Colecao Insuficiente! Insira mais inputs ate atingir o minimo de " << lim << endl;
+        cout << endl <<  "[-X] para parar de introduzir mais inputs a colecao de " << colecao_plural << endl;
+        cout << "[+X] para adicionar input a colecao de " << colecao_plural << endl;
         cout << "Introduza [-X] ou " << colecao_sing << ": ";
         cin >> resp;
         if(resp >= 0){
@@ -297,7 +297,7 @@ data Menu::InputData(string texto) {
         mesproibido.push_back(9);
         mesproibido.push_back(11);
     }
-    cout << endl << texto << endl << "Introduza o mês: ";
+    cout << endl << texto << endl << "Introduza o mes: ";
     cin >> mes;
     if(!cin.fail() && mes >= 1 && mes <= 12){
         for(int i = 0; mesproibido.size() > i; i++){
@@ -311,7 +311,7 @@ data Menu::InputData(string texto) {
         mespr = false;
         cin.clear();
         cin.ignore(1000, '\n');
-        cout << endl << texto << endl << "Introduza o mês: ";
+        cout << endl << texto << endl << "Introduza o mes: ";
         cin >> mes;
         if(!cin.fail() && mes >= 1 && mes <= 12){
             for(int i = 0; mesproibido.size() > i; i++){
@@ -339,7 +339,7 @@ data Menu::InputData(string texto) {
 nota_avaliacao Menu::InputNota(string texto){
     int respint;
     nota_avaliacao resposta;
-    vector<string> opcoes = {"Má" , "Insuficiente", "Razoável", "Boa", "Excelente"};
+    vector<string> opcoes = {"Ma" , "Insuficiente", "Razoavel", "Boa", "Excelente"};
     ImprimeOp(opcoes, false, true);
     cout << texto;
     cin >> respint;
@@ -378,7 +378,7 @@ nota_avaliacao Menu::InputNota(string texto){
 tipo_cargo Menu::InputCargo(string texto) {
     int respint;
     tipo_cargo resposta;
-    vector<string> opcoes = {"Normal" , "Receção", "Responsável", "Limpeza", "Gestor"};
+    vector<string> opcoes = {"Normal" , "Rececao", "Responsavel", "Limpeza", "Gestor"};
     ImprimeOp(opcoes, false, true);
     cout << texto;
     cin >> respint;
@@ -447,7 +447,7 @@ tipo_turno Menu::InputTurno(string texto) {
 tipo_produto Menu::InputTProd(string texto) {
     int respint;
     tipo_produto resposta;
-    vector<string> opcoes = {"Restauração" , "Limpeza", "Souvenir"};
+    vector<string> opcoes = {"Restauracao" , "Limpeza", "Souvenir"};
     ImprimeOp(opcoes, false, true);
     cout << texto;
     cin >> respint;
@@ -480,7 +480,7 @@ tipo_produto Menu::InputTProd(string texto) {
 tipo_quarto Menu::InputTQuarto(string texto) {
     int respint;
     tipo_quarto resposta;
-    vector<string> opcoes = {"Sem Vista" , "Com Vista", "Suíte"};
+    vector<string> opcoes = {"Sem Vista" , "Com Vista", "Suite"};
     ImprimeOp(opcoes, false, true);
     cout << texto;
     cin >> respint;
@@ -543,10 +543,10 @@ int Menu::ProcessarInputProcura(string titulo, list<T> l) {
         cout << "[-X] Voltar" << endl;
         cout << "[-1] Ver Info" << endl;
         cout << "[+X] O ID do Elemento que Procura" << endl;
-        if(cin.fail()) cout << "Input Inválido! Tem de ser um número inteiro." << endl;
+        if(cin.fail()) cout << "Input Invalido! Tem de ser um numero inteiro." << endl;
         else{
-            cout << "Não foi encontrado nenhum elemento correspondente à sua Pesquisa." << endl;
-            cout << "Escolha [-1] para a Informação dos elementos da Classe que escolheu ou tente pesquisar novamente." << endl;
+            cout << "Nao foi encontrado nenhum elemento correspondente a sua Pesquisa." << endl;
+            cout << "Escolha [-1] para a Informaçao dos elementos da Classe que escolheu ou tente pesquisar novamente." << endl;
         }
         cout << "Escolha: ";
         cin >> resposta;
@@ -558,8 +558,8 @@ int Menu::ProcessarInputProcura(string titulo, list<T> l) {
 }
 
 void Menu::Inicial() {
-    string titulo = "Início";
-    vector<string> opcoes = {"Importar Hotel a partir de Ficheiro", "Criar Hotel do Início"};
+    string titulo = "Inicio";
+    vector<string> opcoes = {"Importar Hotel a partir de Ficheiro", "Criar Hotel do Inicio"};
     unsigned resposta;
     resposta = ProcessarInputInt(opcoes, titulo, 0, 1);
     if(resposta == 0){
@@ -629,7 +629,7 @@ void Menu::Importar() {
 }
 
 void Menu::VerInfo() {
-    string titulo = "Ver Informação";
+    string titulo = "Ver Informaçao";
     unsigned resposta, segresp;
     vector<string> opcoes = membros;
     opcoes.push_back("Hotel");
@@ -643,7 +643,7 @@ void Menu::VerInfo() {
         PrintHotel();
         return VerInfo();
     }
-    vector<string> segopcoes = {"Ver Informação de Todos", "Ver Informação de 1 em Específico", "Voltar",
+    vector<string> segopcoes = {"Ver Informaçao de Todos", "Ver Informaçao de 1 em Especifico", "Voltar",
                                 "Voltar ao Menu Principal"};
     segresp = ProcessarInputInt(segopcoes, opcoes[resposta]);
     unsigned tresposta;
@@ -656,7 +656,7 @@ void Menu::VerInfo() {
     resopcoes.push_back("Voltar");
     resopcoes.push_back("Voltar ao Menu Principal");
     for (int i = 0; tfuncionarios.size() > i; i++) {
-        topcoes.push_back("Ver Info Funcionários " + tfuncionarios[i]);
+        topcoes.push_back("Ver Info Funcionarios " + tfuncionarios[i]);
     }
     topcoes.push_back("Voltar");
     topcoes.push_back("Voltar ao Menu Principal");
@@ -811,51 +811,51 @@ void Menu::Adicionar() {
         PrintList(H.GetClientes());
         int nif = InputRestrito<int>("Insira o NIF do Cliente: ");
         string nome = InputNome("Insira o nome do Cliente: ");
-        bool usual = InputRestrito<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
+        bool usual = InputRestrito<bool>("Insira [1] se o Cliente for usual ou [0] caso nao o seja: ");
         while(!H.AddCliente(Cliente(nome, nif, usual))){
             PrintList(H.GetClientes());
-            cout << "O Cliente que inseriu já existe!" << endl;
+            cout << "O Cliente que inseriu ja existe!" << endl;
             InputRestrito<int>("Insira o NIF do Cliente");
             InputNome("Insira o nome do Cliente");
-            InputRestrito<bool>("Insira [1] se o Cliente for usual ou [0] caso não o seja: ");
+            InputRestrito<bool>("Insira [1] se o Cliente for usual ou [0] caso nao o seja: ");
         }
         EfetuarProcura(nif, H.GetClientes()).Info();
         return Adicionar();
     }
     if(resposta == 1){
         PrintList(H.GetProdutos());
-        int numero = InputRestrito<int>("Insira o Número do Produto: ");
+        int numero = InputRestrito<int>("Insira o Numero do Produto: ");
         string nome = InputNome("Insira o nome do Produto: ");
         tipo_produto tp = InputTProd("Insira o Tipo do Produto: ");
         nota_avaliacao nav = InputNota("Insira a Qualidade do Produto: ");
-        float preco = InputRestrito<float>("Insira o Preço do Produto: ");
+        float preco = InputRestrito<float>("Insira o Preco do Produto: ");
         while(!H.AddProduto(Produto(nome, numero, tp, nav, preco))){
             PrintList(H.GetProdutos());
-            cout << "O Produto que inseriu já existe!" << endl;
-            numero = InputRestrito<int>("Insira o Número do Produto: ");
+            cout << "O Produto que inseriu ja existe!" << endl;
+            numero = InputRestrito<int>("Insira o Numero do Produto: ");
             nome = InputNome("Insira o nome do Produto: ");
             tp = InputTProd("Insira o Tipo do Produto: ");
             nav = InputNota("Insira a Qualidade do Produto: ");
-            preco = InputRestrito<float>("Insira o Preço do Produto: ");
+            preco = InputRestrito<float>("Insira o Preco do Produto: ");
         }
         EfetuarProcura(numero, H.GetProdutos()).Info();
         return Adicionar();
     }
     if(resposta == 2){
         PrintList(H.GetQuartos());
-        int numero = InputRestrito<int>("Insira o Número do Quarto: ");
+        int numero = InputRestrito<int>("Insira o Numero do Quarto: ");
         tipo_quarto tq = InputTQuarto("Insira o Tipo de Quarto: ");
         int piso = InputRestrito<int>("Insira o Piso do Quarto: ");
         int capacidade = InputRestrito<int>("Insira a Capacidade do Quarto: ");
-        float preco = InputRestrito<float>("Insira o Preço do Quarto: ");
+        float preco = InputRestrito<float>("Insira o Preco do Quarto: ");
         while(!H.AddQuarto(Quarto(tq, piso, numero, capacidade, preco))){
             PrintList(H.GetQuartos());
-            cout << "O Quarto que inseriu já existe!" << endl;
-            numero = InputRestrito<int>("Insira o Número do Quarto: ");
+            cout << "O Quarto que inseriu ja existe!" << endl;
+            numero = InputRestrito<int>("Insira o Numero do Quarto: ");
             tq = InputTQuarto("Insira o Tipo de Quarto: ");
             piso = InputRestrito<int>("Insira o Piso do Quarto: ");
             capacidade = InputRestrito<int>("Insira a Capacidade do Quarto: ");
-            preco = InputRestrito<float>("Insira o Preço do Quarto: ");
+            preco = InputRestrito<float>("Insira o Preco do Quarto: ");
         }
         EfetuarProcura(numero, H.GetQuartos()).Info();
         return Adicionar();
@@ -912,20 +912,20 @@ void Menu::MReserva() {
         else{
             EfetuarProcura(nifcliente, H.GetClientes()).Info();
             int idnumero = InputRestrito<int>("Insira o ID da Reserva: ");
-            data datai = InputData("Insira a Data de Início da Reserva: ");
+            data datai = InputData("Insira a Data de Inicio da Reserva: ");
             data dataf = InputData("Insira a Data de Fim da Reserva: ");
-            int lugares = InputRestrito<int>("Insira o Número de Lugares Esperados: ");
+            int lugares = InputRestrito<int>("Insira o Numero de Lugares Esperados: ");
             PrintList(H.GetQuartos());
-            vector <int> nquartos = ProcessarIntIndef("o número do quarto a reservar", "Números de Quartos a Reservar", 1, H.GetQuartos());
+            vector <int> nquartos = ProcessarIntIndef("o numero do quarto a reservar", "Numeros de Quartos a Reservar", 1, H.GetQuartos());
             while(!H.Reservar(nifcliente, idnumero, datai, dataf, lugares, nquartos)){
-                cout << "Impossível Realizar a Reserva pretendida" << endl;
+                cout << "Impossivel Realizar a Reserva pretendida" << endl;
                 EfetuarProcura(nifcliente, H.GetClientes()).Info();
                 idnumero = InputRestrito<int>("Insira o ID da Reserva: ");
-                datai = InputData("Insira a Data de Início da Reserva: ");
+                datai = InputData("Insira a Data de Inicio da Reserva: ");
                 dataf = InputData("Insira a Data de Fim da Reserva: ");
                 lugares = InputRestrito<int>("Insira o Número de Lugares Esperados: ");
                 PrintList(H.GetQuartos());
-                nquartos = ProcessarIntIndef("o número do quarto a reservar", "Números de Quartos a Reservar", 1, H.GetQuartos());
+                nquartos = ProcessarIntIndef("o numero do quarto a reservar", "Numeros de Quartos a Reservar", 1, H.GetQuartos());
             }
             PrintList(H.GetReservas());
             return MReserva();
@@ -948,39 +948,39 @@ void Menu::MReserva() {
 }
 
 void Menu::MGerirFunc() {
-    string titulo = "Gerir Funcionários";
-    vector<string> opcoes = {"Contratar", "Selecionar Funcionário", "Voltar"};
+    string titulo = "Gerir Funcionarios";
+    vector<string> opcoes = {"Contratar", "Selecionar Funcionario", "Voltar"};
     unsigned resposta;
     resposta = ProcessarInputInt(opcoes, titulo);
     if (resposta == 0) {
-        int nif = InputRestrito<int>("Insira o NIF do Novo Funcionário: ");
-        string nome = InputNome("Insira o nome do Novo Funcionário: ");
+        int nif = InputRestrito<int>("Insira o NIF do Novo Funcionario: ");
+        string nome = InputNome("Insira o nome do Novo Funcionario: ");
         bool escolhercargo = InputRestrito<bool>(
-                "Insira [1] se quiser esolher um cargo específico ou [0] se quiser que este seja escolhido automaticamente de acordo com as necessidades atuais do Hotel: ");
+                "Insira [1] se quiser esolher um cargo especifico ou [0] se quiser que este seja escolhido automaticamente de acordo com as necessidades atuais do Hotel: ");
         if (escolhercargo) {
-            tipo_cargo cargo = InputCargo("Escolha o cargo que o novo funcionário irá exercer: ");
+            tipo_cargo cargo = InputCargo("Escolha o cargo que o novo funcionario irá exercer: ");
             H.Contratar(nome, nif, cargo);
         }
         else H.Contratar(nome, nif);
         bool escolhersalario = InputRestrito<bool>(
-                "Deseja atribuir um salário diferente ao Novo Funcionário [1 = sim | 0 = não]: ");
+                "Deseja atribuir um salario diferente ao Novo Funcionario [1 = sim | 0 = não]: ");
         if (escolhersalario) {
-            float salario = InputRestrito<float>("Insere o salário a ser atribuido ao Novo Funcionário: ");
+            float salario = InputRestrito<float>("Insere o salario a ser atribuido ao Novo Funcionario: ");
             H.SetSalario(nif, salario);
         }
         PrintList(H.GetFuncionarios());
         return MGerirFunc();
     }
     if (resposta == 1){
-        int idfunc = ProcessarInputProcura("Selecionar Funcionário", H.GetFuncionarios());
+        int idfunc = ProcessarInputProcura("Selecionar Funcionario", H.GetFuncionarios());
         if(idfunc == -1) return MGerirFunc();
-        vector<string> topcoes = {"Despedir", "Definir Salário", "Aumentar um Ano de Serviço", "Voltar", "Voltar ao Menu Principal"};
+        vector<string> topcoes = {"Despedir", "Definir Salario", "Aumentar um Ano de Servico", "Voltar", "Voltar ao Menu Principal"};
         unsigned tresposta = ProcessarInputInt(topcoes, EfetuarProcura(idfunc, H.GetFuncionarios()).nome);
         if(tresposta == 3) return MGerirFunc();
         if(tresposta > 3) return Principal();
         if(tresposta == 0) H.Despedir(idfunc);
         if(tresposta == 1){
-            float salario = InputRestrito<float>("Insere o salário a ser atribuido ao Funcionário Selecionado: ");
+            float salario = InputRestrito<float>("Insere o salario a ser atribuido ao Funcionario Selecionado: ");
             H.SetSalario(idfunc, salario);
         }
         if(tresposta == 2) H.AddAnoServico(idfunc);
@@ -1006,7 +1006,7 @@ void Menu::Checks() {
     }
     if (resposta == 1) {
         if (H.GetClientesnoHotel().empty()) {
-            cout << endl << "Não há clientes no hotel, por isso não é possível fazer nenhum Check-Out!" << endl;
+            cout << endl << "Nao ha clientes no hotel, por isso nao e possivel fazer nenhum Check-Out!" << endl;
         }
         else {
             list<Cliente *> lc = H.GetClientesnoHotel();
@@ -1026,7 +1026,7 @@ void Menu::Checks() {
             while (cin.fail() || !valida) {
                 valida = false;
                 PrintPointerListCliente(lc);
-                cout << endl << "Input inválido. Tem de ser um NIF de um cliente que estaja no Hotel.";
+                cout << endl << "Input invalido. Tem de ser um NIF de um cliente que esteja no Hotel.";
                 cout << endl << "Insere o NIF do cliente que pretende fazer Check-Out: ";
                 cin >> nifcliente;
                 if (!cin.fail()) {
@@ -1052,12 +1052,12 @@ void Menu::FinancasSelect() {
     string titulo = "Finanças";
     ImprimeTit(titulo);
     int mes, ano;
-    cout << endl << "Insira o mês que pretende analisar: ";
+    cout << endl << "Insira o mes que pretende analisar: ";
     cin >> mes;
     while (cin.fail() || mes < 1 || mes > 12){
         cin.clear();
         cin.ignore(1000, '\n');
-        cout << endl << "Insira o mês que pretende analisar: ";
+        cout << endl << "Insira o mes que pretende analisar: ";
         cin >> mes;
     }
     cout << endl << "Insira o ano que pretende analisar: ";
@@ -1072,47 +1072,47 @@ void Menu::FinancasSelect() {
 }
 
 void Menu::Financas(int mes, int ano) {
-    string titulo = "Finanças " + to_string(mes) + "-" + to_string(ano);
-    vector<string> opcoes = {"Custos", "Rendimentos", "Balanço", "Voltar", "Voltar ao Menu Principal"};
+    string titulo = "Financas " + to_string(mes) + "-" + to_string(ano);
+    vector<string> opcoes = {"Custos", "Rendimentos", "Balanco", "Voltar", "Voltar ao Menu Principal"};
     unsigned resposta = ProcessarInputInt(opcoes, titulo);
     if (resposta == 0) {
         float impostos = InputRestrito<float>("Insira o custo mensal dos impostos: ");
-        float despesas = InputRestrito<float>("Insira o total gasto em Despesas Fixas (água, eletricidade...) pelo Hotel mensalmente: ");
+        float despesas = InputRestrito<float>("Insira o total gasto em Despesas Fixas (agua, eletricidade...) pelo Hotel mensalmente: ");
         cout << endl << "FOLHA SALARIAL" << endl;
         for (auto it = H.GetFuncionarios().begin(); it != H.GetFuncionarios().end(); it++) {
-            cout << endl << (*it).nome << " ---> Salário: " << (*it).salario;
+            cout << endl << (*it).nome << " ---> Salario: " << (*it).salario;
         }
         cout << endl << endl << "STOCK" << endl;
         for (auto it = H.GetProdutos().begin(); it != H.GetProdutos().end(); it++) {
-            cout << endl << (*it).nome << " ---> Preço: " << (*it).preco;
+            cout << endl << (*it).nome << " ---> Preco: " << (*it).preco;
         }
-        cout << endl << endl << "CUSTOS NO MÊS " << mes << "-" << ano << " :  " << H.CustosTotais(impostos, despesas);
+        cout << endl << endl << "CUSTOS NO MES " << mes << "-" << ano << " :  " << H.CustosTotais(impostos, despesas);
         return Financas(mes, ano);
     }
     if (resposta == 1) {
         list <Servico *> sf = H.Servicos_Fin(mes, ano);
         list <Reserva *> rf = H.Reservas_Fin(mes, ano);
         if(!sf.empty()){
-            cout << endl << "LUCRO SERVIÇOS PRESTADOS ESTE MÊS" << endl;
+            cout << endl << "LUCRO SERVIÇOS PRESTADOS ESTE MES" << endl;
             for (auto it = sf.begin(); it != sf.end(); it++) {
                 cout << endl << (*it)->nome << " ---> Lucro para o Hotel: " << (*it)->lucro;
             }
         }
         if(!rf.empty()){
-            cout << endl << endl << "RESERVAS FEITAS (parcial ou totalmente) PARA ESTE MÊS" << endl;
+            cout << endl << endl << "RESERVAS FEITAS (parcial ou totalmente) PARA ESTE MES" << endl;
             for (auto it = rf.begin(); it != rf.end(); it++) {
-                cout << endl << (*it)->idnumero << "---> Preço/dia: " << (*it)->preco;
+                cout << endl << (*it)->idnumero << "---> Preco/dia: " << (*it)->preco;
             }
         }
-        cout << endl << endl << "RENDIMENTOS NO MÊS " << mes << "-" << ano << " :  " << H.RendimentosTotais(mes, ano);
+        cout << endl << endl << "RENDIMENTOS NO MES " << mes << "-" << ano << " :  " << H.RendimentosTotais(mes, ano);
         return Financas(mes, ano);
     }
     if (resposta == 2){
         float impostos = InputRestrito<float>("Insira o custo mensal dos impostos: ");
-        float despesas = InputRestrito<float>("Insira o total gasto em Despesas Fixas (água, eletricidade...) pelo Hotel mensalmente: ");
-        cout << endl << "CUSTOS NO MÊS " << mes << "-" << ano << " :  " << H.CustosTotais(impostos, despesas);
-        cout << endl << "RENDIMENTOS NO MÊS " << mes << "-" << ano << " :  " << H.RendimentosTotais(mes, ano);
-        cout << endl << endl << "BALANÇO FINANCEIRO NO MÊS " << mes << "-" << ano << " :  " << H.BalancoFin(mes, ano, impostos, despesas);
+        float despesas = InputRestrito<float>("Insira o total gasto em Despesas Fixas (agua, eletricidade...) pelo Hotel mensalmente: ");
+        cout << endl << "CUSTOS NO MES " << mes << "-" << ano << " :  " << H.CustosTotais(impostos, despesas);
+        cout << endl << "RENDIMENTOS NO MES " << mes << "-" << ano << " :  " << H.RendimentosTotais(mes, ano);
+        cout << endl << endl << "BALANCO FINANCEIRO NO MES " << mes << "-" << ano << " :  " << H.BalancoFin(mes, ano, impostos, despesas);
         return Financas(mes, ano);
     }
     if(resposta == 3) return FinancasSelect();
@@ -1122,21 +1122,21 @@ void Menu::Financas(int mes, int ano) {
 
 void Menu::Outros() {
     string titulo = "Outros";
-    vector<string> opcoes = {"Prestar Serviço", "Promoções", "Escolher Produto", "Fazer Pesquisas", "Voltar"};
+    vector<string> opcoes = {"Prestar Servico", "Promocoes", "Escolher Produto", "Fazer Pesquisas", "Voltar"};
     unsigned resposta = ProcessarInputInt(opcoes, titulo);
     if (resposta == 0){
-        int nifcliente = ProcessarInputProcura("Prestar Serviço", H.GetClientes());
+        int nifcliente = ProcessarInputProcura("Prestar Servico", H.GetClientes());
         if (nifcliente == -1) return Outros();
         bool done = false;
         float margemlucro;
-        string nome = InputNome("Insira o nome do Serviço: ");
-        int sid = InputRestrito<int>("Insira o número do Serviço: ");
-        data dr = InputData("Insira a data de realização do Serviço: ");
-        float taxa = InputRestrito<float>("Insira a taxa aplicada ao Serviço: ");
+        string nome = InputNome("Insira o nome do Servico: ");
+        int sid = InputRestrito<int>("Insira o numero do Servico: ");
+        data dr = InputData("Insira a data de realizacao do Servico: ");
+        float taxa = InputRestrito<float>("Insira a taxa aplicada ao Servico: ");
         PrintList(H.GetFuncionarios());
-        vector<int> fnum = ProcessarIntIndef("NIF de Funcionário Ocupado", "NIFS de Funcionários Ocupados", 0, H.GetFuncionarios());
+        vector<int> fnum = ProcessarIntIndef("NIF de Funcionario Ocupado", "NIFS de Funcionarios Ocupados", 0, H.GetFuncionarios());
         PrintList(H.GetProdutos());
-        vector<int> pnum = ProcessarIntIndef("Número do Produto Consumido", "Números dos Produtos Consumidos", 0, H.GetProdutos());
+        vector<int> pnum = ProcessarIntIndef("Numero do Produto Consumido", "Numeros dos Produtos Consumidos", 0, H.GetProdutos());
         if (!pnum.empty()) margemlucro = InputRestrito<float>("Insira a margem de lucro do Hotel sobre os Produtos (em %): ");
         if (!fnum.empty()){
             if(!pnum.empty()) done = H.PrestarServico(nifcliente, nome, sid, dr, taxa, fnum, pnum, margemlucro);
@@ -1147,17 +1147,17 @@ void Menu::Outros() {
             else done = H.PrestarServico(nifcliente, nome, sid, dr, taxa);
         }
         while(!done){
-            cout << endl << "Serviço Impossível de prestar, porque já existe!" << endl;
+            cout << endl << "Servico Impossivel de prestar, porque ja existe!" << endl;
             fnum.clear();
             pnum.clear();
-            nome = InputNome("Insira o nome do Serviço: ");
-            sid = InputRestrito<int>("Insira o número do Serviço: ");
-            dr = InputData("Insira a data de realização do Serviço: ");
-            taxa = InputRestrito<float>("Insira a taxa aplicada ao Serviço: ");
+            nome = InputNome("Insira o nome do Servico: ");
+            sid = InputRestrito<int>("Insira o numero do Servico: ");
+            dr = InputData("Insira a data de realizacao do Servico: ");
+            taxa = InputRestrito<float>("Insira a taxa aplicada ao Servico: ");
             PrintList(H.GetFuncionarios());
-            fnum = ProcessarIntIndef("NIF de Funcionário Ocupado", "NIFS de Funcionários Ocupados", 0, H.GetFuncionarios());
+            fnum = ProcessarIntIndef("NIF de Funcionario Ocupado", "NIFS de Funcionarios Ocupados", 0, H.GetFuncionarios());
             PrintList(H.GetProdutos());
-            pnum = ProcessarIntIndef("Número do Produto Consumido", "Números dos Produtos Consumidos", 0, H.GetProdutos());
+            pnum = ProcessarIntIndef("Numero do Produto Consumido", "Numeros dos Produtos Consumidos", 0, H.GetProdutos());
             if (!pnum.empty()) margemlucro = InputRestrito<float>("Insira a margem de lucro do Hotel sobre os Produtos (em %): ");
             if (!fnum.empty()){
                 if(!pnum.empty()) done = H.PrestarServico(nifcliente, nome, sid, dr, taxa, fnum, pnum, margemlucro);
@@ -1174,44 +1174,44 @@ void Menu::Outros() {
     }
     if (resposta == 1){
         if (H.GetFuncionariosGestores().empty()){
-            cout << endl << "Não há Funcionários Gestores para realizarem a Promoção!" << endl;
+            cout << endl << "Nao ha Funcionários Gestores para realizarem a Promocao!" << endl;
             return Outros();
         }
         if (H.GetQuartos().empty()){
-            cout << endl << "Não há Quartos a incluir na Promoção!" << endl;
+            cout << endl << "Nao ha Quartos a incluir na Promocao!" << endl;
             return Outros();
         }
-        int fid = ProcessarInputProcura("Promoção", H.GetFuncionariosGestores());
+        int fid = ProcessarInputProcura("Promocao", H.GetFuncionariosGestores());
         if (fid == -1) return Outros();
-        vector<int> nquartos = ProcessarIntIndef("Número do Quarto a incluir na Promoção", "Números dos Quartos a incluir na Promoção", 1, H.GetQuartos());
+        vector<int> nquartos = ProcessarIntIndef("Numero do Quarto a incluir na Promocao", "Numeros dos Quartos a incluir na Promocao", 1, H.GetQuartos());
         H.Promocoes(EfetuarProcura(fid, H.GetFuncionariosGestores()), nquartos);
         PrintList(H.GetQuartos());
         return Outros();
     }
     if (resposta == 2){
         if (H.GetFuncionariosGestores().empty()){
-            cout << endl << "Não há Funcionários Gestores para escolherem o Produto!" << endl;
+            cout << endl << "Nao ha Funcionarios Gestores para escolherem o Produto!" << endl;
             return Outros();
         }
         if (H.GetProdutos().empty()){
-            cout << endl << "Não há Produtos para escolher!" << endl;
+            cout << endl << "Nao ha Produtos para escolher!" << endl;
             return Outros();
         }
         int fid = ProcessarInputProcura("Escolha do Melhor Produto", H.GetFuncionariosGestores());
         if (fid == -1) return Outros();
-        vector<int> nprod = ProcessarIntIndef("Número do Produto a incluir na lista", "Números dos Produtos a incluir na lista", 1, H.GetProdutos());
+        vector<int> nprod = ProcessarIntIndef("Numero do Produto a incluir na lista", "Numeros dos Produtos a incluir na lista", 1, H.GetProdutos());
         cout << endl << "Produto Escolhido: " << endl;
         (H.EscolherProduto(EfetuarProcura(fid, H.GetFuncionariosGestores()), nprod)).Info();
         return Outros();
     }
     if (resposta == 3){
-        vector<string> topcoes = {"Quartos", "Funcionários", "Reservas", "Voltar", "Voltar ao Menu Principal"};
+        vector<string> topcoes = {"Quartos", "Funcionarios", "Reservas", "Voltar", "Voltar ao Menu Principal"};
         unsigned membro_ordenar = ProcessarInputInt(topcoes, "Pesquisas");
         unsigned criterio;
         if (membro_ordenar == 4) return Outros();
         if (membro_ordenar > 4) return Principal();
         if (membro_ordenar == 0){
-            vector<string> q_opcoes = {"Número Crescente", "Número Decrescente", "Preço Crescente", "Preço Decrescente", "Voltar", "Voltar ao Menu Principal"};
+            vector<string> q_opcoes = {"Numero Crescente", "Numero Decrescente", "Preco Crescente", "Preco Decrescente", "Voltar", "Voltar ao Menu Principal"};
             criterio = ProcessarInputInt(q_opcoes, "Pesquisa Quartos");
             if (criterio == 4) return Outros();
             if (criterio > 4) return Principal();
@@ -1232,8 +1232,8 @@ void Menu::Outros() {
             return Outros();
         }
         if (membro_ordenar == 1){
-            vector<string> f_opcoes = {"Cargo", "Salário Crescente", "Salário Decrescente", "Voltar", "Voltar ao Menu Principal"};
-            criterio = ProcessarInputInt(f_opcoes, "Pesquisa Funcionários");
+            vector<string> f_opcoes = {"Cargo", "Salario Crescente", "Salario Decrescente", "Voltar", "Voltar ao Menu Principal"};
+            criterio = ProcessarInputInt(f_opcoes, "Pesquisa Funcionarios");
             if (criterio == 3) return Outros();
             if (criterio > 3) return Principal();
             list <Funcionario> lf = H.GetFuncionarios();
@@ -1250,7 +1250,7 @@ void Menu::Outros() {
             return Outros();
         }
         if (membro_ordenar == 2){
-            vector<string> r_opcoes = {"Primeira Vez", "Preço Crescente", "Preço Decrescente", "Duração Crescente", "Duração Decrescente", "Data Inicial Crescente", "Data Inicial Decrescente", "Data Final Crescente", "Data Final Decrescente", "Voltar", "Voltar ao Menu Principal"};
+            vector<string> r_opcoes = {"Primeira Vez", "Preco Crescente", "Preco Decrescente", "Duracao Crescente", "Duracao Decrescente", "Data Inicial Crescente", "Data Inicial Decrescente", "Data Final Crescente", "Data Final Decrescente", "Voltar", "Voltar ao Menu Principal"};
             criterio = ProcessarInputInt(r_opcoes, "Pesquisa Reservas");
             if (criterio == 9) return Outros();
             if (criterio > 9) return Principal();
@@ -1293,7 +1293,7 @@ void Menu::Outros() {
 void Menu::Exportar() {
     string localizacao, titulo = "Exportar Hotel";
     ImprimeTit(titulo);
-    cout << endl << "Introduza a Localização do Ficheiro par onde quer Exportar o Hotel: ";
+    cout << endl << "Introduza a Localizacao do Ficheiro par onde quer Exportar o Hotel: ";
     cin >> localizacao;
     H.EscreverHotel(localizacao);
     return Principal();
@@ -1302,7 +1302,7 @@ void Menu::Exportar() {
 void Menu::Principal() {
     unsigned resposta;
     string titulo = "Bem-vindo ao grande Hotel " + H.nome;
-    vector <string> opcoes = {"Importar...", "Ver Informação...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Gerir Funcionários", "Check-in / Check-out", "Finanças", "Outros", "Exportar", "Sair"};
+    vector <string> opcoes = {"Importar...", "Ver Informacao...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Gerir Funcionarios", "Check-in / Check-out", "Financas", "Outros", "Exportar", "Sair"};
     resposta = ProcessarInputInt(opcoes, titulo);
     switch (resposta){
         case 0:
