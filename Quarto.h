@@ -23,6 +23,8 @@ public:
     bool operator==(const Quarto &q2) const{return numero == q2.numero;}
     static bool Numcomp_Decr(Quarto q1, Quarto q2) {return q1.numero > q2.numero;}
     static bool Numcomp_Cr(Quarto q1, Quarto q2) {return q1.numero < q2.numero;}
+    static bool Preco_Decr(Quarto q1, Quarto q2) {return q1.preco > q2.preco;}
+    static bool Preco_Cr(Quarto q1, Quarto q2) {return q1.preco < q2.preco;}
 };
 
 #endif //HOTEL_QUARTO_H

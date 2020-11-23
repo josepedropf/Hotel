@@ -27,8 +27,6 @@ public:
     Funcionario(string nome, int nif, int anos_servico, float salario);
     Funcionario(string nome, int nif, int anos_servico, float salario, tipo_cargo cargo);
     ~Funcionario() {};
-    void AddAnoServico() {anos_servico++; salario += salario * 0.05;}
-    void SetSalario(float novosalario) {salario = novosalario;}
     virtual void Info() const;
     int ID() const {return nif;}
     bool operator==(Funcionario & f2) {return nif == f2.nif;}
@@ -65,7 +63,7 @@ public:
     nota_avaliacao av_prestacao = razoavel;
     F_Gestor(string nome, int nif, int anos_servico, float salario);
     F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao);
-    void Promocoes(list <Quarto *> quartos_promo);
+    void Promocoes(list <Quarto *> &quartos_promo);
     Produto Escolher_Prod(list <Produto *> prods);
     void SetAvaliacao(nota_avaliacao nova_avaliacao) {av_prestacao = nova_avaliacao;}
     virtual void Info() const;

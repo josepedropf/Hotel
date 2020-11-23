@@ -31,6 +31,21 @@ void Cliente::Info() const{
     cout << "<CLIENTE>" << endl;
     cout << "Nome: " << nome << " | ";
     cout << "Nif: " << nif << " | ";
+    if(!estadias_anteriores.empty()){
+        cout << "Estadias Anteriores do Cliente:";
+        for(auto it = estadias_anteriores.begin(); it != estadias_anteriores.end(); it++){
+            cout << " " << (*it)->idnumero;
+        }
+        cout << " | ";
+    }
+    if(!reservas_cliente.empty()){
+        cout << "Reservas do Cliente:";
+        for(auto it = reservas_cliente.begin(); it != reservas_cliente.end(); it++){
+            cout << " " << (*it)->idnumero;
+        }
+        cout << " | ";
+    }
+    if(estadia_atual != NULL) cout << "Estadia Atual: " << estadia_atual->idnumero << " | ";
     if(cliente_usual) cout << "Cliente Usual";
     else cout << "Cliente Novo";
     cout << endl;

@@ -20,6 +20,7 @@ public:
     list <Quarto *> quartos_res;
     bool primeiravez = true;
     static bool PrimeiraReserva(Reserva r1, Reserva r2) {return r1.primeiravez > r2.primeiravez;}
+    static bool P_PrimeiraReserva(Reserva *r1, Reserva *r2) {return r1->primeiravez > r2->primeiravez;}
     static bool Duracaocomp_Decr(Reserva r1, Reserva r2) {return r1.duracao > r2.duracao;}
     static bool Duracaocomp_Cr(Reserva r1, Reserva r2) {return r1.duracao < r2.duracao;}
     static bool Precocomp_Decr(Reserva r1, Reserva r2) {return r1.preco > r2.preco;}

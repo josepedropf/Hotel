@@ -4,6 +4,14 @@ Hotel::Hotel(string nome) {
     this->nome = nome;
 }
 
+const list <Cliente *> Hotel::GetClientesnoHotel() {
+    list <Cliente *> resultado;
+    for(auto it = clientes.begin(); it != clientes.end(); it++){
+        if((*it).nohotel) resultado.push_back(&(*it));
+    }
+    return resultado;
+}
+
 // Hotel Database Add
 
 bool Hotel::AddProduto(Produto produto) {
@@ -213,10 +221,15 @@ bool Hotel::Reservar(int nif, int idnumero, data data_inicial, data data_final, 
 }
 
 void Hotel::CancelarReserva(Cliente &cliente, int idreserva) {
+    bool encontrado = false;
     for(auto it = cliente.reservas_cliente.begin(); it != cliente.reservas_cliente.end(); it++){
-        if((*it)->idnumero == idreserva)  it = cliente.reservas_cliente.erase(it);
+        if((*it)->idnumero == idreserva) {
+            it = cliente.reservas_cliente.erase(it);
+            encontrado = true;
+            break;
+        }
     }
-    PopReserva(idreserva);
+    if(encontrado) PopReserva(idreserva);
 }
 
 void Hotel::CancelarReserva(int nif, int idreserva) {
@@ -239,11 +252,16 @@ void Hotel::CancelarReserva(int nif, int idreserva) {
  */
 void Hotel::CheckIn(Cliente &cliente) {
     Reserva reserva = *cliente.reservas_cliente.front();
-    cliente.estadia_atual = &reserva;
-    ApagarReservaL(cliente.reservas_cliente, &reserva);
+    ApagarReservaL(cliente.reservas_cliente, reserva);
+    AddReservasAtuais(reserva);
+    for(auto it = reservas_atuais.begin(); it != reservas_atuais.end(); it++){
+        if((*it).idnumero == reserva.idnumero){
+            cliente.estadia_atual = &(*it);
+            break;
+        }
+    }
     cliente.nohotel = true;
     ApagarReservaL(reservas, reserva);
-    AddReservasAtuais(reserva);
 }
 
 void Hotel::CheckIn(int nif) {
@@ -265,9 +283,14 @@ void Hotel::CheckIn(int nif) {
  */
 void Hotel::CheckOut(Cliente &cliente) {
     Reserva reserva = *cliente.estadia_atual;
-    cliente.estadias_anteriores.push_back(&reserva);
-    cliente.estadia_atual = NULL;
     AddEstadia(reserva);
+    for(auto it = estadias.begin(); it != estadias.end(); it++){
+        if((*it).idnumero == reserva.idnumero){
+            cliente.estadias_anteriores.push_back(&(*it));
+            break;
+        }
+    }
+    cliente.estadia_atual = NULL;
     ApagarReservaL(reservas_atuais, reserva);
     cliente.nohotel = false;
     if(!cliente.cliente_usual) cliente.cliente_usual = true;
@@ -322,6 +345,17 @@ const list<Reserva> Hotel::RestringirClientesNovos(bool clientes_novos, list<Res
     return resultado;
 }
 
+const list<Reserva *> Hotel::P_RestringirClientesNovos(bool clientes_novos, list<Reserva *> creservas) {
+    list<Reserva *> resultado;
+    if(clientes_novos) {
+        for (auto it = creservas.begin(); it != creservas.end(); it++){
+            if ((*it)->primeiravez) resultado.push_back(*it);
+        }
+    }
+    else resultado = creservas;
+    return resultado;
+}
+
 const list<Reserva> Hotel::Pesquisa_Reservas_Duracao(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
     list <Reserva> pesquisa_duracao = RestringirClientesNovos(clientes_novos);
     if(inverso) pesquisa_duracao.sort(Reserva::Duracaocomp_Decr);
@@ -346,6 +380,14 @@ const list<Reserva> Hotel::Pesquisa_Reservas_DataI(bool inverso, bool clientes_n
     return pesquisa_duracao;
 }
 
+const list<Reserva *> Hotel::P_Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list<Reserva *> creservas) {
+    list <Reserva *> pesquisa_duracao = P_RestringirClientesNovos(clientes_novos, creservas);
+    if(inverso) pesquisa_duracao.sort(Reserva::P_DataIcomp_Decr);
+    else pesquisa_duracao.sort(Reserva::P_DataIcomp_Cr);
+    if(clientes_novos_primeiro) pesquisa_duracao.sort(Reserva::P_PrimeiraReserva);
+    return pesquisa_duracao;
+}
+
 const list<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
     list <Reserva> pesquisa_duracao = RestringirClientesNovos(clientes_novos);
     if(inverso) pesquisa_duracao.sort(Reserva::DataFcomp_Decr);
@@ -362,6 +404,14 @@ const list<Reserva> Hotel::Pesquisa_Reservas_DataF(bool inverso, bool clientes_n
     return pesquisa_duracao;
 }
 
+const list<Reserva *> Hotel::P_Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list<Reserva *> creservas) {
+    list <Reserva *> pesquisa_duracao = P_RestringirClientesNovos(clientes_novos, creservas);
+    if(inverso) pesquisa_duracao.sort(Reserva::P_DataFcomp_Decr);
+    else pesquisa_duracao.sort(Reserva::P_DataFcomp_Cr);
+    if(clientes_novos_primeiro) pesquisa_duracao.sort(Reserva::P_PrimeiraReserva);
+    return pesquisa_duracao;
+}
+
 const list<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro) {
     list <Reserva> pesquisa_preco = RestringirClientesNovos(clientes_novos);
     if(inverso) pesquisa_preco.sort(Reserva::Precocomp_Decr);
@@ -370,17 +420,18 @@ const list<Reserva> Hotel::Pesquisa_Reservas_Preco(bool inverso, bool clientes_n
     return pesquisa_preco;
 }
 
-list<Reserva *> Hotel::ReservasSobrepostas(list<Reserva> reservastotais, data datai, data dataf) {
+list<Reserva *> Hotel::ReservasSobrepostas(data datai, data dataf) {
+    UpdateReservasTotais();
     bool done = false;
-    list <Reserva> lri = Pesquisa_Reservas_DataI(0, 0, 0, reservastotais);
-    vector<Reserva> ri = LtoV(lri);
+    list <Reserva *> lri = P_Pesquisa_Reservas_DataI(0, 0, 0, reservas_totais);
+    vector <Reserva *> ri = LtoV(lri);
     int risize = ri.size();
     int vmin = 0, vmax = ri.size();
     int vmedio = vmax/2;
     int vmedioant = 0;
     while(vmedio != vmax || vmedio != vmin){
-        if(ri[vmedio].data_inicio <= dataf) vmin = vmedio;
-        if(ri[vmedio].data_inicio > dataf) vmax = vmedio;
+        if(ri[vmedio]->data_inicio <= dataf) vmin = vmedio;
+        if(ri[vmedio]->data_inicio > dataf) vmax = vmedio;
         vmedioant = vmedio;
         vmedio = vmin + (vmax - vmin)/2;
         if(done) break;
@@ -391,16 +442,16 @@ list<Reserva *> Hotel::ReservasSobrepostas(list<Reserva> reservastotais, data da
     }
     ri.erase(ri.begin() + min(vmax, risize), ri.end());
     lri = VtoL(ri);
-    list <Reserva> lrf = Pesquisa_Reservas_DataF(0, 0, 0, lri);
-    vector<Reserva> rf = LtoV(lrf);
+    list <Reserva *> lrf = P_Pesquisa_Reservas_DataF(0, 0, 0, lri);
+    vector<Reserva *> rf = LtoV(lrf);
     int rfsize = rf.size();
     vmin = 0, vmax = rf.size();
     vmedio = vmax/2;
     vmedioant = 0;
     done = false;
     while(vmedio != vmax || vmedio != vmin){
-        if(ri[vmedio].data_fim < datai) vmin = vmedio;
-        if(ri[vmedio].data_fim >= datai) vmax = vmedio;
+        if(ri[vmedio]->data_fim < datai) vmin = vmedio;
+        if(ri[vmedio]->data_fim >= datai) vmax = vmedio;
         vmedioant = vmedio;
         vmedio = vmin + (vmax - vmin)/2;
         if(done) break;
@@ -409,35 +460,30 @@ list<Reserva *> Hotel::ReservasSobrepostas(list<Reserva> reservastotais, data da
             done = true;
         }
     }
-    int maxr = max(0, vmin + 1);
-    rf.erase(rf.begin(), rf.begin() + min(maxr, rfsize));
-    lrf = VtoL(rf);
-    list <Reserva *> resultado;
-    for(auto it = lrf.begin(); it != lrf.end(); it++){
-        for(auto itt = reservas.begin(); itt != reservas.end(); itt++){
-            if((*it).idnumero == (*itt).idnumero){
-                resultado.push_back(&(*itt));
-                break;
-            }
-        }
-    }
+    rf.erase(rf.begin(), rf.begin() + min(vmin, rfsize));
+    list <Reserva *> resultado = VtoL(rf);
     return resultado;
 }
 
 list <Reserva *> Hotel::Reservas_Fin(int mesp, int anop){
     data dataf = DiaFinal(mesp, anop);
     data datai = {.dia = 1, .mes = mesp, .ano = anop};
-    list <Reserva> reservastotais = reservas;
-    reservastotais.insert(reservastotais.end(), reservas_atuais.begin(), reservas_atuais.end());
-    reservastotais.insert(reservastotais.end(), estadias.begin(), estadias.end());
-    return ReservasSobrepostas(reservastotais, datai, dataf);
+    return ReservasSobrepostas(datai, dataf);
+}
+
+list <Servico *> Hotel::Servicos_Fin(int mesp, int anop){
+    data data_inicial = {.dia = 1, .mes = mesp, .ano = anop};
+    data data_final = DiaFinal(mesp, anop);
+    list <Servico *> resultado;
+    for (auto it = servicos.begin(); it != servicos.end(); it++){
+        if((*it).data_realizacao >= data_inicial && (*it).data_realizacao <= data_final) resultado.push_back(&(*it));
+    }
+    return resultado;
 }
 
 list<Quarto *> Hotel::Quartos_Disponiveis(data data_inicial, data data_final) {
     list <Quarto > quartos_disponiveis = quartos;
-    list <Reserva> reservas_analise = reservas;
-    reservas_analise.insert(reservas_analise.end(), reservas_atuais.begin(), reservas_atuais.end());
-    list <Reserva *> reservas_sobrepostas = ReservasSobrepostas(reservas_analise, data_inicial, data_final);
+    list <Reserva *> reservas_sobrepostas = ReservasSobrepostas(data_inicial, data_final);
     for(auto it = reservas_sobrepostas.begin(); it != reservas_sobrepostas.end(); it++){
         for(auto itt = (*it)->quartos_res.begin(); itt != (*it)->quartos_res.end(); itt++){
             ApagarElementoL(quartos_disponiveis, *(*itt));
@@ -479,12 +525,11 @@ data Hotel::DiaFinal(int mesp, int anop) {
 float Hotel::RendimentosTotais(int mes, int ano) {
     data data_inicial = {.dia = 1, .mes = mes, .ano = ano};
     data data_final = DiaFinal(mes, ano);
-    list <Reserva *> reservas_totais = Reservas_Fin(mes, ano);
-    cout << endl << "Quartos Reservados (Total ou Parcialmente) neste mês fiscal (" << mes << "-" << ano <<"): ";
+    list <Reserva *> reservas_fin = Reservas_Fin(mes, ano);
     int realdur;
     float preco_res;
     float count_rquartos = 0, rendimento = 0;
-    for (auto it = reservas_totais.begin(); it != reservas_totais.end(); it++){
+    for (auto it = reservas_fin.begin(); it != reservas_fin.end(); it++){
         preco_res = (*it)->preco;
 
         if((*it)->data_inicio >= data_inicial && (*it)->data_fim <= data_final) realdur = (*it)->duracao;
@@ -494,7 +539,6 @@ float Hotel::RendimentosTotais(int mes, int ano) {
 
         count_rquartos += preco_res * realdur;
 
-        cout << "A Reserva " << (*it)->idnumero << " tem uma duração neste mês de " << realdur << " dias e tem um custo de " << preco_res << " euros." << " (Preço Total de " << preco_res * realdur << ")" << endl;
         }
     rendimento += count_rquartos;
     for (auto it = servicos.begin(); it != servicos.end(); it++){
@@ -625,7 +669,14 @@ void Hotel::Contratar(string nome, int nif){
     return Contratar(nome, nif, cargo);
 }
 
-void Hotel::Despedir(int nif, tipo_cargo cargo){
+void Hotel::Despedir(int nif){
+    tipo_cargo cargo;
+    for(auto it = funcionarios.begin(); it != funcionarios.end(); it++){
+        if((*it).nif == nif){
+            cargo = (*it).cargo;
+            break;
+        }
+    }
     switch (cargo){
         case frececao:
             for(auto it = funcionarios_rececao.begin(); it != funcionarios_rececao.end(); it++){
@@ -670,36 +721,37 @@ void Hotel::Despedir(int nif, tipo_cargo cargo){
     }
 }
 
-void Hotel::Despedir(int nif) {
-    int cmaior = funcionarios_rececao.size();
-    tipo_cargo cargoesc = frececao;
-    if(funcionarios_responsaveis.size() > cmaior){
-        cargoesc = fresponsavel;
-        cmaior = funcionarios_responsaveis.size();
+void Hotel::AddAnoServico(int idf) {
+    for (auto it = funcionarios.begin(); it != funcionarios.end(); it++){
+        if((*it).ID() == idf){
+            (*it).anos_servico++;
+            (*it).salario += (*it).salario * 0.05;
+            return;
+        }
     }
-    if(funcionarios_limpeza.size() > cmaior){
-        cargoesc = flimpeza;
-        cmaior = funcionarios_limpeza.size();
-    }
-    if(funcionarios_gestores.size() > cmaior){
-        cargoesc = fgestor;
-        cmaior = funcionarios_gestores.size();
-    }
-
-    Despedir(nif, cargoesc);
 }
 
-void Hotel::PrestarServico(Cliente &cliente, Servico servico) {
-    AddServico(servico);
+void Hotel::SetSalario(int idf, float novosalario) {
+    for (auto it = funcionarios.begin(); it != funcionarios.end(); it++){
+        if((*it).ID() == idf){
+            {(*it).salario = novosalario;}
+            return;
+        }
+    }
+}
+
+bool Hotel::PrestarServico(Cliente &cliente, Servico servico) {
+    if (!AddServico(servico)) return false;
     for(auto it = servicos.begin(); it != servicos.end(); it++){
         if((*it) == servico){
             cliente.servicos_consumidos.push_back(&(*it));
             break;
         }
     }
+    return true;
 }
 
-void Hotel::PrestarServico(int nif, Servico servico) {
+bool Hotel::PrestarServico(int nif, Servico servico) {
     auto it = clientes.begin();
     bool found = false;
     for (it; it != clientes.end(); it++){
@@ -709,13 +761,14 @@ void Hotel::PrestarServico(int nif, Servico servico) {
         }
     }
     if(found) return PrestarServico((*it), servico);
+    else return false;
 }
 
-void Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa){
+bool Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa){
     return PrestarServico(nif, Servico(nome, idnumero, data_realizacao, taxa));
 }
 
-void Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> funcsnif){
+bool Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> funcsnif){
     list <Funcionario *> lpf;
     int fnsize = funcsnif.size();
     for(int i = 0; fnsize > i; i++){
@@ -729,7 +782,7 @@ void Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realiza
     return PrestarServico(nif, Servico(nome, idnumero, data_realizacao, taxa, lpf));
 }
 
-void Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> numprods, float margem_lucro){
+bool Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> numprods, float margem_lucro){
     list <Produto *> lpp;
     int npsize = numprods.size();
     for(int i = 0; npsize > i; i++){
@@ -743,7 +796,7 @@ void Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realiza
     return PrestarServico(nif, Servico(nome, idnumero, data_realizacao, taxa, lpp, margem_lucro));
 }
 
-void Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> funcsnif, vector <int> numprods, float margem_lucro){
+bool Hotel::PrestarServico(int nif, string nome, int idnumero, data data_realizacao, float taxa, vector <int> funcsnif, vector <int> numprods, float margem_lucro){
     list <Funcionario *> lpf;
     int fnsize = funcsnif.size();
     for(int i = 0; fnsize > i; i++){
@@ -1057,7 +1110,7 @@ void Hotel::ImportarServicos(string localizacao) {
 }
 
 void Hotel::EscreverHotel(string nomedoficheiro) {
-    if(nomedoficheiro.substr(nomedoficheiro.size() - 4) != ".txt") nomedoficheiro += ".txt";
+    if(nomedoficheiro.length() < 4 || nomedoficheiro.substr(nomedoficheiro.size() - 4) != ".txt") nomedoficheiro += ".txt";
     ofstream outficheiro(nomedoficheiro);
     outficheiro << "Hotel" << endl;
     outficheiro << nome << endl << endl;
@@ -1104,13 +1157,11 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     outficheiro << endl;
     outficheiro << "Serviços" << endl;
     for(auto it = servicos.begin(); it != servicos.end(); it++){
-        bool cliente_enc = false;
-        string cliente_nif = "";
-        for(auto itc = clientes.begin(); itc != clientes.end() && !cliente_enc; itc++){
-            for(auto itsc = (*itc).servicos_consumidos.begin(); itsc != (*itc).servicos_consumidos.end() && !cliente_enc; itsc++){
-                if(*(*itsc) == (*it)){
-                    cliente_nif = to_string((*itc).nif);
-                    cliente_enc = true;
+        int cliente_nif;
+        for(auto itc = clientes.begin(); itc != clientes.end(); itc++){
+            for(auto its = (*itc).servicos_consumidos.begin(); its != (*itc).servicos_consumidos.end(); its++){
+                if((*its)->idnumero == (*it).idnumero){
+                    cliente_nif = (*itc).nif;
                     break;
                 }
             }
@@ -1189,7 +1240,7 @@ void Hotel::ApagarElementoL(list<T> l, T elemento) {
     }
 }
 
-void Hotel::ApagarReservaL(list<Reserva> lr, Reserva r) {
+void Hotel::ApagarReservaL(list<Reserva> &lr, Reserva r) {
     for(auto it = lr.begin(); it != lr.end(); it++){
         if((*it).idnumero == r.idnumero) {
             it = lr.erase(it);
@@ -1198,9 +1249,9 @@ void Hotel::ApagarReservaL(list<Reserva> lr, Reserva r) {
     }
 }
 
-void Hotel::ApagarReservaL(list<Reserva *> lr, Reserva *r) {
+void Hotel::ApagarReservaL(list<Reserva *> &lr, Reserva r) {
     for(auto it = lr.begin(); it != lr.end(); it++){
-        if((*it)->idnumero == r->idnumero){
+        if((*it)->idnumero == r.idnumero){
             it = lr.erase(it);
             break;
         }
@@ -1319,4 +1370,17 @@ list <Produto> Hotel::ListProduto(list <Produto *> pl){
         l.push_back(elemento);
     }
     return l;
+}
+
+void Hotel::UpdateReservasTotais() {
+    reservas_totais.clear();
+    for (auto it = reservas.begin(); it != reservas.end(); it++){
+        reservas_totais.push_back(&(*it));
+    }
+    for (auto it = reservas_atuais.begin(); it != reservas_atuais.end(); it++){
+        reservas_totais.push_back(&(*it));
+    }
+    for (auto it = estadias.begin(); it != estadias.end(); it++){
+        reservas_totais.push_back(&(*it));
+    }
 }

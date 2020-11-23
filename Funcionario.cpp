@@ -84,12 +84,13 @@ void F_Limpeza::Info() const{
 }
 
 void F_Gestor::Info() const{
+    Funcionario::Info();
     cout << " | Avaliação: " << av_prestacao;
     cout << endl;
 }
 
 // Gestor Funcs
-void F_Gestor::Promocoes(list <Quarto *> quartos_promo) {
+void F_Gestor::Promocoes(list <Quarto *> &quartos_promo) {
     for(auto it = quartos_promo.begin(); it != quartos_promo.end(); it++){
         (*it)->preco *= float(float(100 - (*it)->promo) / 100.0);
     }

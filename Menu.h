@@ -47,8 +47,9 @@ public:
         cout << "<-||| " << endl;
     }
 
-    void PrintPointerListReserva(list<Reserva *> pl);
+    void PrintPointerListReserva(list <Reserva *> pl);
     void PrintPointerListFunc(list <Funcionario *> pl);
+    void PrintPointerListCliente(list <Cliente *> pl);
 
     void ImportarHotel(Hotel &H, string localizacao);
     void PrintHotel();
@@ -90,6 +91,12 @@ public:
     void Adicionar();
     void Apagar();
     void MReserva();
+    void MGerirFunc();
+    void Checks();
+    void FinancasSelect();
+    void Financas(int mes, int ano);
+    void Outros();
+    void Exportar();
 
     void Principal();
 
