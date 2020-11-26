@@ -1094,7 +1094,7 @@ void Hotel::ImportarFuncionarios(string localizacao) {
         throw FicheiroIncompativel(localizacao);
     }
     string line;
-    while (line != "Funcionários" && !inficheiro.eof()) {
+    while (line != "Funcionarios" && !inficheiro.eof()) {
         getline(inficheiro, line);
     }
     if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
@@ -1260,7 +1260,7 @@ void Hotel::ImportarServicos(string localizacao) {
         throw FicheiroIncompativel(localizacao);
     }
     string line;
-    while(line != "Serviços" && !inficheiro.eof()){
+    while(line != "Servicos" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
     if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
@@ -1353,7 +1353,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     }
 
     outficheiro << endl;
-    outficheiro << "Funcionários" << endl;
+    outficheiro << "Funcionarios" << endl;
     for(auto it = funcionarios_rececao.begin(); it != funcionarios_rececao.end(); it++){
         outficheiro << (*it).nome << " , " << (*it).nif << " " << (*it).anos_servico << " " << (*it).salario << " " << (*it).cargo << endl;
     }
@@ -1375,7 +1375,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     }
 
     outficheiro << endl;
-    outficheiro << "Serviços" << endl;
+    outficheiro << "Servicos" << endl;
     for(auto it = servicos.begin(); it != servicos.end(); it++){
         int cliente_nif;
         for(auto itc = clientes.begin(); itc != clientes.end(); itc++){

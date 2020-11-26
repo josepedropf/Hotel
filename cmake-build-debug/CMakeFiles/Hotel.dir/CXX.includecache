@@ -6,7 +6,11 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.cpp
+Cliente.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
 iostream
 -
 vector
@@ -18,21 +22,23 @@ list
 algorithm
 -
 Data.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Reserva.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 Exceptions.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 Servico.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 string
 -
 iostream
 -
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.cpp
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 iostream
 -
 vector
@@ -42,11 +48,11 @@ string
 algorithm
 -
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.cpp
 Funcionario.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 iostream
 -
 vector
@@ -58,11 +64,15 @@ algorithm
 list
 -
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 Produto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.cpp
+Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 iostream
 -
 list
@@ -78,27 +88,27 @@ fstream
 sstream
 -
 Reserva.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 Produto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 Funcionario.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 Cliente.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Cliente.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
 Servico.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 Data.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Exceptions.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.cpp
 Menu.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 iostream
 -
 fstream
@@ -116,13 +126,13 @@ string
 algorithm
 -
 Hotel.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.cpp
 Produto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 iostream
 -
 vector
@@ -132,11 +142,11 @@ string
 algorithm
 -
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.cpp
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 iostream
 -
 vector
@@ -146,11 +156,11 @@ string
 algorithm
 -
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.cpp
 Reserva.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 iostream
 -
 vector
@@ -162,15 +172,15 @@ string
 algorithm
 -
 Data.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Quarto.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Servico.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.cpp
 Servico.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 iostream
 -
 vector
@@ -184,11 +194,11 @@ algorithm
 list
 -
 Data.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Funcionario.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 
-C:/Users/MSI/Desktop/Hotel/Hotel/main.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/main.cpp
 Menu.h
-C:/Users/MSI/Desktop/Hotel/Hotel/Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 

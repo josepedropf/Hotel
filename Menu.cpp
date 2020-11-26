@@ -53,7 +53,7 @@ void Menu::ImportarHotel(Hotel &H, string localizacao) {
 }
 
 void Menu::PrintHotel() {
-    cout << endl << endl << "||| " << "BEM-VINDO AO GRANDE HOTEL " << H.nome << " |||" << endl << endl;
+    cout << endl << endl << "||| " << "BEM-VINDO AO " << H.nome << " |||" << endl << endl;
     PrintList(H.GetQuartos());
     PrintList(H.GetProdutos());
     PrintList(H.GetFuncionariosGestores());
@@ -1301,7 +1301,7 @@ void Menu::Exportar() {
 
 void Menu::Principal() {
     unsigned resposta;
-    string titulo = "Bem-vindo ao grande Hotel " + H.nome;
+    string titulo = "Bem-vindo ao " + H.nome;
     vector <string> opcoes = {"Importar...", "Ver Informacao...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Gerir Funcionarios", "Check-in / Check-out", "Financas", "Outros", "Exportar", "Sair"};
     resposta = ProcessarInputInt(opcoes, titulo);
     switch (resposta){
