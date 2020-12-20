@@ -11,6 +11,7 @@ string plate;
 double mileage;
 int lugares;
 public:
+    Vehicle(string p) : plate(p) {}
     Vehicle(string p, double m, int l) : plate(p), mileage(m), lugares(l){}
     string getPlate() const;
     double getMileage() const;
@@ -18,6 +19,7 @@ public:
     void setMileage(double m) {mileage = m;}
     void updateMileage(double m) {} //to do, maybe bool? return false if mileage > 5000?
     bool operator < (const Vehicle & v) const;
+    bool operator == (const Vehicle & v) const;
 };
 
 class Fleet {
@@ -26,6 +28,7 @@ public:
     BST<Vehicle> getVehicles() const;
     int numVehicles() const;
     void addVehicle(Vehicle v1);
+    void rentFleet(vector<Vehicle>& rfleet);
 };
 
 
