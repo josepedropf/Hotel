@@ -40,7 +40,7 @@ void Fleet::addVehicle(Vehicle v1) {
     vehicles.insert(v1);
 }
 
-void Fleet::rentFleet(vector <Vehicle>& rfleet) {
+void Fleet::rentFleet(vector <Vehicle> rfleet) {
     vehicles.makeEmpty();
     for (auto & i : rfleet) {
         addVehicle(i);
