@@ -28,7 +28,7 @@ public:
     BST<Vehicle> getVehicles() const;
     int numVehicles() const;
     void addVehicle(Vehicle v1);
-    void rentFleet(vector<Vehicle>& rfleet);
+    void rentFleet(vector<Vehicle> rfleet);
 };
 
 
