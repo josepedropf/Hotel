@@ -1,7 +1,3 @@
-//
-// Created by jfred on 20/12/2020.
-//
-
 #include "Fleet.h"
 
 bool Vehicle::operator<(const Vehicle &v) const {
@@ -9,6 +5,10 @@ bool Vehicle::operator<(const Vehicle &v) const {
         return true;
     }
     else return lugares < v.getLugares();
+}
+
+bool Vehicle::operator==(const Vehicle &v) const {
+    return getPlate() == v.getPlate();
 }
 
 string Vehicle::getPlate() const {
@@ -38,4 +38,11 @@ int Fleet::numVehicles() const {
 
 void Fleet::addVehicle(Vehicle v1) {
     vehicles.insert(v1);
+}
+
+void Fleet::rentFleet(vector <Vehicle>& rfleet) {
+    vehicles.makeEmpty();
+    for (auto & i : rfleet) {
+        addVehicle(i);
+    }
 }
