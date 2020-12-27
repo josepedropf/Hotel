@@ -1,15 +1,12 @@
-//
-// Created by jfred on 20/12/2020.
-//
-
-#ifndef HOTEL2_FLEET_H
-#define HOTEL2_FLEET_H
+#ifndef HOTEL_FLEET_H
+#define HOTEL_FLEET_H
 #include "bst.h"
 
 class Vehicle {
 string plate;
 double mileage;
 int lugares;
+//can add brand and date and more
 public:
     Vehicle(string p) : plate(p) {}
     Vehicle(string p, double m, int l) : plate(p), mileage(m), lugares(l){}
@@ -17,19 +14,28 @@ public:
     double getMileage() const;
     int getLugares() const;
     void setMileage(double m) {mileage = m;}
-    void updateMileage(double m) {} //to do, maybe bool? return false if mileage > 5000?
+    void updateMileage(double m); //to be called at the end of a trip
+    void returnVehicle(); //not implemented yet, devolve carro e remove da bst
+    int info(ostream &o) const;
     bool operator < (const Vehicle & v) const;
     bool operator == (const Vehicle & v) const;
 };
 
 class Fleet {
-    BST<Vehicle> vehicles;
+    BST<Vehicle*> vehicles;
 public:
-    BST<Vehicle> getVehicles() const;
+    BST<Vehicle*> getVehicles() const;
     int numVehicles() const;
-    void addVehicle(Vehicle v1);
-    void rentFleet(vector<Vehicle> rfleet);
+    void addVehicle(Vehicle *v1);
+    void rentFleet(const vector<Vehicle*>& rfleet);
+    Vehicle* searchForVehicle(string p);
+    Vehicle* lowestM(); //to be called at the start or before a trip
+};
+
+class vehicleNotFound
+{
+
 };
 
 
-#endif //HOTEL2_FLEET_H
+#endif //HOTEL_FLEET_H
