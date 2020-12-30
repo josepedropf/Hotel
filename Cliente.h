@@ -31,7 +31,8 @@ public:
     void Info() const;
     int ID() const {return nif;}
     bool operator==(const Cliente &c2) const{return (nif == c2.nif);}
-
+    string getName() const {return nome;}
+    int getNif() const {return nif;}
     float GetConta();
 
 private:
