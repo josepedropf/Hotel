@@ -45,7 +45,7 @@ BST<Vehicle*> Fleet::getVehicles() const {
 
 int Fleet::numVehicles() const {
     int result = 0;
-    BSTItrIn<Vehicle> it(vehicles);
+    BSTItrIn<Vehicle*> it(vehicles);
     for (; !it.isAtEnd();it.advance()) {
         result++;
     }
