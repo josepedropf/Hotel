@@ -20,6 +20,7 @@
 #include "Servico.h"
 #include "Data.h"
 #include "Exceptions.h"
+#include "Frota.h"
 
 
 using namespace std;
@@ -40,9 +41,10 @@ protected:
     list <F_Gestor> funcionarios_gestores;
     list <Servico> servicos;
     list <Reserva *> reservas_totais;
+    list <viagem> viagens_realizadas;
 
 public:
-    Hotel() {nome = "Grande Hotel Central";};
+    Hotel(): frota(Veiculo()) {nome = "Grande Hotel Central";}
     Hotel(string nome);
     ~Hotel() {};
     string nome;
@@ -60,6 +62,7 @@ public:
     const list <F_Limpeza> GetFuncionariosLimpeza() {return funcionarios_limpeza;}
     const list <F_Gestor> GetFuncionariosGestores() {return funcionarios_gestores;}
     const list <Servico> GetServicos() {return servicos;}
+    const list <viagem> GetViagens() {return viagens_realizadas;}
     const list <Cliente *> GetClientesnoHotel();
 
     bool AddProduto(Produto produto);
@@ -75,6 +78,7 @@ public:
     bool AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza);
     bool AddFuncionarioGestor(F_Gestor funcionario_gestor);
     bool AddServico(Servico servico);
+    bool AddViagem(viagem viagem);
 
 
     bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
@@ -206,6 +210,18 @@ public:
 
     list <Cliente *> GetClientesInicial(char inicial);
     void PromoIniciais(char p_inicial, char s_inicial);
+
+    BST<Veiculo> frota; //Init?
+    BST<Veiculo> getFrota() const;
+    int numVeiculos() const;
+    void addVeiculo(Veiculo veiculo);
+    void alugarFrota(const vector<Veiculo>& rFrota);
+    void devolveVeiculo(matricula matricula);
+    Veiculo* pesquisaVeiculo (matricula matricula);
+    Veiculo* menorKm(); //to be called at the start or before a trip
+
+    void Viajar(Cliente * cliente, double distancia, string ponto_partida, string destino, int id);
+    void Viajar(Cliente * cliente, double distancia, int id);
 };
 
 #endif //HOTEL_HOTEL_H

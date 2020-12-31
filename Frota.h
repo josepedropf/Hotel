@@ -29,38 +29,47 @@ matricula transf_matricula(string s){
     }
 }
 
+
 class Veiculo {
 matricula vmatricula;
 double kms;
 int lugares;
 //can add brand and date and more
 public:
-    Veiculo(matricula vmatricula) : vmatricula(vmatricula) {}
-    Veiculo(matricula vmatricula, double kms, int lugares) : vmatricula(vmatricula), kms(kms), lugares(lugares){}
-    Veiculo(string matricula_string) : vmatricula(transf_matricula(matricula_string)) {}
-    Veiculo(string matricula_string, double kms, int lugares) : vmatricula(transf_matricula(matricula_string)), kms(kms), lugares(lugares){}
+    Veiculo() : vmatricula(transf_matricula(" ")) {lugares = 0; kms = 0;}
+    Veiculo(matricula vmatricula, int lugares) : vmatricula(vmatricula) {if(lugares < 1) lugares = 1; else lugares = lugares; kms = 0;}
+    Veiculo(matricula vmatricula, double kms, int lugares) : vmatricula(vmatricula), kms(kms) {if(lugares < 1) lugares = 1; else lugares = lugares;}
+    Veiculo(string matricula_string, int lugares) : vmatricula(transf_matricula(matricula_string)) {if(lugares < 1) lugares = 1; else lugares = lugares; kms = 0;}
+    Veiculo(string matricula_string, double kms, int lugares) : vmatricula(transf_matricula(matricula_string)), kms(kms) {if(lugares < 1) lugares = 1; else lugares = lugares;}
     matricula getMatricula() const;
     double getKms() const;
     int getLugares() const;
-    void setkms(double m) {kms = m;}
-    void updateKms(double m); //to be called at the end of a trip
-    int ID() {return vmatricula.id;}
+    void setkms(double new_kms) {kms = new_kms;}
+    void updateKms(double kms_feitos); //to be called at the end of a trip
+    int ID() const {return vmatricula.id;}
     void Info() const;
     bool operator < (const Veiculo & v) const;
     bool operator == (const Veiculo & v) const;
 };
 
-class Frota {
-    static BST<Veiculo*> veiculos;
-public:
-    BST<Veiculo*> getVeiculos() const;
-    int numVeiculos() const;
-    void addVeiculo(Veiculo *v1);
-    void alugarFrota(const vector<Veiculo*>& rFrota);
-    static void devolveVeiculo(matricula matricula);
-    Veiculo* pesquisaVeiculo(matricula matricula);
-    Veiculo* menorM(); //to be called at the start or before a trip
+
+struct viagem{
+    string ponto_partida = "Hotel", destino = "Aeroporto";
+    double distancia;
+    matricula matricula;
+    int id;
+    int ID() const {return id;}
+    bool operator==(const viagem &v2)const;
 };
+
+inline bool viagem::operator==(const viagem &v2) const {
+    return (id == v2.ID());
+}
+
+
+
+
+
 
 class VeiculoNotFound
 {

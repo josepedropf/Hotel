@@ -4,7 +4,7 @@
  * Construtor da classe Hotel
  * @param nome nome do Hotel
  */
-Hotel::Hotel(string nome) {
+Hotel::Hotel(string nome): frota(Veiculo()) {
     this->nome = nome;
 }
 
@@ -204,6 +204,14 @@ bool Hotel::AddServico(Servico servico) {
         if((*it) == servico) return false ;
     }
     servicos.push_back(servico);
+    return true;
+}
+
+bool Hotel::AddViagem(viagem viagem) {
+    for(auto it = viagens_realizadas.begin(); it != viagens_realizadas.end(); it++){
+        if((*it) == viagem) return false;
+    }
+    viagens_realizadas.push_back(viagem);
     return true;
 }
 
@@ -1637,6 +1645,95 @@ void Hotel::PromoIniciais(char p_inicial, char s_inicial){
 
 }
 
+
+BST<Veiculo> Hotel::getFrota() const {
+    return frota;
+}
+
+int Hotel::numVeiculos() const {
+    int result = 0;
+    BSTItrIn<Veiculo> it(frota);
+    for (; !it.isAtEnd();it.advance()) {
+        result++;
+    }
+    return result;
+}
+
+void Hotel::addVeiculo(Veiculo veiculo) {
+    veiculo.setkms(0);
+    frota.insert(veiculo);
+}
+
+void Hotel::alugarFrota(const vector <Veiculo>& rFrota) {
+    frota.makeEmpty();
+    for (auto & i : rFrota) {
+        addVeiculo(i);
+    }
+}
+
+Veiculo* Hotel::pesquisaVeiculo(matricula matricula) {
+    BSTItrIn<Veiculo> it(frota);
+    for (; !it.isAtEnd();it.advance()) {
+        if (matricula == it.retrieve().getMatricula()) return const_cast<Veiculo *>(&(it.retrieve()));
+    }
+    throw VeiculoNotFound(); //not implemented yet
+}
+
+Veiculo* Hotel::menorKm() {
+    return const_cast<Veiculo *>(&(frota.findMin())); //n sei se funciona assim
+}
+
+void Hotel::devolveVeiculo(matricula matricula) {
+    Veiculo* toreturn;
+    BSTItrIn<Veiculo> it(frota);
+    for (; !it.isAtEnd();it.advance()) {
+        if (matricula == it.retrieve().getMatricula()) {
+            frota.remove(it.retrieve());
+            break;
+        }
+    }
+
+    /*toreturn = pesquisaVeiculo(p);
+    veiculos.remove(toreturn);*/
+}
+
+
+void Hotel::Viajar(Cliente * cliente, double distancia, string ponto_partida, string destino, int id){
+    viagem v = {v.destino = destino, v.ponto_partida = ponto_partida, v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
+    menorKm()->updateKms(distancia);
+    if(menorKm()->getKms() >= 5000) devolveVeiculo(menorKm()->getMatricula());
+    if(AddViagem(v)){
+        for(auto it = clientes.begin(); it != clientes.end(); it++){
+            if((*it).nif == cliente->getNif()){
+                for(auto itv = viagens_realizadas.begin(); itv != viagens_realizadas.end(); itv++){
+                    if((*itv) == v) {
+                        (*it).addViagem(&(*itv));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+void Hotel::Viajar(Cliente * cliente, double distancia, int id){
+    viagem v = {v.destino = "Hotel", v.ponto_partida = "Aeroporto", v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
+    menorKm()->updateKms(distancia);
+    if(menorKm()->getKms() >= 5000) devolveVeiculo(menorKm()->getMatricula());
+    if(AddViagem(v)){
+        for(auto it = clientes.begin(); it != clientes.end(); it++){
+            if((*it).nif == cliente->getNif()){
+                for(auto itv = viagens_realizadas.begin(); itv != viagens_realizadas.end(); itv++){
+                    if((*itv) == v) {
+                        (*it).addViagem(&(*itv));
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 
