@@ -27,6 +27,7 @@ public:
     int ID() const {return numero;}
     int getStock() const;
     string getSupplier() const;
+    void setRating(nota_avaliacao newr);
     nota_avaliacao getRating() const;
     bool operator < (const Produto & p) const; //nnc sei se ta certo lol
     bool operator==(const Produto &p2) const{return numero == p2.numero;}
@@ -38,5 +39,6 @@ private:
 public:
     BuyProduct(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco, int s, string sup);
     priority_queue<Produto> getCompras() const;
+    void addCompra(const Produto& p);
 };
 #endif //HOTEL_PRODUTO_H
