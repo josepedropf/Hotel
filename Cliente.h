@@ -19,7 +19,7 @@ using namespace std;
 class Cliente{
 public:
     string nome;
-    int nif;
+    int nif, promo;
     bool cliente_usual, nohotel;
     list <Servico *> servicos_consumidos;
     list <Reserva *> estadias_anteriores, reservas_cliente;
@@ -33,6 +33,7 @@ public:
     bool operator==(const Cliente &c2) const{return (nif == c2.nif);}
     string getName() const {return nome;}
     int getNif() const {return nif;}
+    void setPromo(int new_promo) {promo = new_promo;}
     float GetConta();
 
 private:

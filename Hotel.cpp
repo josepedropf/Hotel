@@ -112,6 +112,7 @@ bool Hotel::AddCliente(Cliente cliente) {
         if((*it) == cliente) return false ;
     }
     clientes.push_back(cliente);
+    if(cliente.cliente_usual) clientes_usuais.insert(cliente);
     return true;
 }
 
@@ -361,7 +362,10 @@ void Hotel::CheckOut(Cliente &cliente) {
     cliente.estadia_atual = NULL;
     ApagarReservaL(reservas_atuais, reserva);
     cliente.nohotel = false;
-    if(!cliente.cliente_usual) cliente.cliente_usual = true;
+    if(!cliente.cliente_usual){
+        cliente.cliente_usual = true;
+        clientes_usuais.insert(cliente);
+    }
 }
 
 /**
@@ -1174,8 +1178,8 @@ void Hotel::ImportarProdutos(string localizacao) {
         getline(inficheiro, line);
     }
     if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
-    string nomet= "", nomep = "";
-    int tprod, qualidade, numero;
+    string nomet= "", nomep = "", fornecedor = "";
+    int tprod, qualidade, numero, stock;
     float preco;
     try {
         getline(inficheiro, line);
@@ -1189,10 +1193,9 @@ void Hotel::ImportarProdutos(string localizacao) {
                 nomet += nomep;
                 ss >> nomep;
             }
-            ss >> numero >> tprod >> qualidade >> preco;
-            add = AddProduto(
-                    Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
-                            preco));
+            ss >> numero >> tprod >> qualidade >> preco >> stock >> fornecedor;
+            add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
+                            preco, stock, fornecedor));
             if (!add) throw FicheiroIncompativel(localizacao);
             getline(inficheiro, line);
         }
@@ -1343,7 +1346,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     outficheiro << endl;
     outficheiro << "Produtos" << endl;
     for(auto it = produtos.begin(); it != produtos.end(); it++){
-        outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << endl;
+        outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << " " << (*it).stock << " " << (*it).fornecedor << endl;
     }
 
     outficheiro << endl;
@@ -1604,3 +1607,38 @@ void Hotel::UpdateReservasTotais() {
         reservas_totais.push_back(&(*it));
     }
 }
+
+list <Cliente *> Hotel::GetClientesInicial(char inicial){
+    list <Cliente *> res;
+    for(auto it = clientes.begin(); it != clientes.end(); it++){
+        if((*it).getName()[0] == inicial){
+            if(clientes_usuais.find(*it) != clientes_usuais.end()) res.push_back(&(*it));
+        }
+    }
+    return res;
+}
+
+void Hotel::PromoIniciais(char p_inicial, char s_inicial){
+    list <Cliente *> escolhidos;
+    escolhidos = GetClientesInicial(p_inicial);
+    for(auto it = GetClientesInicial(s_inicial).begin(); it != GetClientesInicial(s_inicial).end(); it++){
+        escolhidos.push_back(*it);
+    }
+
+    for(auto it = escolhidos.begin(); it != escolhidos.end(); it++){
+        bool found = false;
+        for(auto cit = clientes.begin(); cit != clientes.end() && !found; cit++){
+            if((*cit).getNif() == (*it)->getNif()){
+                (*cit).setPromo(2);
+                found = true;
+            }
+        }
+    }
+
+}
+
+
+
+
+
+

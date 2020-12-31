@@ -4,12 +4,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include <algorithm>
 #include <list>
 
 #include "Quarto.h"
 #include "Produto.h"
-#include "Cliente.h" //new 
 
 using namespace std;
 
@@ -60,29 +58,9 @@ public:
     virtual void Info() const;
 };
 
-struct clienteHash //new
-{
-    int operator() (const Cliente& c) const
-    {
-        int v=0;
-        for (auto it = c.getName()[0].begin(); it != c.getName()[0].end(); it++) {
-            v = 37*v+(*it);
-        }
-        return v;
-    }
-
-    bool operator() (const Cliente& c1, const Cliente& c2) const
-    {
-        if (c1.getNif() == c2.getNif()) return true;
-        else return false;
-    }
-};
-
-typedef unordered_set<Cliente, clienteHash, clienteHash> tabHCliente;
 
 class F_Gestor : public Funcionario{
 public:
-    tabHCliente clientesUsuais; // new
     nota_avaliacao av_prestacao = razoavel;
     F_Gestor(string nome, int nif, int anos_servico, float salario);
     F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao);

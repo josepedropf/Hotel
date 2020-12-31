@@ -12,6 +12,7 @@ Cliente::Cliente(string nome, int nif) {
     nohotel = false;
     estadia_atual = NULL;
     conta = 0;
+    promo = 0;
 }
 
 /**
@@ -27,6 +28,7 @@ Cliente::Cliente(string nome, int nif, bool usual) {
     nohotel = false;
     estadia_atual = NULL;
     conta = 0;
+    promo = 0;
 }
 
 /**
@@ -42,6 +44,7 @@ Cliente::Cliente(string nome, int nif, list <Reserva *> estadias_anteriores) {
     cliente_usual = estadias_anteriores.size() > 0;
     estadia_atual = NULL;
     conta = 0;
+    promo = 0;
 }
 
 /**

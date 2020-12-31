@@ -196,6 +196,33 @@ Exceptions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Exceptions.cpp.s
 .PHONY : Exceptions.cpp.s
 
+Frota.obj: Frota.cpp.obj
+
+.PHONY : Frota.obj
+
+# target to build an object file
+Frota.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Frota.cpp.obj
+.PHONY : Frota.cpp.obj
+
+Frota.i: Frota.cpp.i
+
+.PHONY : Frota.i
+
+# target to preprocess a source file
+Frota.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Frota.cpp.i
+.PHONY : Frota.cpp.i
+
+Frota.s: Frota.cpp.s
+
+.PHONY : Frota.s
+
+# target to generate assembly for a file
+Frota.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Hotel.dir\build.make CMakeFiles/Hotel.dir/Frota.cpp.s
+.PHONY : Frota.cpp.s
+
 Funcionario.obj: Funcionario.cpp.obj
 
 .PHONY : Funcionario.obj
@@ -427,6 +454,9 @@ help:
 	@echo ... Exceptions.obj
 	@echo ... Exceptions.i
 	@echo ... Exceptions.s
+	@echo ... Frota.obj
+	@echo ... Frota.i
+	@echo ... Frota.s
 	@echo ... Funcionario.obj
 	@echo ... Funcionario.i
 	@echo ... Funcionario.s

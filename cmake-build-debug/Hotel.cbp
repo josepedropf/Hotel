@@ -97,6 +97,12 @@
 		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h">
 			<Option target="Hotel"/>
 		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.cpp">
+			<Option target="Hotel"/>
+		</Unit>
+		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h">
+			<Option target="Hotel"/>
+		</Unit>
 		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.cpp">
 			<Option target="Hotel"/>
 		</Unit>

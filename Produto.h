@@ -20,24 +20,25 @@ public:
     nota_avaliacao qualidade;
     float preco;
     int stock; //stock no hotel ou na loja? dont know //new
-    string supplier; // new
-    Produto(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco, int s, string sup); //foi alterada
+    string fornecedor; // new
+    Produto(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco, int stock, string fornecedor); //foi alterada
+    Produto(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco, string fornecedor);
     ~Produto() {};
     void Info() const;
     int ID() const {return numero;}
     int getStock() const;
-    string getSupplier() const;
-    void setRating(nota_avaliacao newr);
-    nota_avaliacao getRating() const;
+    string getFornecedor() const;
+    void setAvaliacao(nota_avaliacao newr);
+    nota_avaliacao getAvaliacao() const;
     bool operator < (const Produto & p) const; //nnc sei se ta certo lol
     bool operator==(const Produto &p2) const{return numero == p2.numero;}
 };
 
-class BuyProduct: public Produto {  //n tem de ser derivada mas por agr é
+class CompraProduto: public Produto {  //n tem de ser derivada mas por agr é
 private:
     priority_queue<Produto> compras;
 public:
-    BuyProduct(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco, int s, string sup);
+    CompraProduto(string nome, int numero, tipo_produto tprod, nota_avaliacao qualidade, float preco, int stock, string fornecedor);
     priority_queue<Produto> getCompras() const;
     void addCompra(const Produto& p);
 };

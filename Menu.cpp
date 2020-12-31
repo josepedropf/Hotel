@@ -829,7 +829,9 @@ void Menu::Adicionar() {
         tipo_produto tp = InputTProd("Insira o Tipo do Produto: ");
         nota_avaliacao nav = InputNota("Insira a Qualidade do Produto: ");
         float preco = InputRestrito<float>("Insira o Preco do Produto: ");
-        while(!H.AddProduto(Produto(nome, numero, tp, nav, preco))){
+        int stock = InputRestrito<int>("Insira o Stock do Produto no Hotel: ");
+        string fornecedor = InputNome("Insira o nome do Fornecedor do Produto: ");
+        while(!H.AddProduto(Produto(nome, numero, tp, nav, preco, stock, fornecedor))){
             PrintList(H.GetProdutos());
             cout << "O Produto que inseriu ja existe!" << endl;
             numero = InputRestrito<int>("Insira o Numero do Produto: ");

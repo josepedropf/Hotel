@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <vector>
+#include <unordered_set>
 
 
 #include "Reserva.h"
@@ -183,6 +185,27 @@ public:
 
     void UpdateReservasTotais();
 
+    struct ClienteHash //new
+    {
+        int operator() (const Cliente& c) const
+        {
+            int v = 0;
+            v = 37 * c.getName()[0];
+            return v;
+        }
+
+        bool operator() (const Cliente& c1, const Cliente& c2) const
+        {
+            if (c1.getNif() == c2.getNif()) return true;
+            else return false;
+        }
+    };
+
+    typedef unordered_set<Cliente, ClienteHash, ClienteHash> tabHclientes;
+    tabHclientes clientes_usuais;
+
+    list <Cliente *> GetClientesInicial(char inicial);
+    void PromoIniciais(char p_inicial, char s_inicial);
 };
 
 #endif //HOTEL_HOTEL_H

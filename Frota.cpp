@@ -1,21 +1,21 @@
 #include "Frota.h"
 
 bool Veiculo::operator<(const Veiculo &v) const {
-    if (kms < v.getkms()) {
+    if (kms < v.getKms()) {
         return true;
     }
     else return lugares < v.getLugares();
 }
 
 bool Veiculo::operator==(const Veiculo &v) const {
-    return getmatricula() == v.getmatricula();
+    return getMatricula() == v.getMatricula();
 }
 
-string Veiculo::getmatricula() const {
-    return matricula;
+matricula Veiculo::getMatricula() const {
+    return vmatricula;
 }
 
-double Veiculo::getkms() const {
+double Veiculo::getKms() const {
     return kms;
 }
 
@@ -23,9 +23,9 @@ int Veiculo::getLugares() const {
     return lugares;
 }
 
-void Veiculo::updatekms(double m) {
+void Veiculo::updateKms(double m) {
     if (m + kms >= 5000) {
-        Frota::devolveVeiculo(getmatricula());
+        Frota::devolveVeiculo(getMatricula());
     }
     else {
         kms += m;
@@ -63,10 +63,10 @@ void Frota::rentFrota(const vector <Veiculo*>& rFrota) {
     }
 }
 
-Veiculo* Frota::pesquisaVeiculo(string p) {
+Veiculo* Frota::pesquisaVeiculo(matricula matricula) {
     BSTItrIn<Veiculo*> it(veiculos);
     for (; !it.isAtEnd();it.advance()) {
-        if (p == it.retrieve()->getmatricula()) return it.retrieve();
+        if (matricula == it.retrieve()->getMatricula()) return it.retrieve();
     }
     throw VeiculoNotFound(); //not implemented yet
 }
@@ -75,11 +75,11 @@ Veiculo* Frota::menorM() {
     return veiculos.findMin(); //n sei se funciona assim
 }
 
-void Frota::devolveVeiculo(string p) {
+void Frota::devolveVeiculo(matricula matricula) {
     Veiculo* toreturn;
     BSTItrIn<Veiculo*> it(veiculos);
     for (; !it.isAtEnd();it.advance()) {
-        if (p == it.retrieve()->getmatricula()) {
+        if (matricula == it.retrieve()->getMatricula()) {
             veiculos.remove(it.retrieve());
             break;
         }

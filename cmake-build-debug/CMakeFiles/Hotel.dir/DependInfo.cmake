@@ -6,6 +6,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.cpp" "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Cliente.cpp.obj"
   "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.cpp" "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Exceptions.cpp.obj"
+  "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.cpp" "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Frota.cpp.obj"
   "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.cpp" "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Funcionario.cpp.obj"
   "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.cpp" "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Hotel.cpp.obj"
   "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.cpp" "C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/CMakeFiles/Hotel.dir/Menu.cpp.obj"
