@@ -55,6 +55,14 @@ nota_avaliacao Produto::getRating() const {
     return qualidade;
 }
 
+void Produto::setRating(nota_avaliacao newr) {
+    qualidade = newr;
+}
+
 priority_queue<Produto> BuyProduct::getCompras() const {
     return compras;
+}
+
+void BuyProduct::addCompra(const Produto& p) {
+    compras.push(p);
 }
