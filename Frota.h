@@ -45,7 +45,7 @@ public:
     void setkms(double m) {kms = m;}
     void updateKms(double m); //to be called at the end of a trip
     int ID() {return vmatricula.id;}
-    int info(ostream &o) const;
+    void Info() const;
     bool operator < (const Veiculo & v) const;
     bool operator == (const Veiculo & v) const;
 };
@@ -56,7 +56,7 @@ public:
     BST<Veiculo*> getVeiculos() const;
     int numVeiculos() const;
     void addVeiculo(Veiculo *v1);
-    void rentFrota(const vector<Veiculo*>& rFrota);
+    void alugarFrota(const vector<Veiculo*>& rFrota);
     static void devolveVeiculo(matricula matricula);
     Veiculo* pesquisaVeiculo(matricula matricula);
     Veiculo* menorM(); //to be called at the start or before a trip

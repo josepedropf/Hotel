@@ -32,11 +32,12 @@ void Veiculo::updateKms(double m) {
     }
 }
 
-int Veiculo::info(ostream &o) const {
-    o << "matricula: " << matricula << endl;
-    o << "kms: " << kms << endl;
-    o << "Seats: " << lugares << endl;
-    return 3;
+void Veiculo::Info() const {
+    cout << "<VEICULO>" << endl;
+    cout << "Matricula: " << vmatricula << " | ";
+    cout << "Kilometragem: " << kms << " | ";
+    cout << "Lugares: " << lugares;
+    cout << endl;
 }
 
 BST<Veiculo*> Frota::getVeiculos() const {
@@ -56,7 +57,7 @@ void Frota::addVeiculo(Veiculo *v1) {
     veiculos.insert(v1);
 }
 
-void Frota::rentFrota(const vector <Veiculo*>& rFrota) {
+void Frota::alugarFrota(const vector <Veiculo*>& rFrota) {
     veiculos.makeEmpty();
     for (auto & i : rFrota) {
         addVeiculo(i);
