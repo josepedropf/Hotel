@@ -1800,5 +1800,27 @@ Compra Hotel::EscolherCompra(F_Gestor fgestor, int stock_min, int stock_max){
 }
 
 
+bool Hotel::FazerCompra_NovoProduto(int id, Produto produto, string fornecedor, int quantidade){
+    if(!AddProduto(produto)) return false;
+    if(quantidade <= 1) quantidade = 1;
+    return FazerCompra(id, produto.ID(), fornecedor, quantidade);
+}
+
+bool Hotel::FazerCompra(int id, list <Produto> lprodutos, int numero_prod, string fornecedor, int quantidade) {
+    if(quantidade <= 1) quantidade = 1;
+    for(auto it = lprodutos.begin(); it != lprodutos.end(); it++){
+        if((*it).ID() == numero_prod){
+            Compra c(id, &(*it), fornecedor, quantidade);
+            return AddCompra(c);
+        }
+    }
+    return false;
+}
+
+bool Hotel::FazerCompra(int id, int numero_prod, string fornecedor, int quantidade) {
+    return FazerCompra(id, produtos, numero_prod, fornecedor, quantidade);
+}
+
+
 
 

@@ -84,6 +84,9 @@ public:
     bool DeleteCompra(int id);
     bool DeleteCompra(Compra compra) {return DeleteCompra(compra.ID());}
 
+    bool FazerCompra_NovoProduto(int id, Produto produto, string fornecedor, int quantidade);
+    bool FazerCompra(int id, int numero_prod, string fornecedor, int quantidade);
+    bool FazerCompra(int id, list <Produto> lprodutos, int numero_prod, string fornecedor, int quantidade);
     priority_queue<Compra> GetComprasStocks(int stock_min, int stock_max);
     Compra EscolherCompra(F_Gestor fgestor, int stock_min, int stock_max);
     Compra EscolherCompra(int id_func, int stock_min, int stock_max);
