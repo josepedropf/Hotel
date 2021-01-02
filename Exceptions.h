@@ -66,7 +66,13 @@ public:
     InputInvalido() {};
     InputInvalido(string input) {this->input = input;};
     ~InputInvalido() {};
+};
+
+class VeiculoInexistente: public exception{
+public:
+
 
 };
+
 
 #endif //HOTEL_EXCEPTIONS_H

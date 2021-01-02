@@ -199,3 +199,11 @@ Produto F_Gestor::Escolher_Prod(list <Produto *> prods) {
     }
     return escolhido;
 }
+
+Compra F_Gestor::Escolher_Compra(priority_queue<Compra> compras_select){
+    return compras_select.top();
+}
+
+
+
+

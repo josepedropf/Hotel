@@ -41,7 +41,7 @@ protected:
     list <F_Gestor> funcionarios_gestores;
     list <Servico> servicos;
     list <Reserva *> reservas_totais;
-    list <viagem> viagens_realizadas;
+    list <Viagem> viagens_realizadas;
 
 public:
     Hotel(): frota(Veiculo()) {nome = "Grande Hotel Central";}
@@ -62,7 +62,7 @@ public:
     const list <F_Limpeza> GetFuncionariosLimpeza() {return funcionarios_limpeza;}
     const list <F_Gestor> GetFuncionariosGestores() {return funcionarios_gestores;}
     const list <Servico> GetServicos() {return servicos;}
-    const list <viagem> GetViagens() {return viagens_realizadas;}
+    const list <Viagem> GetViagens() {return viagens_realizadas;}
     const list <Cliente *> GetClientesnoHotel();
 
     bool AddProduto(Produto produto);
@@ -78,8 +78,15 @@ public:
     bool AddFuncionarioLimpeza(F_Limpeza funcionario_limpeza);
     bool AddFuncionarioGestor(F_Gestor funcionario_gestor);
     bool AddServico(Servico servico);
-    bool AddViagem(viagem viagem);
+    bool AddViagem(Viagem viagem);
+    bool AddCompra(Compra compra);
 
+    bool DeleteCompra(int id);
+    bool DeleteCompra(Compra compra) {return DeleteCompra(compra.ID());}
+
+    priority_queue<Compra> GetComprasStocks(int stock_min, int stock_max);
+    Compra EscolherCompra(F_Gestor fgestor, int stock_min, int stock_max);
+    Compra EscolherCompra(int id_func, int stock_min, int stock_max);
 
     bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
     bool Reservar(int nif, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
@@ -99,7 +106,7 @@ public:
     const list <Reserva> Pesquisa_Reservas_Preco(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const list <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const list <Reserva> Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list <Reserva> creservas);
-    const list<Reserva *> P_Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list<Reserva *> creservas);
+    const list <Reserva *> P_Pesquisa_Reservas_DataI(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list<Reserva *> creservas);
     const list <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro);
     const list <Reserva> Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list <Reserva> creservas);
     const list <Reserva *> P_Pesquisa_Reservas_DataF(bool inverso, bool clientes_novos, bool clientes_novos_primeiro, list <Reserva *> creservas);
@@ -210,6 +217,9 @@ public:
 
     list <Cliente *> GetClientesInicial(char inicial);
     void PromoIniciais(char p_inicial, char s_inicial);
+
+    priority_queue<Compra> compras;
+    priority_queue<Compra> GetCompras() {return compras;}
 
     BST<Veiculo> frota; //Init?
     BST<Veiculo> getFrota() const;

@@ -24,7 +24,7 @@ public:
     bool cliente_usual, nohotel;
     list <Servico *> servicos_consumidos;
     list <Reserva *> estadias_anteriores, reservas_cliente;
-    list <viagem *> viagens;
+    list <Viagem *> viagens;
     Reserva * estadia_atual;
     Cliente(string nome, int nif);
     Cliente(string nome, int nif, bool usual);
@@ -35,7 +35,7 @@ public:
     bool operator==(const Cliente &c2) const{return (nif == c2.nif);}
     string getName() const {return nome;}
     int getNif() const {return nif;}
-    void addViagem (viagem * v) {viagens.push_back(v);}
+    void addViagem (Viagem * v) {viagens.push_back(v);}
     void setPromo(int new_promo) {promo = new_promo;}
     float GetConta();
 

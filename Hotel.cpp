@@ -207,12 +207,41 @@ bool Hotel::AddServico(Servico servico) {
     return true;
 }
 
-bool Hotel::AddViagem(viagem viagem) {
+bool Hotel::AddViagem(Viagem viagem) {
     for(auto it = viagens_realizadas.begin(); it != viagens_realizadas.end(); it++){
         if((*it) == viagem) return false;
     }
     viagens_realizadas.push_back(viagem);
     return true;
+}
+
+bool Hotel::AddCompra(Compra compra) {
+    vector <Compra> temp;
+    while(!compras.empty()){
+        Compra c = compras.top();
+        if(c.ID() == compra.ID()) return false;
+        temp.push_back(c);
+        compras.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+    compras.push(compra);
+    return true;
+}
+
+bool Hotel::DeleteCompra(int id) {
+    vector <Compra> temp;
+    while(!compras.empty()){
+        Compra c = compras.top();
+        if(c.ID() == id){
+            compras.pop();
+            for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+            return true;
+        }
+        temp.push_back(c);
+        compras.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+    return false;
 }
 
 /**
@@ -1203,7 +1232,7 @@ void Hotel::ImportarProdutos(string localizacao) {
             }
             ss >> numero >> tprod >> qualidade >> preco >> stock >> fornecedor;
             add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
-                            preco, stock, fornecedor));
+                            preco));
             if (!add) throw FicheiroIncompativel(localizacao);
             getline(inficheiro, line);
         }
@@ -1354,7 +1383,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     outficheiro << endl;
     outficheiro << "Produtos" << endl;
     for(auto it = produtos.begin(); it != produtos.end(); it++){
-        outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << " " << (*it).stock << " " << (*it).fornecedor << endl;
+        outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << " " << endl;
     }
 
     outficheiro << endl;
@@ -1676,7 +1705,7 @@ Veiculo* Hotel::pesquisaVeiculo(matricula matricula) {
     for (; !it.isAtEnd();it.advance()) {
         if (matricula == it.retrieve().getMatricula()) return const_cast<Veiculo *>(&(it.retrieve()));
     }
-    throw VeiculoNotFound(); //not implemented yet
+    throw VeiculoInexistente(); //not implemented yet
 }
 
 Veiculo* Hotel::menorKm() {
@@ -1699,7 +1728,7 @@ void Hotel::devolveVeiculo(matricula matricula) {
 
 
 void Hotel::Viajar(Cliente * cliente, double distancia, string ponto_partida, string destino, int id){
-    viagem v = {v.destino = destino, v.ponto_partida = ponto_partida, v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
+    Viagem v = {v.destino = destino, v.ponto_partida = ponto_partida, v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
     menorKm()->updateKms(distancia);
     if(menorKm()->getKms() >= 5000) devolveVeiculo(menorKm()->getMatricula());
     if(AddViagem(v)){
@@ -1718,7 +1747,7 @@ void Hotel::Viajar(Cliente * cliente, double distancia, string ponto_partida, st
 }
 
 void Hotel::Viajar(Cliente * cliente, double distancia, int id){
-    viagem v = {v.destino = "Hotel", v.ponto_partida = "Aeroporto", v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
+    Viagem v = {v.destino = "Hotel", v.ponto_partida = "Aeroporto", v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
     menorKm()->updateKms(distancia);
     if(menorKm()->getKms() >= 5000) devolveVeiculo(menorKm()->getMatricula());
     if(AddViagem(v)){
@@ -1735,6 +1764,40 @@ void Hotel::Viajar(Cliente * cliente, double distancia, int id){
     }
 }
 
+priority_queue<Compra> Hotel::GetComprasStocks(int stock_min, int stock_max){
+    if(stock_min > stock_max) throw InputInvalido();
+    priority_queue<Compra> res;
+    vector <Compra> temp;
+    while(!compras.empty()){
+        Compra c = compras.top();
+        if(c.getStock() >= stock_min && c.getStock() <= stock_max){
+            res.push(c);
+        }
+        temp.push_back(c);
+        compras.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+    if(res.size() == 0) throw InputInvalido();
+    return res;
+}
+
+Compra Hotel::EscolherCompra(int id_func, int stock_min, int stock_max){
+    priority_queue<Compra> compras_select;
+    try{
+        compras_select = GetComprasStocks(stock_min, stock_max);
+        for(auto it = funcionarios_gestores.begin(); it != funcionarios_gestores.end(); it++){
+            if((*it).ID() == id_func) return (*it).Escolher_Compra(compras_select);
+        }
+    }
+    catch (InputInvalido ii) {
+        cout << endl << "Input Inválido" << endl;
+    }
+    return Compra();
+}
+
+Compra Hotel::EscolherCompra(F_Gestor fgestor, int stock_min, int stock_max){
+    return EscolherCompra(fgestor.ID(), stock_min, stock_max);
+}
 
 
 

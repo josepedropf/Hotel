@@ -66,6 +66,7 @@ public:
     F_Gestor(string nome, int nif, int anos_servico, float salario, nota_avaliacao av_prestacao);
     void Promocoes(list <Quarto *> &quartos_promo);
     Produto Escolher_Prod(list <Produto *> prods);
+    Compra Escolher_Compra(priority_queue<Compra> compras);
     void SetAvaliacao(nota_avaliacao nova_avaliacao) {av_prestacao = nova_avaliacao;}
     virtual void Info() const;
 };

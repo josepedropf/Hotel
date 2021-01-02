@@ -53,28 +53,18 @@ public:
 };
 
 
-struct viagem{
+struct Viagem{
     string ponto_partida = "Hotel", destino = "Aeroporto";
     double distancia;
     matricula matricula;
     int id;
     int ID() const {return id;}
-    bool operator==(const viagem &v2)const;
+    bool operator==(const Viagem &v2)const;
 };
 
-inline bool viagem::operator==(const viagem &v2) const {
+inline bool Viagem::operator==(const Viagem &v2) const {
     return (id == v2.ID());
 }
-
-
-
-
-
-
-class VeiculoNotFound
-{
-
-};
 
 
 #endif //HOTEL_Frota_H
