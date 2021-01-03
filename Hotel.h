@@ -84,6 +84,7 @@ public:
     bool DeleteCompra(int id);
     bool DeleteCompra(Compra compra) {return DeleteCompra(compra.ID());}
 
+    bool FazerCompra_NovoProduto(int id, string nome_prod, int numero_prod, tipo_produto tprod, nota_avaliacao qualidade, float preco, int stock, string fornecedor, int quantidade);
     bool FazerCompra_NovoProduto(int id, Produto produto, string fornecedor, int quantidade);
     bool FazerCompra(int id, int numero_prod, string fornecedor, int quantidade);
     bool FazerCompra(int id, list <Produto> lprodutos, int numero_prod, string fornecedor, int quantidade);
@@ -151,6 +152,8 @@ public:
     void ImportarProdutos(string localizacao);
     void ImportarReservas(string localizacao);
     void ImportarServicos(string localizacao);
+    void ImportarVeiculos(string localizacao);
+    void ImportarCompras(string localizacao);
 
     void EscreverHotel(string nomeficheiro);
 
@@ -225,12 +228,14 @@ public:
     priority_queue<Compra> GetCompras() {return compras;}
 
     BST<Veiculo> frota; //Init?
-    BST<Veiculo> getFrota() const;
+    BST<Veiculo> GetFrota() const;
     int numVeiculos() const;
-    void addVeiculo(Veiculo veiculo);
+    bool addVeiculo(string smatricula, double kms, int lugares);
+    bool addVeiculo(matricula matricula, double kms, int lugares);
+    bool addVeiculo(Veiculo veiculo);
     void alugarFrota(const vector<Veiculo>& rFrota);
     void devolveVeiculo(matricula matricula);
-    Veiculo* pesquisaVeiculo (matricula matricula);
+    Veiculo* pesquisaVeiculo(matricula matricula);
     Veiculo* menorKm(); //to be called at the start or before a trip
 
     void Viajar(Cliente * cliente, double distancia, string ponto_partida, string destino, int id);

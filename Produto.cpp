@@ -23,7 +23,8 @@ Produto::Produto(string nome, int numero, tipo_produto tprod, nota_avaliacao qua
     this->tprod = tprod;
     this->qualidade = qualidade;
     this->preco = preco;
-    this->stock = stock;
+    if(stock > 1) this->stock = stock;
+    else this->stock = 1;
 }
 
 

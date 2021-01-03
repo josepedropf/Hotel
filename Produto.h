@@ -47,6 +47,8 @@ public:
     nota_avaliacao getAvaliacao() const {return produto_comprado->qualidade;}
     string getFornecedor() const;
     int getStock() const;
+    int getQuantidade() const {return quantidade;}
+    int getProdNumber() const {return produto_comprado->numero;}
     void updateStock(int new_stock);
     void ConsumirProdutos(int prods_consumidos) {updateStock(getStock() - prods_consumidos);}
     void AdicionarProdutos(int prods_ad) {updateStock(getStock() + prods_ad);}

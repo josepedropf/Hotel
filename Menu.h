@@ -17,7 +17,7 @@ using namespace std;
 class Menu{
 private:
     Hotel H;
-    vector <string> membros = {"Cliente", "Funcionario", "Produto", "Quarto", "Reserva", "Servico"};
+    vector <string> membros = {"Cliente", "Funcionario", "Produto", "Quarto", "Reserva", "Servico", "Veiculo", "Compra"};
     vector <string> tfuncionarios = {"Normais", "Rececao", "Responsaveis", "Limpeza", "Gestores"};
     vector <string> membros_semRes = {"Cliente", "Funcionario", "Produto", "Quarto", "Servico"};
 public:
@@ -42,6 +42,34 @@ public:
         cout << "|||-> " << endl << endl;
         for (auto it = l.begin(); it != l.end(); it++){
             (*it).Info();
+            cout << endl;
+        }
+        cout << "<-||| " << endl;
+    }
+
+    template<class T>
+    void PrintPQ(const priority_queue<T> &pq) {
+        vector<T> temp;
+        cout << endl;
+        cout << "|||-> " << endl << endl;
+        while(!pq.empty()){
+            T element = pq.top();
+            element.Info();
+            cout << endl;
+            temp.push_back(element);
+            pq.pop();
+        }
+        cout << "<-||| " << endl;
+        for(int i = 0; temp.size() > i; i++) pq.push(temp[i]);
+    }
+
+    template<class T>
+    void PrintBST(const BST<T> &bst) {
+        cout << endl;
+        cout << "|||-> " << endl << endl;
+        BSTItrIn<Veiculo> it(bst);
+        for (; !it.isAtEnd();it.advance()) {
+            (it.retrieve()).Info();
             cout << endl;
         }
         cout << "<-||| " << endl;

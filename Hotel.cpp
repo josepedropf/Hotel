@@ -1215,7 +1215,7 @@ void Hotel::ImportarProdutos(string localizacao) {
         getline(inficheiro, line);
     }
     if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
-    string nomet= "", nomep = "", fornecedor = "";
+    string nomet= "", nomep = "";
     int tprod, qualidade, numero, stock;
     float preco;
     try {
@@ -1230,8 +1230,10 @@ void Hotel::ImportarProdutos(string localizacao) {
                 nomet += nomep;
                 ss >> nomep;
             }
-            ss >> numero >> tprod >> qualidade >> preco >> stock >> fornecedor;
-            add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
+            ss >> numero >> tprod >> qualidade >> preco >> stock;
+            if(stock > 1) add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
+                                                  preco, stock));
+            else add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
                             preco));
             if (!add) throw FicheiroIncompativel(localizacao);
             getline(inficheiro, line);
@@ -1369,6 +1371,100 @@ void Hotel::ImportarServicos(string localizacao) {
     inficheiro.close();
 }
 
+void Hotel::ImportarVeiculos(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if(inficheiro.fail()){
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while(line != "Veiculos" && !inficheiro.eof()){
+        getline(inficheiro, line);
+    }
+    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    int lugares;
+    string smatricula;
+    double kms;
+    try {
+        getline(inficheiro, line);
+        while (line != "" && !inficheiro.eof()) {
+            bool add = false;
+            stringstream ss(line);
+            ss >> smatricula;
+            ss >> kms;
+            ss >> lugares;
+            add = addVeiculo(smatricula, kms, lugares);
+            if (!add) throw FicheiroIncompativel(localizacao);
+            getline(inficheiro, line);
+        }
+    }
+    catch (FicheiroIncompativel fi){
+        inficheiro.close();
+        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+    }
+    inficheiro.close();
+}
+
+void Hotel::ImportarCompras(string localizacao) {
+    ifstream inficheiro;
+    inficheiro.open(localizacao);
+    if(inficheiro.fail()){
+        throw FicheiroIncompativel(localizacao);
+    }
+    string line;
+    while(line != "Compras" && !inficheiro.eof()){
+        getline(inficheiro, line);
+    }
+    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    string nomet= "", nomep = "", fornecedorp = "", fornecedort = "";
+    int tprod, qualidade, numero_prod, stock, id, quantidade;
+    float preco;
+    try {
+        getline(inficheiro, line);
+        while (line != "" && !inficheiro.eof()) {
+            stock = -1;
+            bool add = false, prod_found = false;
+            nomet = "";
+            nomep = "";
+            stringstream ss(line);
+            ss >> id >> numero_prod;
+            while (fornecedorp != ",") {
+                if (fornecedort != "") fornecedort += " ";
+                fornecedort += fornecedorp;
+                ss >> fornecedorp;
+            }
+            ss >> quantidade;
+            for(auto it = produtos.begin(); it != produtos.end() && !prod_found; it++){
+                if((*it).ID() == numero_prod){
+                    Produto p = (*it);
+                    prod_found = true;
+                }
+            }
+            if(prod_found){
+                add = FazerCompra(id, numero_prod, fornecedort, quantidade);
+            }
+            else{
+                while (nomep != ",") {
+                    if (nomet != "") nomet += " ";
+                    nomet += nomep;
+                    ss >> nomep;
+                }
+                ss >> tprod >> qualidade >> preco >> stock;
+                add = FazerCompra_NovoProduto(id, nomep, numero_prod, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade), preco, stock, fornecedort, quantidade);
+            }
+            if (!add) throw FicheiroIncompativel(localizacao);
+            getline(inficheiro, line);
+        }
+    }
+    catch (FicheiroIncompativel fi){
+        inficheiro.close();
+        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+    }
+    inficheiro.close();
+}
+
+
+
 void Hotel::EscreverHotel(string nomedoficheiro) {
     if(nomedoficheiro.length() < 4 || nomedoficheiro.substr(nomedoficheiro.size() - 4) != ".txt") nomedoficheiro += ".txt";
     ofstream outficheiro(nomedoficheiro);
@@ -1383,7 +1479,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     outficheiro << endl;
     outficheiro << "Produtos" << endl;
     for(auto it = produtos.begin(); it != produtos.end(); it++){
-        outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << " " << endl;
+        outficheiro << (*it).nome << " , " << (*it).numero << " " << (*it).tprod << " " << (*it).qualidade << " " << (*it).preco << " " << (*it).stock << endl;
     }
 
     outficheiro << endl;
@@ -1459,6 +1555,25 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
             outficheiro << (*it).nif << " " << (*itt)->idnumero << " " << (*itt)->data_inicio << " " << (*itt)->data_fim << " " << (*itt)->lugaresp << " " << numquartos << endl;
         }
     }
+
+    outficheiro << endl;
+    outficheiro << "Veiculos" << endl;
+    BSTItrIn<Veiculo> it(frota);
+    for (; !it.isAtEnd();it.advance()) {
+        outficheiro << (it.retrieve()).getMatricula() << " " << (it.retrieve()).getKms() << " " << (it.retrieve()).getLugares() << endl;
+    }
+
+    outficheiro << endl;
+    outficheiro << "Compras" << endl;
+    vector <Compra> temp;
+    while(!compras.empty()){
+        Compra c = compras.top();
+        outficheiro << c.ID() << " " << c.getProdNumber() << " " << c.getFornecedor() << " " << c.getQuantidade() << endl;
+        temp.push_back(c);
+        compras.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+
     outficheiro.close();
 }
 
@@ -1675,7 +1790,7 @@ void Hotel::PromoIniciais(char p_inicial, char s_inicial){
 }
 
 
-BST<Veiculo> Hotel::getFrota() const {
+BST<Veiculo> Hotel::GetFrota() const {
     return frota;
 }
 
@@ -1688,9 +1803,26 @@ int Hotel::numVeiculos() const {
     return result;
 }
 
-void Hotel::addVeiculo(Veiculo veiculo) {
+bool Hotel::addVeiculo(Veiculo veiculo) {
+    BSTItrIn<Veiculo> it(frota);
+    for (; !it.isAtEnd();it.advance()) {
+        if (veiculo.getMatricula() == it.retrieve().getMatricula()) return false;
+    }
     veiculo.setkms(0);
     frota.insert(veiculo);
+    return true;
+}
+
+bool Hotel::addVeiculo(matricula matricula, double kms, int lugares) {
+    if(kms <= 0) kms = 0;
+    Veiculo v(matricula, kms, lugares);
+    return addVeiculo(v);
+}
+
+bool Hotel::addVeiculo(string smatricula, double kms, int lugares) {
+    if(kms <= 0) kms = 0;
+    Veiculo v(smatricula, kms, lugares);
+    return addVeiculo(v);
 }
 
 void Hotel::alugarFrota(const vector <Veiculo>& rFrota) {
@@ -1804,6 +1936,15 @@ bool Hotel::FazerCompra_NovoProduto(int id, Produto produto, string fornecedor, 
     if(!AddProduto(produto)) return false;
     if(quantidade <= 1) quantidade = 1;
     return FazerCompra(id, produto.ID(), fornecedor, quantidade);
+}
+
+bool Hotel::FazerCompra_NovoProduto(int id, string nome_prod, int numero_prod, tipo_produto tprod,
+                                    nota_avaliacao qualidade, float preco, int stock, string fornecedor,
+                                    int quantidade) {
+    if(stock <= 1) stock = 1;
+    Produto p(nome_prod, numero_prod, tprod, qualidade, preco, stock);
+    if(!AddProduto(p)) return false;
+    return FazerCompra_NovoProduto(id, p, fornecedor, quantidade);
 }
 
 bool Hotel::FazerCompra(int id, list <Produto> lprodutos, int numero_prod, string fornecedor, int quantidade) {

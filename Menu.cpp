@@ -66,6 +66,8 @@ void Menu::PrintHotel() {
     PrintList(H.GetEstadias());
     PrintList(H.GetReservasAtuais());
     PrintList(H.GetReservas());
+    PrintPQ(H.GetCompras());
+    PrintBST(H.GetFrota());
 }
 
 string Menu::NomeFicheiro(){
@@ -617,10 +619,18 @@ void Menu::Importar() {
                 PrintList(H.GetServicos());
                 break;
             case 6:
+                H.ImportarVeiculos(localizacao);
+                PrintBST(H.GetFrota());
+                break;
+            case 7:
+                H.ImportarCompras(localizacao);
+                PrintPQ(H.GetCompras());
+                break;
+            case 8:
                 ImportarHotel(H, localizacao);
                 PrintHotel();
                 break;
-            case 7:
+            case 9:
                 return Principal();
             default:
                 return Importar();
@@ -706,6 +716,12 @@ void Menu::VerInfo() {
                 return VerInfo();
             case 5:
                 PrintList(H.GetServicos());
+                return VerInfo();
+            case 6:
+                PrintBST(H.GetFrota());
+                return VerInfo();
+            case 7:
+                PrintPQ(H.GetCompras());
                 return VerInfo();
             default:
                 return VerInfo();
@@ -831,7 +847,7 @@ void Menu::Adicionar() {
         float preco = InputRestrito<float>("Insira o Preco do Produto: ");
         int stock = InputRestrito<int>("Insira o Stock do Produto no Hotel: ");
         string fornecedor = InputNome("Insira o nome do Fornecedor do Produto: ");
-        while(!H.AddProduto(Produto(nome, numero, tp, nav, preco, stock, fornecedor))){
+        while(!H.AddProduto(Produto(nome, numero, tp, nav, preco, stock))){
             PrintList(H.GetProdutos());
             cout << "O Produto que inseriu ja existe!" << endl;
             numero = InputRestrito<int>("Insira o Numero do Produto: ");
