@@ -521,11 +521,64 @@ bool Menu::ProcuraValida(int id, list<T> l) {
 }
 
 template<class T>
+bool Menu::ProcuraValida(int id, priority_queue<T> pq) {
+    vector <T> temp;
+    while(!pq.empty()){
+        T element = pq.top();
+        if(element.ID() == id){
+            for(int i = 0; temp.size() > i; i++) pq.push(temp[i]);
+            return true;
+        }
+        temp.push_back(element);
+        pq.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) pq.push(temp[i]);
+    return false;
+}
+
+template<class T>
+bool Menu::ProcuraValida(int id, BST<T> bst) {
+    BSTItrIn<Veiculo> it(bst);
+    for (; !it.isAtEnd();it.advance()) {
+        if((it.retrieve()).ID() == id) return true;
+    }
+    return false;
+}
+
+
+template<class T>
 T Menu::EfetuarProcura(int id, list<T> l) {
     for(auto it = l.begin(); it != l.end(); it++){
         if((*it).ID() == id) return (*it);
     }
+    throw MembroFalta();
 }
+
+template<class T>
+T Menu::EfetuarProcura(int id, priority_queue<T> pq) {
+    vector <T> temp;
+    while(!pq.empty()){
+        T element = pq.top();
+        if(element.ID() == id){
+            for(int i = 0; temp.size() > i; i++) pq.push(temp[i]);
+            return (element);
+        }
+        temp.push_back(element);
+        pq.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) pq.push(temp[i]);
+    throw MembroFalta();
+}
+
+template<class T>
+T Menu::EfetuarProcura(int id, BST<T> bst) {
+    BSTItrIn<Veiculo> it(bst);
+    for (; !it.isAtEnd();it.advance()) {
+        if((it.retrieve()).ID() == id) return it.retrieve();
+    }
+    throw MembroFalta();
+}
+
 
 template<class T>
 int Menu::ProcessarInputProcura(string titulo, list<T> l) {
@@ -558,6 +611,72 @@ int Menu::ProcessarInputProcura(string titulo, list<T> l) {
     if(resposta < -1) return -1;
     else return resposta;
 }
+
+template<class T>
+int Menu::ProcessarInputProcura(string titulo, priority_queue<T> pq) {
+    int resposta;
+    ImprimeTit(titulo);
+    PrintPQ(pq);
+    cout << "[-X] Voltar" << endl;
+    cout << "[-1] Ver Info" << endl;
+    cout << "[+X] O ID do Elemento que Procura" << endl;
+    cout << "Escolha: ";
+    cin >> resposta;
+    while(cin.fail() || resposta == -1 || (resposta >= 0 && !ProcuraValida(resposta, pq))){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeTit(titulo);
+        if(resposta == -1) PrintPQ(pq);
+        cout << "[-X] Voltar" << endl;
+        cout << "[-1] Ver Info" << endl;
+        cout << "[+X] O ID do Elemento que Procura" << endl;
+        if(cin.fail()) cout << "Input Invalido! Tem de ser um numero inteiro." << endl;
+        else{
+            cout << "Nao foi encontrado nenhum elemento correspondente a sua Pesquisa." << endl;
+            cout << "Escolha [-1] para a Informaçao dos elementos da Classe que escolheu ou tente pesquisar novamente." << endl;
+        }
+        cout << "Escolha: ";
+        cin >> resposta;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    if(resposta < -1) return -1;
+    else return resposta;
+}
+
+template<class T>
+int Menu::ProcessarInputProcura(string titulo, BST<T> bst) {
+    int resposta;
+    ImprimeTit(titulo);
+    PrintBST(bst);
+    cout << "[-X] Voltar" << endl;
+    cout << "[-1] Ver Info" << endl;
+    cout << "[+X] O ID do Elemento que Procura" << endl;
+    cout << "Escolha: ";
+    cin >> resposta;
+    while(cin.fail() || resposta == -1 || (resposta >= 0 && !ProcuraValida(resposta, bst))){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        ImprimeTit(titulo);
+        if(resposta == -1) PrintBST(bst);
+        cout << "[-X] Voltar" << endl;
+        cout << "[-1] Ver Info" << endl;
+        cout << "[+X] O ID do Elemento que Procura" << endl;
+        if(cin.fail()) cout << "Input Invalido! Tem de ser um numero inteiro." << endl;
+        else{
+            cout << "Nao foi encontrado nenhum elemento correspondente a sua Pesquisa." << endl;
+            cout << "Escolha [-1] para a Informaçao dos elementos da Classe que escolheu ou tente pesquisar novamente." << endl;
+        }
+        cout << "Escolha: ";
+        cin >> resposta;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    if(resposta < -1) return -1;
+    else return resposta;
+}
+
+
 
 void Menu::Inicial() {
     string titulo = "Inicio";
@@ -806,6 +925,16 @@ void Menu::VerInfo() {
                 procurainput = ProcessarInputProcura(sectit, H.GetServicos());
                 if (procurainput == -1) return VerInfo();
                 else EfetuarProcura(procurainput, H.GetServicos()).Info();
+                break;
+            case 6:
+                procurainput = ProcessarInputProcura(sectit, H.GetFrota());
+                if (procurainput == -1) return VerInfo();
+                else EfetuarProcura(procurainput, H.GetFrota()).Info();
+                break;
+            case 7:
+                procurainput = ProcessarInputProcura(sectit, H.GetCompras());
+                if (procurainput == -1) return VerInfo();
+                else EfetuarProcura(procurainput, H.GetCompras()).Info();
                 break;
             default:
                 break;

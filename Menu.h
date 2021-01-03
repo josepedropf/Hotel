@@ -106,10 +106,23 @@ public:
     template<class T>
     bool ProcuraValida(int id, list <T> l);
     template<class T>
+    bool ProcuraValida(int id, priority_queue<T> pq);
+    template<class T>
+    bool ProcuraValida(int id, BST<T> bst);
+
+    template<class T>
     T EfetuarProcura(int id, list <T> l);
+    template<class T>
+    T EfetuarProcura(int id, priority_queue<T> pq);
+    template<class T>
+    T EfetuarProcura(int id, BST<T> bst);
 
     template<class T>
     int ProcessarInputProcura(string titulo, list <T> l);
+    template<class T>
+    int ProcessarInputProcura(string titulo, priority_queue<T> pq);
+    template<class T>
+    int ProcessarInputProcura(string titulo, BST <T> bst);
 
 
     void Inicial();
