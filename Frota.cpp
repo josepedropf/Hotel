@@ -1,5 +1,16 @@
 #include "Frota.h"
 
+matricula transf_matricula(string s){
+    if(s.size() != 8 || s[2] != '-' || s[5] != '-'){
+        matricula m = {m.c1 = 'A', m.c2 = 'A', m.c3 = '1', m.c4 = '1', m.c5 = 'A', m.c6 = 'A'};
+        return m;
+    }
+    else{
+        matricula m = {m.c1 = s[0], m.c2 = s[1], m.c3 = s[3], m.c4 = s[4], m.c5 = s[6], m.c6 = s[7]};
+        return m;
+    }
+}
+
 bool Veiculo::operator<(const Veiculo &v) const {
     if (kms < v.getKms()) {
         return true;

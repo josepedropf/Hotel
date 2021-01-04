@@ -6,11 +6,7 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Cliente.cpp
-Cliente.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Cliente.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Cliente.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
 iostream
 -
 vector
@@ -22,25 +18,23 @@ list
 algorithm
 -
 Data.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Reserva.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 Exceptions.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 Servico.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 Frota.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 string
 -
 iostream
 -
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Exceptions.cpp
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 iostream
 -
 vector
@@ -50,21 +44,13 @@ string
 algorithm
 -
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.cpp
-Frota.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
 bst.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/bst.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/bst.h
 math.h
 -
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.cpp
-Funcionario.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 iostream
 -
 vector
@@ -74,15 +60,11 @@ string
 list
 -
 Quarto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 Produto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Hotel.cpp
-Hotel.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Hotel.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 iostream
 -
 list
@@ -102,29 +84,29 @@ vector
 unordered_set
 -
 Reserva.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 Produto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 Quarto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 Funcionario.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 Cliente.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Cliente.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
 Servico.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 Data.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Exceptions.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 Frota.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Menu.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.cpp
 Menu.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 iostream
 -
 fstream
@@ -142,13 +124,9 @@ string
 algorithm
 -
 Hotel.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.cpp
-Produto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 iostream
 -
 vector
@@ -160,11 +138,7 @@ algorithm
 queue
 -
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.cpp
-Quarto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 iostream
 -
 vector
@@ -174,11 +148,7 @@ string
 algorithm
 -
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.cpp
-Reserva.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 iostream
 -
 vector
@@ -190,15 +160,11 @@ string
 algorithm
 -
 Data.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Quarto.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.cpp
-Servico.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.h
-
-C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h
 iostream
 -
 vector
@@ -212,11 +178,11 @@ algorithm
 list
 -
 Data.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Data.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
 Funcionario.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/bst.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/bst.h
 iostream
 -
 stack
@@ -224,7 +190,7 @@ stack
 queue
 -
 
-C:/Users/Utilizador/Documents/GitHub/Hotel/main.cpp
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/main.cpp
 Menu.h
-C:/Users/Utilizador/Documents/GitHub/Hotel/Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 

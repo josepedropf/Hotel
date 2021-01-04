@@ -48,7 +48,7 @@ public:
     }
 
     template<class T>
-    void PrintPQ(const priority_queue<T> &pq) {
+    void PrintPQ(priority_queue<T> pq) {
         vector<T> temp;
         cout << endl;
         cout << "|||-> " << endl << endl;
