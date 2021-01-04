@@ -1568,7 +1568,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     vector <Compra> temp;
     while(!compras.empty()){
         Compra c = compras.top();
-        outficheiro << c.ID() << " " << c.getProdNumber() << " " << c.getFornecedor() << " " << c.getQuantidade() << endl;
+        outficheiro << c.ID() << " " << c.getProdNumber() << " " << c.getFornecedor() << " , " << c.getQuantidade() << endl;
         temp.push_back(c);
         compras.pop();
     }
