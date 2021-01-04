@@ -338,6 +338,65 @@ data Menu::InputData(string texto) {
     return resposta;
 }
 
+matricula Menu::InputMatricula(string texto) {
+    string resposta;
+    int dia, mes, ano;
+    bool mespr = false;
+    vector <int> mesproibido;
+    cout << endl << texto << endl << "Introduza o dia: ";
+    cin >> dia;
+    while (cin.fail() || dia < 1 || dia > 31){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto << endl << "Introduza o dia: ";
+        cin >> dia;
+    }
+    if(dia > 28) mesproibido.push_back(2);
+    if(dia > 30){
+        mesproibido.push_back(4);
+        mesproibido.push_back(6);
+        mesproibido.push_back(9);
+        mesproibido.push_back(11);
+    }
+    cout << endl << texto << endl << "Introduza o mes: ";
+    cin >> mes;
+    if(!cin.fail() && mes >= 1 && mes <= 12){
+        for(int i = 0; mesproibido.size() > i; i++){
+            if(mesproibido[i] == mes) {
+                mespr = true;
+                break;
+            }
+        }
+    }
+    while (cin.fail() || mes < 1 || mes > 12 || mespr){
+        mespr = false;
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto << endl << "Introduza o mes: ";
+        cin >> mes;
+        if(!cin.fail() && mes >= 1 && mes <= 12){
+            for(int i = 0; mesproibido.size() > i; i++){
+                if(mesproibido[i] == mes) {
+                    mespr = true;
+                    break;
+                }
+            }
+        }
+    }
+    cout << endl << texto << endl << "Introduza o ano: ";
+    cin >> ano;
+    while (cin.fail()){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << texto << endl << "Introduza o ano: ";
+        cin >> ano;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    resposta = {.dia = dia, .mes = mes, .ano = ano};
+    return resposta;
+}
+
 nota_avaliacao Menu::InputNota(string texto){
     int respint;
     nota_avaliacao resposta;
@@ -946,7 +1005,7 @@ void Menu::VerInfo() {
 void Menu::Adicionar() {
     unsigned resposta;
     string titulo = "Adicionar";
-    vector <string> opcoes = {"Cliente", "Produto", "Quarto"};
+    vector <string> opcoes = {"Cliente", "Produto", "Quarto", "Veiculo"};
     for(int i = 0; opcoes.size() > i; i++){
         opcoes[i] = "Adicionar " + opcoes[i];
     }
@@ -1007,7 +1066,10 @@ void Menu::Adicionar() {
         EfetuarProcura(numero, H.GetQuartos()).Info();
         return Adicionar();
     }
-    if(resposta == 3) return Principal();
+    if(resposta == 3){
+
+    }
+    if(resposta == 4) return Principal();
     return Adicionar();
 }
 

@@ -40,43 +40,25 @@ void Produto::Info() const{
     cout << "Qualidade: " << qualidade;
     cout << endl;
 }
-/**
- *
- * @return stock do produto
- */
+
 int Produto::getStock() const {
     return stock;
 }
-/**
- * Atualiza o stock do produto
- * @param new_stock novo valor do stock
- */
+
 void Produto::updateStock(int new_stock){
     stock = new_stock;
 }
-/**
- *
- * @return nota qualitativa do produto
- */
+
 nota_avaliacao Produto::getAvaliacao() const {
     return qualidade;
 }
-/**
- * Define nota qualitativa do produto
- * @param newr nota a atribuir ao produto
- */
+
 void Produto::setAvaliacao(nota_avaliacao newr) {
     qualidade = newr;
 }
 
 
-/**
- * Construtor da classe Compra
- * @param id id do produto
- * @param produto_comprado apontador para o produto comprado
- * @param fornecedor fornecedor do produto
- * @param quantidade quantidade a comprar
- */
+
 Compra::Compra(int id, Produto * produto_comprado, string fornecedor, int quantidade){
     this->id = id;
     this->produto_comprado = produto_comprado;
@@ -94,32 +76,20 @@ Compra::Compra(int id, Produto * produto_comprado, string fornecedor){
     this->rating = produto_comprado->getAvaliacao();
     this->stock = produto_comprado->getStock();
 }
-/**
- *
- * @return stock do produto comprado
- */
+
 int Compra::getStock() const {
     return stock;
 }
-/**
- *
- * @return fornecedor do produto comprado
- */
+
 string Compra::getFornecedor() const {
     return fornecedor;
 }
-/**
- * Define uma nova nota qualitativa para o produto comprado
- * @param newr nota qualitativa a atribuir
- */
+
 void Compra::setRating(nota_avaliacao newr) {
     rating = newr;
     produto_comprado->setAvaliacao(newr);
 }
-/**
- * Atualiza o stock do produto comprado
- * @param new_stock novo stock
- */
+
 void Compra::updateStock(int new_stock){
     stock = new_stock;
     produto_comprado->updateStock(new_stock);
@@ -130,9 +100,7 @@ bool Compra::operator<(const Compra &c2) const {
     if (getAvaliacao() != c2.getAvaliacao()) return getAvaliacao() < c2.getAvaliacao();
     else return getStock() < c2.getStock();
 }
-/**
- * Imprime as informações da compra
- */
+
 void Compra::Info() const{
     cout << "<COMPRA>" << endl;
     cout << "Nome: " << produto_comprado->nome << " | ";
