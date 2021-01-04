@@ -1789,11 +1789,17 @@ void Hotel::PromoIniciais(char p_inicial, char s_inicial){
 
 }
 
-
+/**
+ * Retorna a bst que contém os veículos alugados
+ * @return a bst veículos
+ */
 BST<Veiculo> Hotel::GetFrota() const {
     return frota;
 }
-
+/**
+ *
+ * @return número de veículos presentes na bst veículos
+ */
 int Hotel::numVeiculos() const {
     int result = 0;
     BSTItrIn<Veiculo> it(frota);
@@ -1824,14 +1830,22 @@ bool Hotel::addVeiculo(string smatricula, double kms, int lugares) {
     Veiculo v(smatricula, kms, lugares);
     return addVeiculo(v);
 }
-
+/**
+ * Esvazia a frota e adiciona os veículos cujos apontadores estão no parametro rfrota
+ * @param rFrota contém os veículos a adicionar à frota
+ */
 void Hotel::alugarFrota(const vector <Veiculo>& rFrota) {
     frota.makeEmpty();
     for (auto & i : rFrota) {
         addVeiculo(i);
     }
 }
-
+/**
+ * Pesquisa por um veículo na bst
+ * Caso não encontre, lança uma exceção VeículoInexistente
+ * @param matricula do veículo
+ * @return apontador para veículo cuja matricula é igual a matricula(param)
+ */
 Veiculo* Hotel::pesquisaVeiculo(matricula matricula) {
     BSTItrIn<Veiculo> it(frota);
     for (; !it.isAtEnd();it.advance()) {
@@ -1839,11 +1853,17 @@ Veiculo* Hotel::pesquisaVeiculo(matricula matricula) {
     }
     throw VeiculoInexistente(); //not implemented yet
 }
-
+/**
+ *
+ * @return um apontador para o veículo com menos kms percorridos
+ */
 Veiculo* Hotel::menorKm() {
-    return const_cast<Veiculo *>(&(frota.findMin())); //n sei se funciona assim
+    return const_cast<Veiculo *>(&(frota.findMin())); 
 }
-
+/**
+ * Remove o veícuclo cuja matrícula é matricula(param) da bst
+ * @param matricula do veícula a devolver
+ */
 void Hotel::devolveVeiculo(matricula matricula) {
     Veiculo* toreturn;
     BSTItrIn<Veiculo> it(frota);
