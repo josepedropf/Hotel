@@ -12,6 +12,7 @@
   </component>
   <component name="ChangeListManager">
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="c71e243d-3256-4e39-b40d-d7b65e1eaa9b" name="Default Changelist" comment="+ documentaçao">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Hotel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Hotel.cpp" afterDir="false" />
@@ -31,6 +32,11 @@
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Hotel.dir/depend.make" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Hotel.dir/depend.make" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Hotel.dir/main.cpp.obj" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Hotel.dir/main.cpp.obj" afterDir="false" />
 >>>>>>> parent of b6fe1ab... + documentaçao
+=======
+    <list default="true" id="c71e243d-3256-4e39-b40d-d7b65e1eaa9b" name="Default Changelist" comment="4/1/21">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Produto.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Produto.cpp" afterDir="false" />
+>>>>>>> parent of 78f5a58... + documentaçao
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,10 +60,15 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="cf.first.check.clang-format" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/CLionProjects/Hotel" />
   </component>
   <component name="RunManager">
     <configuration name="Hotel" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Hotel" TARGET_NAME="Hotel" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Hotel" RUN_TARGET_NAME="Hotel">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -75,10 +86,14 @@
       <workItem from="1606498822244" duration="2647000" />
       <workItem from="1609727153928" duration="150000" />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <workItem from="1609727350362" duration="4223000" />
       <workItem from="1609769280807" duration="19000" />
       <workItem from="1609770240864" duration="2620000" />
       <workItem from="1609790172840" duration="727000" />
+=======
+      <workItem from="1609727350362" duration="2852000" />
+>>>>>>> parent of 78f5a58... + documentaçao
     </task>
     <task id="LOCAL-00001" summary="4/1/21">
       <created>1609729439862</created>
@@ -87,6 +102,7 @@
       <option name="project" value="LOCAL" />
       <updated>1609729439862</updated>
     </task>
+<<<<<<< HEAD
     <task id="LOCAL-00002" summary="+ documentaçao">
       <created>1609731631491</created>
       <option name="number" value="00002" />
@@ -106,6 +122,9 @@
       <workItem from="1609727350362" duration="763000" />
     </task>
 >>>>>>> parent of b6fe1ab... + documentaçao
+=======
+    <option name="localTasksCounter" value="2" />
+>>>>>>> parent of 78f5a58... + documentaçao
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -122,12 +141,10 @@
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="4/1/21" />
-    <MESSAGE value="+ documentaçao" />
-    <option name="LAST_COMMIT_MESSAGE" value="+ documentaçao" />
+    <option name="LAST_COMMIT_MESSAGE" value="4/1/21" />
   </component>
 =======
 >>>>>>> parent of b6fe1ab... + documentaçao

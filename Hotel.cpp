@@ -1791,14 +1791,14 @@ void Hotel::PromoIniciais(char p_inicial, char s_inicial){
 
 /**
  * Retorna a bst que contém os veículos alugados
- * @return a bst frota
+ * @return a bst veículos
  */
 BST<Veiculo> Hotel::GetFrota() const {
     return frota;
 }
 /**
  *
- * @return número de veículos presentes na bst frota
+ * @return número de veículos presentes na bst veículos
  */
 int Hotel::numVeiculos() const {
     int result = 0;
