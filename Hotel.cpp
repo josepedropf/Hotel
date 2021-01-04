@@ -1070,21 +1070,15 @@ void Hotel::ImportarQuartos(string localizacao) {
     if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
     int tquarto, piso, numero, capacidade;
     float preco;
-    try {
     getline(inficheiro, line);
         while (line != "" && !inficheiro.eof()) {
             bool add = false;
             stringstream ss(line);
             ss >> tquarto >> piso >> numero >> capacidade >> preco;
             add = AddQuarto(Quarto(static_cast<tipo_quarto>(tquarto), piso, numero, capacidade, preco));
-            if(!add) throw FicheiroIncompativel(localizacao);
+            if(!add) throw MembroIncompativel("Quarto");
             getline(inficheiro, line);
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
-    }
     inficheiro.close();
 }
 
@@ -1101,29 +1095,23 @@ void Hotel::ImportarClientes(string localizacao) {
     if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
     string nomet= "", nomep = "";
     int nif, usual;
-    try {
-        getline(inficheiro, line);
-        while (line != "" && !inficheiro.eof()) {
-            bool add = false;
-            nomet = "";
-            nomep = "";
-            usual = -1;
-            stringstream ss(line);
-            while (nomep != ",") {
-                if (nomet != "") nomet += " ";
-                nomet += nomep;
-                ss >> nomep;
-            }
-            ss >> nif >> usual;
-            if (usual != -1) add = AddCliente(Cliente(nomet, nif, usual));
-            else add = AddCliente(Cliente(nomet, nif));
-            if(!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
+    getline(inficheiro, line);
+    while (line != "" && !inficheiro.eof()) {
+        bool add = false;
+        nomet = "";
+        nomep = "";
+        usual = -1;
+        stringstream ss(line);
+        while (nomep != ",") {
+            if (nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+        ss >> nif >> usual;
+        if (usual != -1) add = AddCliente(Cliente(nomet, nif, usual));
+        else add = AddCliente(Cliente(nomet, nif));
+        if (!add) throw MembroIncompativel("Cliente");
+        getline(inficheiro, line);
     }
     inficheiro.close();
 }
@@ -1143,63 +1131,57 @@ void Hotel::ImportarFuncionarios(string localizacao) {
     vector <int> pisos;
     int nif, anos_servico, avaliacao, turno, cargo, piso;
     float salario;
-    try {
-        getline(inficheiro, line);
-        while (line != "" && !inficheiro.eof()) {
-            bool add = false;
-            nomet = "";
-            nomep = "";
-            cargo = 0;
-            avaliacao = -1;
-            pisos.clear();
-            stringstream ss(line);
-            while (nomep != ",") {
-                if (nomet != "") nomet += " ";
-                nomet += nomep;
-                ss >> nomep;
-            }
-            ss >> nif >> anos_servico >> salario >> cargo;
-            cargo = static_cast<tipo_cargo>(cargo);
-            switch (cargo) {
-                case frececao:
-                    add = AddFuncionario(F_Rececao(nomet, nif, anos_servico, salario));
-                    add = AddFuncionarioRececao(F_Rececao(nomet, nif, anos_servico, salario));
-                    break;
-                case fresponsavel:
-                    while (ss >> piso) {
-                        pisos.push_back(piso);
-                    }
-                    add = AddFuncionario(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
-                    add = AddFuncionarioResponsavel(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
-                    break;
-                case flimpeza:
-                    ss >> turno;
-                    add = AddFuncionario(F_Limpeza(nomet, nif, anos_servico, salario, static_cast<tipo_turno>(turno)));
-                    add = AddFuncionarioLimpeza(F_Limpeza(nomet, nif, anos_servico, salario, static_cast<tipo_turno>(turno)));
-                    break;
-                case fgestor:
-                    ss >> avaliacao;
-                    if (avaliacao == -1) {
-                        add = AddFuncionario(F_Gestor(nomet, nif, anos_servico, salario));
-                        add = AddFuncionarioGestor(F_Gestor(nomet, nif, anos_servico, salario));
-                    } else {
-                        add = AddFuncionario(
-                                F_Gestor(nomet, nif, anos_servico, salario, static_cast<nota_avaliacao>(avaliacao)));
-                        add = AddFuncionarioGestor(
-                                F_Gestor(nomet, nif, anos_servico, salario, static_cast<nota_avaliacao>(avaliacao)));
-                    }
-                    break;
-                default:
-                    add = AddFuncionario(Funcionario(nomet, nif, anos_servico, salario));
-                    break;
-            }
-            if(!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
+    getline(inficheiro, line);
+    while (line != "" && !inficheiro.eof()) {
+        bool add = false;
+        nomet = "";
+        nomep = "";
+        cargo = 0;
+        avaliacao = -1;
+        pisos.clear();
+        stringstream ss(line);
+        while (nomep != ",") {
+            if (nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+        ss >> nif >> anos_servico >> salario >> cargo;
+        cargo = static_cast<tipo_cargo>(cargo);
+        switch (cargo) {
+            case frececao:
+                add = AddFuncionario(F_Rececao(nomet, nif, anos_servico, salario));
+                add = AddFuncionarioRececao(F_Rececao(nomet, nif, anos_servico, salario));
+                break;
+            case fresponsavel:
+                while (ss >> piso) {
+                    pisos.push_back(piso);
+                }
+                add = AddFuncionario(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
+                add = AddFuncionarioResponsavel(F_Responsavel(nomet, nif, anos_servico, salario, pisos));
+                break;
+            case flimpeza:
+                ss >> turno;
+                add = AddFuncionario(F_Limpeza(nomet, nif, anos_servico, salario, static_cast<tipo_turno>(turno)));
+                add = AddFuncionarioLimpeza(F_Limpeza(nomet, nif, anos_servico, salario, static_cast<tipo_turno>(turno)));
+                break;
+            case fgestor:
+                ss >> avaliacao;
+                if (avaliacao == -1) {
+                    add = AddFuncionario(F_Gestor(nomet, nif, anos_servico, salario));
+                    add = AddFuncionarioGestor(F_Gestor(nomet, nif, anos_servico, salario));
+                } else {
+                    add = AddFuncionario(
+                            F_Gestor(nomet, nif, anos_servico, salario, static_cast<nota_avaliacao>(avaliacao)));
+                    add = AddFuncionarioGestor(
+                            F_Gestor(nomet, nif, anos_servico, salario, static_cast<nota_avaliacao>(avaliacao)));
+                }
+                break;
+            default:
+                add = AddFuncionario(Funcionario(nomet, nif, anos_servico, salario));
+                break;
+        }
+        if(!add) throw MembroIncompativel("Funcionario");
+        getline(inficheiro, line);
     }
     inficheiro.close();
 }
@@ -1218,30 +1200,24 @@ void Hotel::ImportarProdutos(string localizacao) {
     string nomet= "", nomep = "";
     int tprod, qualidade, numero, stock;
     float preco;
-    try {
-        getline(inficheiro, line);
-        while (line != "" && !inficheiro.eof()) {
-            bool add = false;
-            nomet = "";
-            nomep = "";
-            stringstream ss(line);
-            while (nomep != ",") {
-                if (nomet != "") nomet += " ";
-                nomet += nomep;
-                ss >> nomep;
-            }
-            ss >> numero >> tprod >> qualidade >> preco >> stock;
-            if(stock > 1) add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
-                                                  preco, stock));
-            else add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
-                            preco));
-            if (!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
+    getline(inficheiro, line);
+    while (line != "" && !inficheiro.eof()) {
+        bool add = false;
+        nomet = "";
+        nomep = "";
+        stringstream ss(line);
+        while (nomep != ",") {
+            if (nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+        ss >> numero >> tprod >> qualidade >> preco >> stock;
+        if(stock > 1) add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
+                                              preco, stock));
+        else add = AddProduto(Produto(nomet, numero, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade),
+                        preco));
+        if (!add) throw MembroIncompativel("Produto");
+        getline(inficheiro, line);
     }
     inficheiro.close();
 }
@@ -1260,37 +1236,31 @@ void Hotel::ImportarReservas(string localizacao) {
     int nifcliente, idnum, lugaresp, qnum, d;
     vector <int> numquartos;
     data datai, dataf;
-    try {
-        getline(inficheiro, line);
-        while (line != "" && !inficheiro.eof()) {
-            bool add = false;
-            numquartos.clear();
-            stringstream ss(line);
-            ss >> nifcliente >> idnum;
-            ss >> d;
-            datai.dia = abs(d);
-            ss >> d;
-            datai.mes = abs(d);
-            ss >> d;
-            datai.ano = abs(d);
-            ss >> d;
-            dataf.dia = abs(d);
-            ss >> d;
-            dataf.mes = abs(d);
-            ss >> d;
-            dataf.ano = abs(d);
-            ss >> lugaresp;
-            while (ss >> qnum) {
-                numquartos.push_back(qnum);
-            }
-            add = Reservar(nifcliente, idnum, datai, dataf, lugaresp, numquartos);
-            if (!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
+    getline(inficheiro, line);
+    while (line != "" && !inficheiro.eof()) {
+        bool add = false;
+        numquartos.clear();
+        stringstream ss(line);
+        ss >> nifcliente >> idnum;
+        ss >> d;
+        datai.dia = abs(d);
+        ss >> d;
+        datai.mes = abs(d);
+        ss >> d;
+        datai.ano = abs(d);
+        ss >> d;
+        dataf.dia = abs(d);
+        ss >> d;
+        dataf.mes = abs(d);
+        ss >> d;
+        dataf.ano = abs(d);
+        ss >> lugaresp;
+        while (ss >> qnum) {
+            numquartos.push_back(qnum);
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+        add = Reservar(nifcliente, idnum, datai, dataf, lugaresp, numquartos);
+        if (!add) throw MembroIncompativel("Reserva");
+        getline(inficheiro, line);
     }
     inficheiro.close();
 }
@@ -1312,61 +1282,55 @@ void Hotel::ImportarServicos(string localizacao) {
     float taxa, mlucro;
     vector <int> fnifs, pnums;
     getline(inficheiro, line);
-    try {
-        while (line != "" && !inficheiro.eof()) {
-            bool add = false;
-            fnifs.clear();
-            pnums.clear();
-            nomet = "";
-            nomep = "";
-            sf = "";
-            sp = "";
-            controlo = "";
-            stringstream ss(line);
-            ss >> nifcliente;
-            while (nomep != ",") {
-                if (nomet != "") nomet += " ";
-                nomet += nomep;
-                ss >> nomep;
-            }
-            ss >> idnum;
-            ss >> d;
-            data_realizacao.dia = abs(d);
-            ss >> d;
-            data_realizacao.mes = abs(d);
-            ss >> d;
-            data_realizacao.ano = abs(d);
-            ss >> taxa;
-            ss >> controlo;
-            if (controlo == "") add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa);
-            else {
-                if (controlo == "f") {
-                    while (ss >> sf && sf != ",") {
-                        if (sf != "" && sf != ",") fnifs.push_back(stoi(sf));
-                    }
-                    ss >> controlo;
-                    if (controlo == "p") {
-                        while (ss >> sp && sp != ",") {
-                            if (sp != "" && sp != ",") pnums.push_back(stoi(sp));
-                        }
-                        ss >> mlucro;
-                        add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, fnifs, pnums, mlucro);
-                    } else add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, fnifs);
-                } else {
+    while (line != "" && !inficheiro.eof()) {
+        bool add = false;
+        fnifs.clear();
+        pnums.clear();
+        nomet = "";
+        nomep = "";
+        sf = "";
+        sp = "";
+        controlo = "";
+        stringstream ss(line);
+        ss >> nifcliente;
+        while (nomep != ",") {
+            if (nomet != "") nomet += " ";
+            nomet += nomep;
+            ss >> nomep;
+        }
+        ss >> idnum;
+        ss >> d;
+        data_realizacao.dia = abs(d);
+        ss >> d;
+        data_realizacao.mes = abs(d);
+        ss >> d;
+        data_realizacao.ano = abs(d);
+        ss >> taxa;
+        ss >> controlo;
+        if (controlo == "") add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa);
+        else {
+            if (controlo == "f") {
+                while (ss >> sf && sf != ",") {
+                    if (sf != "" && sf != ",") fnifs.push_back(stoi(sf));
+                }
+                ss >> controlo;
+                if (controlo == "p") {
                     while (ss >> sp && sp != ",") {
                         if (sp != "" && sp != ",") pnums.push_back(stoi(sp));
                     }
                     ss >> mlucro;
-                    add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, pnums, mlucro);
+                    add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, fnifs, pnums, mlucro);
+                } else add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, fnifs);
+            } else {
+                while (ss >> sp && sp != ",") {
+                    if (sp != "" && sp != ",") pnums.push_back(stoi(sp));
                 }
+                ss >> mlucro;
+                add = PrestarServico(nifcliente, nomet, idnum, data_realizacao, taxa, pnums, mlucro);
             }
-            if (!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+        if (!add) throw MembroIncompativel("Servico");
+        getline(inficheiro, line);
     }
     inficheiro.close();
 }
@@ -1385,22 +1349,16 @@ void Hotel::ImportarVeiculos(string localizacao) {
     int lugares;
     string smatricula;
     double kms;
-    try {
+    getline(inficheiro, line);
+    while (line != "" && !inficheiro.eof()) {
+        bool add = false;
+        stringstream ss(line);
+        ss >> smatricula;
+        ss >> kms;
+        ss >> lugares;
+        add = addVeiculo(smatricula, kms, lugares);
+        if (!add) throw MembroIncompativel("Veiculo");
         getline(inficheiro, line);
-        while (line != "" && !inficheiro.eof()) {
-            bool add = false;
-            stringstream ss(line);
-            ss >> smatricula;
-            ss >> kms;
-            ss >> lugares;
-            add = addVeiculo(smatricula, kms, lugares);
-            if (!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
-        }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
     }
     inficheiro.close();
 }
@@ -1419,46 +1377,40 @@ void Hotel::ImportarCompras(string localizacao) {
     string nomet= "", nomep = "", fornecedorp = "", fornecedort = "";
     int tprod, qualidade, numero_prod, stock, id, quantidade;
     float preco;
-    try {
-        getline(inficheiro, line);
-        while (line != "" && !inficheiro.eof()) {
-            stock = -1;
-            bool add = false, prod_found = false;
-            nomet = "";
-            nomep = "";
-            stringstream ss(line);
-            ss >> id >> numero_prod;
-            while (fornecedorp != ",") {
-                if (fornecedort != "") fornecedort += " ";
-                fornecedort += fornecedorp;
-                ss >> fornecedorp;
-            }
-            ss >> quantidade;
-            for(auto it = produtos.begin(); it != produtos.end() && !prod_found; it++){
-                if((*it).ID() == numero_prod){
-                    Produto p = (*it);
-                    prod_found = true;
-                }
-            }
-            if(prod_found){
-                add = FazerCompra(id, numero_prod, fornecedort, quantidade);
-            }
-            else{
-                while (nomep != ",") {
-                    if (nomet != "") nomet += " ";
-                    nomet += nomep;
-                    ss >> nomep;
-                }
-                ss >> tprod >> qualidade >> preco >> stock;
-                add = FazerCompra_NovoProduto(id, nomep, numero_prod, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade), preco, stock, fornecedort, quantidade);
-            }
-            if (!add) throw FicheiroIncompativel(localizacao);
-            getline(inficheiro, line);
+    getline(inficheiro, line);
+    while (line != "" && !inficheiro.eof()) {
+        stock = -1;
+        bool add = false, prod_found = false;
+        nomet = "";
+        nomep = "";
+        stringstream ss(line);
+        ss >> id >> numero_prod;
+        while (fornecedorp != ",") {
+            if (fornecedort != "") fornecedort += " ";
+            fornecedort += fornecedorp;
+            ss >> fornecedorp;
         }
-    }
-    catch (FicheiroIncompativel fi){
-        inficheiro.close();
-        cout << endl << "O Ficheiro em " << fi.nomeficheiro << "não é compatível" << endl;
+        ss >> quantidade;
+        for(auto it = produtos.begin(); it != produtos.end() && !prod_found; it++){
+            if((*it).ID() == numero_prod){
+                Produto p = (*it);
+                prod_found = true;
+            }
+        }
+        if(prod_found){
+            add = FazerCompra(id, numero_prod, fornecedort, quantidade);
+        }
+        else{
+            while (nomep != ",") {
+                if (nomet != "") nomet += " ";
+                nomet += nomep;
+                ss >> nomep;
+            }
+            ss >> tprod >> qualidade >> preco >> stock;
+            add = FazerCompra_NovoProduto(id, nomep, numero_prod, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade), preco, stock, fornecedort, quantidade);
+        }
+        if (!add) throw MembroIncompativel("Compra");
+        getline(inficheiro, line);
     }
     inficheiro.close();
 }

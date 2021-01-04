@@ -7,6 +7,7 @@ struct matricula{
     char c1, c2, c3, c4, c5, c6;
     int id = c1 * pow(10, 10) + c2 * pow(10, 8) + c3 * pow(10, 6) + c4 * pow(10, 4) + c5 * pow(10, 2) + c6;
     bool operator==(const matricula &m2)const;
+    int getID() const {return c1 * pow(10, 10) + c2 * pow(10, 8) + c3 * pow(10, 6) + c4 * pow(10, 4) + c5 * pow(10, 2) + c6;}
 };
 
 inline ostream& operator<<(ostream &os, const matricula m){
@@ -15,11 +16,10 @@ inline ostream& operator<<(ostream &os, const matricula m){
 }
 
 inline bool matricula::operator==(const matricula &m2) const{
-    return (this->id == m2.id);
+    return (this->c1 == m2.c1 && this->c2 == m2.c2 && this->c3 == m2.c3 && this->c4 == m2.c4 && this->c5 == m2.c5 && this->c6 == m2.c6);
 }
 
 matricula transf_matricula(string s);
-
 
 class Veiculo {
 matricula vmatricula;
@@ -37,7 +37,7 @@ public:
     int getLugares() const;
     void setkms(double new_kms) {kms = new_kms;}
     void updateKms(double kms_feitos); //to be called at the end of a trip
-    int ID() const {return vmatricula.id;}
+    int ID() const {return vmatricula.getID();}
     void Info() const;
     bool operator < (const Veiculo & v) const;
     bool operator == (const Veiculo & v) const;

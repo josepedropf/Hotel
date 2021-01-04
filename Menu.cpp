@@ -36,20 +36,33 @@ void Menu::ImportarHotel(Hotel &H, string localizacao) {
     inficheiro.open(localizacao);
     if(inficheiro.fail()){
         cout << endl << "O Ficheiro nao abre!" << endl;
-        throw FicheiroIncompativel(localizacao);
+        return;
     }
+
     string line;
     getline(inficheiro, line);
-    if(line != "Hotel") throw FicheiroIncompativel(localizacao);
+    if(line != "Hotel") return;
     getline(inficheiro, line);
     if(line != "") H.nome = line;
     inficheiro.close();
-    H.ImportarQuartos(localizacao);
-    H.ImportarProdutos(localizacao);
-    H.ImportarClientes(localizacao);
-    H.ImportarFuncionarios(localizacao);
-    H.ImportarReservas(localizacao);
-    H.ImportarServicos(localizacao);
+    try{
+        H.ImportarQuartos(localizacao);
+        H.ImportarProdutos(localizacao);
+        H.ImportarClientes(localizacao);
+        H.ImportarFuncionarios(localizacao);
+        H.ImportarReservas(localizacao);
+        H.ImportarServicos(localizacao);
+        H.ImportarVeiculos(localizacao);
+        H.ImportarCompras(localizacao);
+    }
+    catch (FicheiroIncompativel fi){
+        inficheiro.close();
+        cout << endl << "O Ficheiro em " << fi.nomeficheiro << " nao e compativel!" << endl;
+    }
+    catch (MembroIncompativel mi){
+        inficheiro.close();
+        cout << endl << "Um Membro do tipo " << mi.tipo_membro << " nao e compativel!" << endl;
+    }
 }
 
 void Menu::PrintHotel() {
@@ -114,7 +127,7 @@ void Menu::ImprimeOp(vector <string> opcoes, bool aviso, bool enm) {
             else cout << "[" << i << "] " << opcoes[i] << endl;
         }
     }
-    if(aviso) cout << "Input invalido. Insira um número entre 0 e " << opcoes.size() - 1 << "." << endl;
+    if(aviso) cout << "Input invalido. Insira um numero entre 0 e " << opcoes.size() - 1 << "." << endl;
     if(!enm) cout << "Escolha: ";
 }
 
@@ -340,61 +353,20 @@ data Menu::InputData(string texto) {
 
 matricula Menu::InputMatricula(string texto) {
     string resposta;
-    int dia, mes, ano;
-    bool mespr = false;
-    vector <int> mesproibido;
-    cout << endl << texto << endl << "Introduza o dia: ";
-    cin >> dia;
-    while (cin.fail() || dia < 1 || dia > 31){
+    matricula res;
+    cout << endl << texto << endl << "A matricula e aceite no seguinte formato : AA-AA-AA." << endl << "onde A (um caracter) pode ser uma letra ou um numero" << endl <<"Introduza a Matricula: ";
+    cin >> resposta;
+    while (cin.fail() || resposta.size() != 8 || resposta[2] != '-' || resposta[5] != '-'){
         cin.clear();
         cin.ignore(1000, '\n');
-        cout << endl << texto << endl << "Introduza o dia: ";
-        cin >> dia;
+        cout << endl << texto << endl << "Matricula Invalida" << endl <<"A matricula e aceite no seguinte formato : AA-AA-AA." << endl << "onde A (um caracter) pode ser uma letra ou um numero" << endl <<"Introduza a Matricula: ";
+        cin >> resposta;
     }
-    if(dia > 28) mesproibido.push_back(2);
-    if(dia > 30){
-        mesproibido.push_back(4);
-        mesproibido.push_back(6);
-        mesproibido.push_back(9);
-        mesproibido.push_back(11);
-    }
-    cout << endl << texto << endl << "Introduza o mes: ";
-    cin >> mes;
-    if(!cin.fail() && mes >= 1 && mes <= 12){
-        for(int i = 0; mesproibido.size() > i; i++){
-            if(mesproibido[i] == mes) {
-                mespr = true;
-                break;
-            }
-        }
-    }
-    while (cin.fail() || mes < 1 || mes > 12 || mespr){
-        mespr = false;
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << endl << texto << endl << "Introduza o mes: ";
-        cin >> mes;
-        if(!cin.fail() && mes >= 1 && mes <= 12){
-            for(int i = 0; mesproibido.size() > i; i++){
-                if(mesproibido[i] == mes) {
-                    mespr = true;
-                    break;
-                }
-            }
-        }
-    }
-    cout << endl << texto << endl << "Introduza o ano: ";
-    cin >> ano;
-    while (cin.fail()){
-        cin.clear();
-        cin.ignore(1000, '\n');
-        cout << endl << texto << endl << "Introduza o ano: ";
-        cin >> ano;
-    }
+
     cin.clear();
     cin.ignore(1000, '\n');
-    resposta = {.dia = dia, .mes = mes, .ano = ano};
-    return resposta;
+    res = transf_matricula(resposta);
+    return res;
 }
 
 nota_avaliacao Menu::InputNota(string texto){
@@ -766,7 +738,7 @@ void Menu::Importar() {
     opcoes.push_back("Voltar");
     resposta = ProcessarInputInt(opcoes, titulo);
     string localizacao;
-    if(resposta != 7) localizacao = NomeFicheiro();
+    if(resposta != 9) localizacao = NomeFicheiro();
         switch (resposta) {
             case 0:
                 H.ImportarClientes(localizacao);
@@ -1067,6 +1039,19 @@ void Menu::Adicionar() {
         return Adicionar();
     }
     if(resposta == 3){
+        PrintBST(H.GetFrota());
+        matricula matricula = InputMatricula("Matricula do Vaiculo: ");
+        double kms = InputRestrito<double>("Insira os Kilometros Percorridos: ");
+        int lugares = InputRestrito<int>("Insira o numero de Lugares do Veiculo: ");
+        while(!H.addVeiculo(matricula, kms, lugares)){
+            PrintBST(H.GetFrota());
+            cout << "O Veiculo que inseriu ja existe ou nao e valido!" << endl;
+            matricula = InputMatricula("Matricula do Vaiculo: ");
+            kms = InputRestrito<double>("Insira os Kilometros Percorridos: ");
+            lugares = InputRestrito<int>("Insira o numero de Lugares do Veiculo: ");
+        }
+        EfetuarProcura(matricula.id, H.GetFrota()).Info();
+        return Adicionar();
 
     }
     if(resposta == 4) return Principal();

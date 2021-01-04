@@ -16,6 +16,14 @@ public:
     ~FicheiroIncompativel() {};
 };
 
+class MembroIncompativel: public exception{
+public:
+    string tipo_membro;
+    MembroIncompativel() {};
+    MembroIncompativel(string tipo) {tipo_membro = tipo;}
+    ~MembroIncompativel() {};
+};
+
 class MembroRepetido: public exception{
 public:
     int id;

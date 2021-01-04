@@ -102,6 +102,7 @@ public:
     tipo_turno InputTurno(string texto);
     tipo_produto InputTProd(string texto);
     tipo_quarto InputTQuarto(string texto);
+    matricula InputMatricula(string texto);
 
     template<class T>
     bool ProcuraValida(int id, list <T> l);
