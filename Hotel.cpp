@@ -1915,13 +1915,7 @@ void Hotel::Viajar(Cliente * cliente, double distancia, int id){
         }
     }
 }
-/**
- *
- * @param stock_min stock mínimo da compra
- * @param stock_max stock máximo da compra
- * @return Compras cujo stock se encontra dentro do intervalo definido pelos valores dos parametros
- *
- */
+
 priority_queue<Compra> Hotel::GetComprasStocks(int stock_min, int stock_max){
     if(stock_min > stock_max) throw InputInvalido();
     priority_queue<Compra> res;
