@@ -21,6 +21,7 @@ inline bool matricula::operator==(const matricula &m2) const{
 
 matricula transf_matricula(string s);
 
+
 class Veiculo {
 matricula vmatricula;
 double kms;
