@@ -8,147 +8,145 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Hotel">
-				<Option output="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Hotel.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug"/>
+				<Option output="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Hotel.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 Hotel"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 Hotel"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="Hotel/fast">
-				<Option output="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Hotel.exe" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug"/>
+				<Option output="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Hotel.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/mingw32"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include/c++/backward"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../include"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/include-fixed"/>
-					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include-fixed"/>
+					<Add directory="C:/Program Files (x86)/mingw-w64/i686-8.1.0-posix-dwarf-rt_v6-rev0/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/../../../../i686-w64-mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 Hotel/fast"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 Hotel/fast"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug"/>
+				<Option working_dir="C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/PROGRA~2/MINGW-~1/I686-8~1.0-P/mingw32/bin/mingw32-make.exe -f &quot;C:/Users/Utilizador/Documents/GitHub/Hotel/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Cliente.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Cliente.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Data.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Exceptions.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Exceptions.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Frota.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Funcionario.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Hotel.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Hotel.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Menu.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Menu.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Produto.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Quarto.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Reserva.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Servico.h">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/Servico.h">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/main.cpp">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/main.cpp">
 			<Option target="Hotel"/>
 		</Unit>
-		<Unit filename="C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/CMakeLists.txt">
+		<Unit filename="C:/Users/Utilizador/Documents/GitHub/Hotel/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
