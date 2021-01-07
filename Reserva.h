@@ -33,8 +33,8 @@ public:
     static bool P_DataFcomp_Decr(Reserva *r1, Reserva *r2) {return r1->data_fim > r2->data_fim;}
     static bool DataFcomp_Cr(Reserva r1, Reserva r2) {return r1.data_fim < r2.data_fim;}
     static bool P_DataFcomp_Cr(Reserva *r1, Reserva *r2) {return r1->data_fim < r2->data_fim;}
-    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res);
-    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez);
+    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, int promo);
+    Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez, int promo);
     ~Reserva() {};
     bool operator==(const Reserva &r2) const;
     void Info() const;

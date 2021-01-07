@@ -28,11 +28,11 @@ double kms;
 int lugares;
 //can add brand and date and more
 public:
-    Veiculo() : vmatricula(transf_matricula(" ")) {lugares = 0; kms = 0;}
-    Veiculo(matricula vmatricula, int lugares) : vmatricula(vmatricula) {if(lugares < 1) lugares = 1; else lugares = lugares; kms = 0;}
-    Veiculo(matricula vmatricula, double kms, int lugares) : vmatricula(vmatricula), kms(kms) {if(lugares < 1) lugares = 1; else lugares = lugares;}
-    Veiculo(string matricula_string, int lugares) : vmatricula(transf_matricula(matricula_string)) {if(lugares < 1) lugares = 1; else lugares = lugares; kms = 0;}
-    Veiculo(string matricula_string, double kms, int lugares) : vmatricula(transf_matricula(matricula_string)), kms(kms) {if(lugares < 1) lugares = 1; else lugares = lugares;}
+    Veiculo() : vmatricula(transf_matricula(" ")), lugares(0), kms(0) {}
+    Veiculo(matricula vmatricula, int lugares) {this->vmatricula = vmatricula; if(lugares < 1) this->lugares = 1; else this->lugares = lugares; kms = 0;}
+    Veiculo(matricula vmatricula, double kms, int lugares) {this->vmatricula = vmatricula; if(lugares < 1) this->lugares = 1; else this->lugares = lugares; this->kms = kms;}
+    Veiculo(string matricula_string, int lugares) {vmatricula = transf_matricula(matricula_string); if(lugares < 1) this->lugares = 1; else this->lugares = lugares; kms = 0;}
+    Veiculo(string matricula_string, double kms, int lugares) {vmatricula = transf_matricula(matricula_string); if(lugares < 1) this->lugares = 1; else this->lugares = lugares; this->kms = kms;}
     matricula getMatricula() const;
     double getKms() const;
     int getLugares() const;
@@ -45,12 +45,16 @@ public:
 };
 
 
-struct Viagem{
+class Viagem{
+public:
+    Viagem(double distancia, string ponto_partida, string destino, int id, matricula matricula) {this->distancia = distancia; this->ponto_partida = ponto_partida; this->destino = destino; this->id = id; this->matricula = matricula;}
+    Viagem(double distancia, int id, matricula matricula) {this->distancia = distancia; this->ponto_partida = "Aeroporto"; this->destino = "Hotel"; this->id = id; this->matricula = matricula;}
     string ponto_partida = "Hotel", destino = "Aeroporto";
     double distancia;
     matricula matricula;
     int id;
     int ID() const {return id;}
+    void Info() const;
     bool operator==(const Viagem &v2)const;
 };
 

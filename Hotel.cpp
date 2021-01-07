@@ -112,7 +112,10 @@ bool Hotel::AddCliente(Cliente cliente) {
         if((*it) == cliente) return false ;
     }
     clientes.push_back(cliente);
-    if(cliente.cliente_usual) clientes_usuais.insert(cliente);
+    if(cliente.cliente_usual){
+        clientes_usuais.insert(cliente);
+        clientes_habituais.push_back(cliente);
+    }
     return true;
 }
 
@@ -266,7 +269,7 @@ bool Hotel::Reservar(Cliente &cliente, int idnumero, data data_inicial, data dat
          }
      }
      if (data_inicial >= data_final) return false;
-     Reserva reserva(idnumero, data_inicial, data_final, lugaresperados, vq);
+     Reserva reserva(idnumero, data_inicial, data_final, lugaresperados, vq, cliente.getPromo());
      try {
          if (AddReserva(reserva)) {
              for (auto it = reservas.begin(); it != reservas.end(); it++) {
@@ -402,6 +405,7 @@ void Hotel::CheckOut(Cliente &cliente) {
     if(!cliente.cliente_usual){
         cliente.cliente_usual = true;
         clientes_usuais.insert(cliente);
+        clientes_habituais.push_back(cliente);
     }
 }
 
@@ -1067,7 +1071,7 @@ void Hotel::ImportarQuartos(string localizacao) {
     while(line != "Quartos" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     int tquarto, piso, numero, capacidade;
     float preco;
     getline(inficheiro, line);
@@ -1092,7 +1096,7 @@ void Hotel::ImportarClientes(string localizacao) {
     while (line != "Clientes" && !inficheiro.eof()) {
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     string nomet= "", nomep = "";
     int nif, usual;
     getline(inficheiro, line);
@@ -1126,7 +1130,7 @@ void Hotel::ImportarFuncionarios(string localizacao) {
     while (line != "Funcionarios" && !inficheiro.eof()) {
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     string nomet= "", nomep = "";
     vector <int> pisos;
     int nif, anos_servico, avaliacao, turno, cargo, piso;
@@ -1196,7 +1200,7 @@ void Hotel::ImportarProdutos(string localizacao) {
     while(line != "Produtos" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     string nomet= "", nomep = "";
     int tprod, qualidade, numero, stock;
     float preco;
@@ -1232,7 +1236,7 @@ void Hotel::ImportarReservas(string localizacao) {
     while(line != "Reservas" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     int nifcliente, idnum, lugaresp, qnum, d;
     vector <int> numquartos;
     data datai, dataf;
@@ -1275,7 +1279,7 @@ void Hotel::ImportarServicos(string localizacao) {
     while(line != "Servicos" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     string nomet, nomep, controlo, sf, sp;
     int idnum, nifcliente, d;
     data data_realizacao;
@@ -1345,7 +1349,7 @@ void Hotel::ImportarVeiculos(string localizacao) {
     while(line != "Veiculos" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     int lugares;
     string smatricula;
     double kms;
@@ -1373,7 +1377,7 @@ void Hotel::ImportarCompras(string localizacao) {
     while(line != "Compras" && !inficheiro.eof()){
         getline(inficheiro, line);
     }
-    if(inficheiro.eof()) throw FicheiroIncompativel(localizacao);
+    if(inficheiro.eof()) return;
     string nomet= "", nomep = "", fornecedorp = "", fornecedort = "";
     int tprod, qualidade, numero_prod, stock, id, quantidade;
     float preco;
@@ -1383,13 +1387,18 @@ void Hotel::ImportarCompras(string localizacao) {
         bool add = false, prod_found = false;
         nomet = "";
         nomep = "";
+        fornecedorp = "";
+        fornecedort = "";
+        int counter = 0;
         stringstream ss(line);
         ss >> id >> numero_prod;
-        while (fornecedorp != ",") {
+        while (fornecedorp != "," && counter < 3) {
             if (fornecedort != "") fornecedort += " ";
             fornecedort += fornecedorp;
             ss >> fornecedorp;
+            if(fornecedorp == "" && fornecedort == "") counter++;
         }
+        counter = 0;
         ss >> quantidade;
         for(auto it = produtos.begin(); it != produtos.end() && !prod_found; it++){
             if((*it).ID() == numero_prod){
@@ -1401,13 +1410,15 @@ void Hotel::ImportarCompras(string localizacao) {
             add = FazerCompra(id, numero_prod, fornecedort, quantidade);
         }
         else{
-            while (nomep != ",") {
+            while (nomep != "," && counter < 3) {
                 if (nomet != "") nomet += " ";
                 nomet += nomep;
                 ss >> nomep;
+                if(nomep == "" && nomet == "") counter++;
             }
             ss >> tprod >> qualidade >> preco >> stock;
-            add = FazerCompra_NovoProduto(id, nomep, numero_prod, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade), preco, stock, fornecedort, quantidade);
+            if(nomep == "") add = false;
+            else add = FazerCompra_NovoProduto(id, nomep, numero_prod, static_cast<tipo_produto>(tprod), static_cast<nota_avaliacao>(qualidade), preco, stock, fornecedort, quantidade);
         }
         if (!add) throw MembroIncompativel("Compra");
         getline(inficheiro, line);
@@ -1766,7 +1777,7 @@ bool Hotel::addVeiculo(Veiculo veiculo) {
     for (; !it.isAtEnd();it.advance()) {
         if (veiculo.getMatricula() == it.retrieve().getMatricula()) return false;
     }
-    veiculo.setkms(0);
+    //veiculo.setkms(0);
     frota.insert(veiculo);
     return true;
 }
@@ -1831,41 +1842,48 @@ void Hotel::devolveVeiculo(matricula matricula) {
 }
 
 
-void Hotel::Viajar(Cliente * cliente, double distancia, string ponto_partida, string destino, int id){
-    Viagem v = {v.destino = destino, v.ponto_partida = ponto_partida, v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
-    menorKm()->updateKms(distancia);
-    if(menorKm()->getKms() >= 5000) devolveVeiculo(menorKm()->getMatricula());
+bool Hotel::Viajar(Cliente cliente, double distancia, string ponto_partida, string destino, int id){
+    Viagem v(distancia, ponto_partida, destino, id, menorKm()->getMatricula());
+    if(menorKm()->getKms() >= 5000){
+        devolveVeiculo(menorKm()->getMatricula());
+        return false;
+    }
     if(AddViagem(v)){
         for(auto it = clientes.begin(); it != clientes.end(); it++){
-            if((*it).nif == cliente->getNif()){
+            if((*it).nif == cliente.getNif()){
                 for(auto itv = viagens_realizadas.begin(); itv != viagens_realizadas.end(); itv++){
                     if((*itv) == v) {
                         (*it).addViagem(&(*itv));
-                        break;
+                        menorKm()->updateKms(distancia);
+                        return true;
                     }
                 }
             }
         }
     }
-
+    return false;
 }
 
-void Hotel::Viajar(Cliente * cliente, double distancia, int id){
-    Viagem v = {v.destino = "Hotel", v.ponto_partida = "Aeroporto", v.distancia = distancia, v.matricula = menorKm()->getMatricula(), v.id = id};
-    menorKm()->updateKms(distancia);
-    if(menorKm()->getKms() >= 5000) devolveVeiculo(menorKm()->getMatricula());
+bool Hotel::Viajar(Cliente cliente, double distancia, int id){
+    Viagem v(distancia, id, menorKm()->getMatricula());
+    if(menorKm()->getKms() >= 5000){
+        devolveVeiculo(menorKm()->getMatricula());
+        return false;
+    }
     if(AddViagem(v)){
         for(auto it = clientes.begin(); it != clientes.end(); it++){
-            if((*it).nif == cliente->getNif()){
+            if((*it).nif == cliente.getNif()){
                 for(auto itv = viagens_realizadas.begin(); itv != viagens_realizadas.end(); itv++){
                     if((*itv) == v) {
                         (*it).addViagem(&(*itv));
-                        break;
+                        menorKm()->updateKms(distancia);
+                        return true;
                     }
                 }
             }
         }
     }
+    return false;
 }
 /**
  *
@@ -1937,7 +1955,14 @@ bool Hotel::FazerCompra(int id, list <Produto> lprodutos, int numero_prod, strin
 }
 
 bool Hotel::FazerCompra(int id, int numero_prod, string fornecedor, int quantidade) {
-    return FazerCompra(id, produtos, numero_prod, fornecedor, quantidade);
+    if(quantidade <= 1) quantidade = 1;
+    for(auto it = produtos.begin(); it != produtos.end(); it++){
+        if((*it).ID() == numero_prod){
+            Compra c(id, &(*it), fornecedor, quantidade);
+            return AddCompra(c);
+        }
+    }
+    return false;
 }
 
 

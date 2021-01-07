@@ -47,13 +47,23 @@ public:
         cout << "<-||| " << endl;
     }
 
+    void PrintClientesUsuais(const Hotel::tabHclientes hclientes){
+        cout << endl;
+        cout << "|||-> " << endl << endl;
+        for (auto it = hclientes.begin(); it != hclientes.end(); it++){
+            (*it).Info();
+            cout << endl;
+        }
+        cout << "<-||| " << endl;
+    }
+
     template<class T>
     void PrintPQ(priority_queue<T> pq) {
         vector<T> temp;
         cout << endl;
         cout << "|||-> " << endl << endl;
         while(!pq.empty()){
-            T element = pq.top();
+            const T element = pq.top();
             element.Info();
             cout << endl;
             temp.push_back(element);
@@ -69,6 +79,7 @@ public:
         cout << "|||-> " << endl << endl;
         BSTItrIn<Veiculo> it(bst);
         for (; !it.isAtEnd();it.advance()) {
+            //if(it.retrieve().ID() != T().ID()) (it.retrieve()).Info();
             (it.retrieve()).Info();
             cout << endl;
         }
@@ -135,6 +146,9 @@ public:
     void MReserva();
     void MGerirFunc();
     void Checks();
+    void MViagem();
+    void MCompra();
+    //Promoçao2iniciais
     void FinancasSelect();
     void Financas(int mes, int ano);
     void Outros();

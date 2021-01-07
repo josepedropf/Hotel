@@ -33,6 +33,7 @@ protected:
     list <Reserva> estadias;
     list <Reserva> reservas_atuais;
     list <Cliente> clientes;
+    list <Cliente> clientes_habituais;
     list <Quarto> quartos;
     list <Funcionario> funcionarios;
     list <F_Rececao> funcionarios_rececao;
@@ -64,6 +65,7 @@ public:
     const list <Servico> GetServicos() {return servicos;}
     const list <Viagem> GetViagens() {return viagens_realizadas;}
     const list <Cliente *> GetClientesnoHotel();
+    const list <Cliente> GetClientesHabituais() {return clientes_habituais;}
 
     bool AddProduto(Produto produto);
     bool AddReserva(Reserva reserva);
@@ -236,10 +238,10 @@ public:
     void alugarFrota(const vector<Veiculo>& rFrota);
     void devolveVeiculo(matricula matricula);
     Veiculo* pesquisaVeiculo(matricula matricula);
-    Veiculo* menorKm(); //to be called at the start or before a trip
+    Veiculo* menorKm();
 
-    void Viajar(Cliente * cliente, double distancia, string ponto_partida, string destino, int id);
-    void Viajar(Cliente * cliente, double distancia, int id);
+    bool Viajar(Cliente cliente, double distancia, string ponto_partida, string destino, int id);
+    bool Viajar(Cliente cliente, double distancia, int id);
 };
 
 #endif //HOTEL_HOTEL_H

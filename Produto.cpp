@@ -37,6 +37,7 @@ void Produto::Info() const{
     cout << "Numero: " << numero << " | ";
     cout << "Tipo de Produto: " << tprod << " | ";
     cout << "Preco: " << preco << " | ";
+    cout << "Stock: " << stock << " | ";
     cout << "Qualidade: " << qualidade;
     cout << endl;
 }
@@ -70,7 +71,8 @@ Compra::Compra(int id, Produto * produto_comprado, string fornecedor, int quanti
     this->fornecedor = fornecedor;
     this->quantidade = quantidade;
     this->rating = produto_comprado->getAvaliacao();
-    this->stock = produto_comprado->getStock();
+    this->stock = produto_comprado->getStock() + quantidade;
+    produto_comprado->updateStock(produto_comprado->getStock() + quantidade);
 }
 
 Compra::Compra(int id, Produto * produto_comprado, string fornecedor){
@@ -79,7 +81,8 @@ Compra::Compra(int id, Produto * produto_comprado, string fornecedor){
     this->fornecedor = fornecedor;
     this->quantidade = 1;
     this->rating = produto_comprado->getAvaliacao();
-    this->stock = produto_comprado->getStock();
+    this->stock = produto_comprado->getStock() + 1;
+    produto_comprado->updateStock(produto_comprado->getStock());
 }
 /**
  *
@@ -114,8 +117,8 @@ void Compra::updateStock(int new_stock){
 
 
 bool Compra::operator<(const Compra &c2) const {
-    if (getAvaliacao() != c2.getAvaliacao()) return getAvaliacao() < c2.getAvaliacao();
-    else return getStock() < c2.getStock();
+    if (this->getAvaliacao() != c2.getAvaliacao()) return this->getAvaliacao() < c2.getAvaliacao();
+    else return this->getStock() < c2.getStock();
 }
 /**
  * Imprime as informações da compra
@@ -129,6 +132,6 @@ void Compra::Info() const{
     cout << "Preco Total: " << produto_comprado->preco * quantidade << " | ";
     cout << "Rating: " << rating << " | ";
     cout << "Stock: " << stock << " | ";
-    cout << "Fornecedor" << fornecedor;
+    cout << "Fornecedor: " << fornecedor;
     cout << endl;
 }

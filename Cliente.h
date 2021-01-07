@@ -37,6 +37,7 @@ public:
     int getNif() const {return nif;}
     void addViagem (Viagem * v) {viagens.push_back(v);}
     void setPromo(int new_promo) {promo = new_promo;}
+    int getPromo() {return promo;}
     float GetConta();
 
 private:

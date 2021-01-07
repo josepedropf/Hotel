@@ -8,7 +8,7 @@
  * @param lugaresp capacidade pretendida na Reserva
  * @param quartos_res lista de apontadores para os Quartos a reservar
  */
-Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res){
+Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, int promo){
     this->idnumero = abs(idnumero);
     this->data_inicio = data_inicio;
     this->data_fim = data_fim;
@@ -16,10 +16,12 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, li
     this->lugaresp = lugaresp;
     this->quartos_res = quartos_res;
     int qsize = quartos_res.size();
+    if(promo > 100) promo = 100;
     preco = 0;
     for (auto it = quartos_res.begin(); it != quartos_res.end(); it++){
         preco += (*it)->preco;
     }
+    preco = preco * ((100 - promo) / 100.0);
 }
 
 /**
@@ -31,7 +33,7 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, li
  * @param quartos_res lista de apontadores para os Quartos a reservar
  * @param primeiravez verdadeiro se a Reserva for efetuada por um Cliente que nunca veio antes ao Hotel, falso caso contrário
  */
-Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez) {
+Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, list <Quarto *> quartos_res, bool primeiravez, int promo) {
     this->idnumero = abs(idnumero);
     this->primeiravez = primeiravez;
     this->data_inicio = data_inicio;
@@ -40,10 +42,12 @@ Reserva::Reserva(int idnumero, data data_inicio, data data_fim, int lugaresp, li
     this->lugaresp = lugaresp;
     this->quartos_res = quartos_res;
     int qsize = quartos_res.size();
+    if(promo > 100) promo = 100;
     preco = 0;
     for (auto it = quartos_res.begin(); it != quartos_res.end(); it++){
         preco += (*it)->preco;
     }
+    preco = preco * ((100 - promo) / 100.0);
 }
 
 /**

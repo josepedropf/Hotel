@@ -31,7 +31,7 @@ public:
     bool operator==(const Produto &p2) const{return numero == p2.numero;}
 };
 
-class Compra{  //n tem de ser derivada mas por agr é
+class Compra{
 private:
 
 public:
@@ -41,7 +41,7 @@ public:
     Produto * produto_comprado;
     Compra(int id, Produto * produto_comprado, string fornecedor, int quantidade);
     Compra(int id, Produto * produto_comprado, string fornecedor);
-    Compra() {id = -1; produto_comprado = NULL; fornecedor = "";}
+    Compra() : id(-1), produto_comprado(NULL), fornecedor("") {}
     void Info() const;
     int ID() const {return id;}
     nota_avaliacao getAvaliacao() const {return produto_comprado->qualidade;}
@@ -54,7 +54,7 @@ public:
     void AdicionarProdutos(int prods_ad) {updateStock(getStock() + prods_ad);}
     void setRating(nota_avaliacao newr);
     nota_avaliacao getRating() {return rating;}
-    bool operator < (const Compra & c2) const; //nnc sei se ta certo lol
+    bool operator < (const Compra & c2) const;
     bool operator== (const Compra & c2) const {return ID() == c2.ID();}
 };
 #endif //HOTEL_PRODUTO_H

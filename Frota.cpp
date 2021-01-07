@@ -1,8 +1,12 @@
 #include "Frota.h"
 
 matricula transf_matricula(string s){
-    if(s.size() != 8 || s[2] != '-' || s[5] != '-'){
-        matricula m = {m.c1 = 'A', m.c2 = 'A', m.c3 = '1', m.c4 = '1', m.c5 = 'A', m.c6 = 'A'};
+    bool ast = false;
+    for(int i = 0; s.size() > i && !ast; i++){
+        if(s[i] == '*') ast = true;
+    }
+    if(s.size() != 8 || s[2] != '-' || s[5] != '-' || ast){
+        matricula m = {m.c1 = '*', m.c2 = '*', m.c3 = '*', m.c4 = '*', m.c5 = '*', m.c6 = '*'};
         return m;
     }
     else{
@@ -11,15 +15,14 @@ matricula transf_matricula(string s){
     }
 }
 
-bool Veiculo::operator<(const Veiculo &v) const {
-    if (kms < v.getKms()) {
-        return true;
-    }
-    else return lugares < v.getLugares();
+bool Veiculo::operator < (const Veiculo &v) const {
+    if (kms != v.getKms()) return kms < v.getKms();
+    else if(lugares != v.getLugares()) return lugares > v.getLugares();
+    else return true;
 }
 
 bool Veiculo::operator==(const Veiculo &v) const {
-    return getMatricula() == v.getMatricula();
+    return this->getMatricula() == v.getMatricula();
 }
 /**
  * @return matricula do veículo
@@ -58,7 +61,15 @@ void Veiculo::Info() const {
     cout << endl;
 }
 
-
+void Viagem::Info() const {
+    cout << "<VIAGEM>" << endl;
+    cout << "ID: " << id << " | ";
+    cout << "Matricula do Veiculo: " << matricula << " | ";
+    cout << "Distancia: " << distancia << " | ";
+    cout << "Ponto de Partida: " << ponto_partida << " | ";
+    cout << "Destino: " << destino;
+    cout << endl;
+}
 
 
 
