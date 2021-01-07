@@ -107,6 +107,7 @@ public:
     template<class T>
     T InputRestrito(string texto);
     string InputNome(string texto);
+    char InputLetra(string texto);
     data InputData(string texto);
     nota_avaliacao InputNota(string texto);
     tipo_cargo InputCargo(string texto);
@@ -148,7 +149,7 @@ public:
     void Checks();
     void MViagem();
     void MCompra();
-    //Promoçao2iniciais
+    void PromocaoIniciais();
     void FinancasSelect();
     void Financas(int mes, int ano);
     void Outros();

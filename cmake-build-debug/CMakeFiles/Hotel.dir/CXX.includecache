@@ -64,6 +64,10 @@ C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 Produto.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.cpp
+Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
+
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 iostream
 -
@@ -101,30 +105,6 @@ Exceptions.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 Frota.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
-
-C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.cpp
-Menu.h
-C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
-
-C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
-iostream
--
-fstream
--
-sstream
--
-vector
--
-list
--
-cmath
--
-string
--
-algorithm
--
-Hotel.h
-C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 iostream

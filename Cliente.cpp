@@ -54,6 +54,7 @@ void Cliente::Info() const{
     cout << "<CLIENTE>" << endl;
     cout << "Nome: " << nome << " | ";
     cout << "Nif: " << nif << " | ";
+    cout << "Promocao: " << promo << " %  | ";
     if(!estadias_anteriores.empty()){
         cout << "Estadias Anteriores do Cliente:";
         for(auto it = estadias_anteriores.begin(); it != estadias_anteriores.end(); it++){

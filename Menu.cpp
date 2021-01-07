@@ -369,6 +369,22 @@ matricula Menu::InputMatricula(string texto) {
     return res;
 }
 
+char Menu::InputLetra(string texto) {
+    char resp;
+    cout << texto;
+    cin >> resp;
+    while(cin.fail() || resp < 65 || resp > 122 || (resp >= 91 && resp <= 96)){
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << endl << "Tem de inserir uma Letra!" << endl;
+        cout << texto;
+        cin >> resp;
+    }
+    cin.clear();
+    cin.ignore(1000, '\n');
+    return resp;
+}
+
 nota_avaliacao Menu::InputNota(string texto){
     int respint;
     nota_avaliacao resposta;
@@ -1537,14 +1553,14 @@ void Menu::MCompra() {
     if(resposta == 0){
         PrintList(H.GetProdutos());
         int idnumero = InputRestrito<int>("Insira o ID da sua Compra: ");
-        int nprod = InputRestrito<int>("Insira o ID do Novo Produto que pretende comprar: ");
+        int nprod = InputRestrito<int>("Insira o ID do Produto que pretende comprar: ");
         string fornecedor = InputNome("Insira o nome do Fornecedor: ");
         int quantidade = InputRestrito<int>("Insira a Quantidade que pretende comprar: ");
         while(!H.FazerCompra(idnumero, nprod, fornecedor, quantidade)){
             PrintList(H.GetProdutos());
             cout << "Impossivel Realizar a Compra pretendida" << endl;
             idnumero = InputRestrito<int>("Insira o ID da sua Compra: ");
-            nprod = InputRestrito<int>("Insira o ID do Novo Produto que pretende comprar: ");
+            nprod = InputRestrito<int>("Insira o ID do Produto que pretende comprar: ");
             fornecedor = InputNome("Insira o nome do Fornecedor: ");
             quantidade = InputRestrito<int>("Insira a Quantidade que pretende comprar: ");
         }
@@ -1555,7 +1571,7 @@ void Menu::MCompra() {
     if(resposta == 1){
         PrintList(H.GetProdutos());
         int idnumero = InputRestrito<int>("Insira o ID da sua Compra: ");
-        int nprod = InputRestrito<int>("Insira o ID do Produto que pretende comprar: ");
+        int nprod = InputRestrito<int>("Insira o ID do Novo Produto que pretende comprar: ");
         string nome_produto = InputNome("Insira o nome do Novo Produto: ");
         tipo_produto tprod = InputTProd("Insira o tipo do Novo Produto: ");
         nota_avaliacao nota_prod = InputNota("Insira a avaliacao do Novo Produto: ");
@@ -1568,7 +1584,7 @@ void Menu::MCompra() {
             cout << "Impossivel Realizar a Compra pretendida" << endl;
             idnumero = InputRestrito<int>("Insira o ID da sua Compra: ");
             nome_produto = InputNome("Insira o nome do Novo Produto: ");
-            nprod = InputRestrito<int>("Insira o ID do Produto que pretende comprar: ");
+            nprod = InputRestrito<int>("Insira o ID do Novo Produto que pretende comprar: ");
             tprod = InputTProd("Insira o tipo do Novo Produto: ");
             nota_prod = InputNota("Insira a avaliacao do Novo Produto: ");
             preco = InputRestrito<float>("Insira o preco unitario do Novo Produto: ");
@@ -1584,11 +1600,29 @@ void Menu::MCompra() {
     return MCompra();
 }
 
+void Menu::PromocaoIniciais(){
+    string titulo = "Promocao Iniciais";
+    unsigned resposta;
+    vector <string> opcoes = {"Efetuar Promocao", "Voltar"};
+    resposta = ProcessarInputInt(opcoes, titulo);
+    if(resposta == 0){
+        PrintList(H.GetClientesHabituais());
+        char p_inicial = InputLetra("Insira a primeira Inicial a receber a promocao: ");
+        char s_inicial = InputLetra("Insira a segunda Inicial a receber a promocao: ");
+        H.PromoIniciais(p_inicial, s_inicial);
+        PrintList(H.GetClientesHabituais());
+        return PromocaoIniciais();
+    }
+    else return Principal();
+    return PromocaoIniciais();
+}
+
+
 
 void Menu::Principal() {
     unsigned resposta;
     string titulo = "Bem-vindo ao " + H.nome;
-    vector <string> opcoes = {"Importar...", "Ver Informacao...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Gerir Funcionarios", "Check-in / Check-out", "Viajar", "Efetuar Compra", "Financas", "Outros", "Exportar", "Sair"};
+    vector <string> opcoes = {"Importar...", "Ver Informacao...", "Adicionar Membro...", "Apagar Membro...", "Reservar / Cancelar Reserva", "Gerir Funcionarios", "Check-in / Check-out", "Viajar", "Efetuar Compra", "Promocao Iniciais", "Financas", "Outros", "Exportar", "Sair"};
     resposta = ProcessarInputInt(opcoes, titulo);
     switch (resposta){
         case 0:
@@ -1610,12 +1644,14 @@ void Menu::Principal() {
         case 8:
             return MCompra();
         case 9:
-            return FinancasSelect();
+            return PromocaoIniciais();
         case 10:
-            return Outros();
+            return FinancasSelect();
         case 11:
-            return Exportar();
+            return Outros();
         case 12:
+            return Exportar();
+        case 13:
             cout << endl << "THE END" << endl;
             return;
         default:

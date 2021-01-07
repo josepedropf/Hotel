@@ -229,7 +229,7 @@ public:
     priority_queue<Compra> compras;
     priority_queue<Compra> GetCompras() {return compras;}
 
-    BST<Veiculo> frota; //Init?
+    BST<Veiculo> frota;
     BST<Veiculo> GetFrota() const;
     int numVeiculos() const;
     bool addVeiculo(string smatricula, double kms, int lugares);

@@ -1736,7 +1736,8 @@ list <Cliente *> Hotel::GetClientesInicial(char inicial){
 void Hotel::PromoIniciais(char p_inicial, char s_inicial){
     list <Cliente *> escolhidos;
     escolhidos = GetClientesInicial(p_inicial);
-    for(auto it = GetClientesInicial(s_inicial).begin(); it != GetClientesInicial(s_inicial).end(); it++){
+    list <Cliente *> seg_escolhidos = GetClientesInicial(s_inicial);
+    for(auto it = seg_escolhidos.begin(); it != seg_escolhidos.end(); it++){
         escolhidos.push_back(*it);
     }
 
@@ -1748,8 +1749,14 @@ void Hotel::PromoIniciais(char p_inicial, char s_inicial){
                 found = true;
             }
         }
+        found = false;
+        for(auto chit = clientes_habituais.begin(); chit != clientes_habituais.end() && !found; chit++){
+            if((*chit).getNif() == (*it)->getNif()){
+                (*chit).setPromo(2);
+                found = true;
+            }
+        }
     }
-
 }
 
 /**
@@ -1940,7 +1947,7 @@ bool Hotel::FazerCompra_NovoProduto(int id, string nome_prod, int numero_prod, t
     if(stock <= 1) stock = 1;
     Produto p(nome_prod, numero_prod, tprod, qualidade, preco, stock);
     if(!AddProduto(p)) return false;
-    return FazerCompra_NovoProduto(id, p, fornecedor, quantidade);
+    return FazerCompra(id, p.ID(), fornecedor, quantidade);
 }
 
 bool Hotel::FazerCompra(int id, list <Produto> lprodutos, int numero_prod, string fornecedor, int quantidade) {
