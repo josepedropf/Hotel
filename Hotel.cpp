@@ -222,7 +222,10 @@ bool Hotel::AddCompra(Compra compra) {
     vector <Compra> temp;
     while(!compras.empty()){
         Compra c = compras.top();
-        if(c.ID() == compra.ID()) return false;
+        if(c.ID() == compra.ID()){
+            for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+            return false;
+        }
         temp.push_back(c);
         compras.pop();
     }
@@ -842,6 +845,7 @@ void Hotel::Contratar(string nome, int nif, tipo_cargo cargo) {
     if(cargo == fgestor){
         F_Gestor FG(nome, nif, 0, 2000);
         AddFuncionario(FG);
+        AddFuncionarioGestor(FG);
     }
     Funcionario F(nome, nif, 0, 600);
     AddFuncionario(F);
@@ -1355,12 +1359,19 @@ void Hotel::ImportarVeiculos(string localizacao) {
     double kms;
     getline(inficheiro, line);
     while (line != "" && !inficheiro.eof()) {
+        string marca = "", temp = "";
         bool add = false;
         stringstream ss(line);
         ss >> smatricula;
         ss >> kms;
         ss >> lugares;
-        add = addVeiculo(smatricula, kms, lugares);
+        while(!ss.eof()){
+            ss >> temp;
+            if (marca != "") marca += " ";
+            marca += temp;
+        }
+        if(marca == "") add = addVeiculo(smatricula, kms, lugares);
+        else add = addVeiculo(smatricula, kms, lugares, marca);
         if (!add) throw MembroIncompativel("Veiculo");
         getline(inficheiro, line);
     }
@@ -1523,7 +1534,7 @@ void Hotel::EscreverHotel(string nomedoficheiro) {
     outficheiro << "Veiculos" << endl;
     BSTItrIn<Veiculo> it(frota);
     for (; !it.isAtEnd();it.advance()) {
-        outficheiro << (it.retrieve()).getMatricula() << " " << (it.retrieve()).getKms() << " " << (it.retrieve()).getLugares() << endl;
+        outficheiro << (it.retrieve()).getMatricula() << " " << (it.retrieve()).getKms() << " " << (it.retrieve()).getLugares() << " " << (it.retrieve()).getMarca() << endl;
     }
 
     outficheiro << endl;
@@ -1723,11 +1734,11 @@ void Hotel::UpdateReservasTotais() {
     }
 }
 
-list <Cliente *> Hotel::GetClientesInicial(char inicial){
+list <Cliente *> Hotel::GetClientesInicial(char inicial, bool usual){
     list <Cliente *> res;
     for(auto it = clientes.begin(); it != clientes.end(); it++){
         if((*it).getName()[0] == inicial){
-            if(clientes_usuais.find(*it) != clientes_usuais.end()) res.push_back(&(*it));
+            if(clientes_usuais.find(*it) != clientes_usuais.end() || !usual) res.push_back(&(*it));
         }
     }
     return res;
@@ -1735,8 +1746,8 @@ list <Cliente *> Hotel::GetClientesInicial(char inicial){
 
 void Hotel::PromoIniciais(char p_inicial, char s_inicial){
     list <Cliente *> escolhidos;
-    escolhidos = GetClientesInicial(p_inicial);
-    list <Cliente *> seg_escolhidos = GetClientesInicial(s_inicial);
+    escolhidos = GetClientesInicial(p_inicial, true);
+    list <Cliente *> seg_escolhidos = GetClientesInicial(s_inicial, true);
     for(auto it = seg_escolhidos.begin(); it != seg_escolhidos.end(); it++){
         escolhidos.push_back(*it);
     }
@@ -1783,15 +1794,28 @@ bool Hotel::addVeiculo(Veiculo veiculo) {
     BSTItrIn<Veiculo> it(frota);
     for (; !it.isAtEnd();it.advance()) {
         if (veiculo.getMatricula() == it.retrieve().getMatricula()) return false;
+        if (veiculo.getKms() >= 5000) return false;
     }
     //veiculo.setkms(0);
     frota.insert(veiculo);
     return true;
 }
 
+bool Hotel::addVeiculo(matricula matricula, double kms, int lugares, string marca) {
+    if(kms <= 0) kms = 0;
+    Veiculo v(matricula, kms, lugares, marca);
+    return addVeiculo(v);
+}
+
 bool Hotel::addVeiculo(matricula matricula, double kms, int lugares) {
     if(kms <= 0) kms = 0;
     Veiculo v(matricula, kms, lugares);
+    return addVeiculo(v);
+}
+
+bool Hotel::addVeiculo(string smatricula, double kms, int lugares, string marca) {
+    if(kms <= 0) kms = 0;
+    Veiculo v(smatricula, kms, lugares, marca);
     return addVeiculo(v);
 }
 
@@ -1831,29 +1855,37 @@ Veiculo* Hotel::menorKm() {
     return const_cast<Veiculo *>(&(frota.findMin())); 
 }
 /**
- * Remove o veícuclo cuja matrícula é matricula(param) da bst
+ * Remove o veículo cuja matrícula é matricula(param) da bst
  * @param matricula do veícula a devolver
  */
 void Hotel::devolveVeiculo(matricula matricula) {
+    /*
     Veiculo* toreturn;
     BSTItrIn<Veiculo> it(frota);
     for (; !it.isAtEnd();it.advance()) {
-        if (matricula == it.retrieve().getMatricula()) {
+        if (matricula == (it.retrieve()).getMatricula()) {
             frota.remove(it.retrieve());
             break;
         }
-    }
-
-    /*toreturn = pesquisaVeiculo(p);
-    veiculos.remove(toreturn);*/
+    }*/
+    Veiculo v(matricula);
+    //Veiculo vv = frota.find(v);
+    frota.remove(v);
+    //frota.remove(frota.find(Veiculo(matricula)));
 }
 
 
 bool Hotel::Viajar(Cliente cliente, double distancia, string ponto_partida, string destino, int id){
-    Viagem v(distancia, ponto_partida, destino, id, menorKm()->getMatricula());
+    bool devolvido = false;
     if(menorKm()->getKms() >= 5000){
         devolveVeiculo(menorKm()->getMatricula());
         return false;
+    }
+    Veiculo * carro = menorKm();
+    Viagem v(distancia, ponto_partida, destino, id, menorKm()->getMatricula());
+    if(carro->getKms() + distancia >= 5000){
+        devolveVeiculo(carro->getMatricula());
+        devolvido = true;
     }
     if(AddViagem(v)){
         for(auto it = clientes.begin(); it != clientes.end(); it++){
@@ -1861,7 +1893,7 @@ bool Hotel::Viajar(Cliente cliente, double distancia, string ponto_partida, stri
                 for(auto itv = viagens_realizadas.begin(); itv != viagens_realizadas.end(); itv++){
                     if((*itv) == v) {
                         (*it).addViagem(&(*itv));
-                        menorKm()->updateKms(distancia);
+                        if(!devolvido) menorKm()->updateKms(distancia);
                         return true;
                     }
                 }
@@ -1872,10 +1904,16 @@ bool Hotel::Viajar(Cliente cliente, double distancia, string ponto_partida, stri
 }
 
 bool Hotel::Viajar(Cliente cliente, double distancia, int id){
-    Viagem v(distancia, id, menorKm()->getMatricula());
+    bool devolvido = false;
     if(menorKm()->getKms() >= 5000){
         devolveVeiculo(menorKm()->getMatricula());
         return false;
+    }
+    Veiculo * carro = menorKm();
+    Viagem v(distancia, id, menorKm()->getMatricula());
+    if(carro->getKms() + distancia >= 5000){
+        devolveVeiculo(carro->getMatricula());
+        devolvido = true;
     }
     if(AddViagem(v)){
         for(auto it = clientes.begin(); it != clientes.end(); it++){
@@ -1883,7 +1921,7 @@ bool Hotel::Viajar(Cliente cliente, double distancia, int id){
                 for(auto itv = viagens_realizadas.begin(); itv != viagens_realizadas.end(); itv++){
                     if((*itv) == v) {
                         (*it).addViagem(&(*itv));
-                        menorKm()->updateKms(distancia);
+                        if(!devolvido) menorKm()->updateKms(distancia);
                         return true;
                     }
                 }
@@ -1972,6 +2010,37 @@ bool Hotel::FazerCompra(int id, int numero_prod, string fornecedor, int quantida
     return false;
 }
 
+Compra Hotel::PesquisaCompra(int id) {
+    vector <Compra> temp;
+    while(!compras.empty()){
+        Compra c = compras.top();
+        if(id == c.ID()){
+            for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+            return compras.top();
+        }
+        temp.push_back(c);
+        compras.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+    throw MembroFalta("Compra", id);
+}
+
+void Hotel::MudarRating(int id, nota_avaliacao new_rating) {
+    vector <Compra> temp;
+    while(!compras.empty()){
+        Compra c = compras.top();
+        if(c.ID() == id){
+            compras.pop();
+            c.setRating(new_rating);
+            temp.push_back(c);
+            for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+            return;
+        }
+        temp.push_back(c);
+        compras.pop();
+    }
+    for(int i = 0; temp.size() > i; i++) compras.push(temp[i]);
+}
 
 
 

@@ -24,16 +24,21 @@ matricula transf_matricula(string s);
 
 class Veiculo {
 matricula vmatricula;
+string marca = "Hotel Car";
 double kms;
 int lugares;
 //can add brand and date and more
 public:
     Veiculo() : vmatricula(transf_matricula(" ")), lugares(0), kms(0) {}
+    Veiculo(matricula vmatricula) {this->vmatricula = vmatricula; lugares = 0; kms = 0;}
     Veiculo(matricula vmatricula, int lugares) {this->vmatricula = vmatricula; if(lugares < 1) this->lugares = 1; else this->lugares = lugares; kms = 0;}
     Veiculo(matricula vmatricula, double kms, int lugares) {this->vmatricula = vmatricula; if(lugares < 1) this->lugares = 1; else this->lugares = lugares; this->kms = kms;}
+    Veiculo(matricula vmatricula, double kms, int lugares, string marca) {this->vmatricula = vmatricula; if(lugares < 1) this->lugares = 1; else this->lugares = lugares; this->kms = kms; this->marca = marca;}
     Veiculo(string matricula_string, int lugares) {vmatricula = transf_matricula(matricula_string); if(lugares < 1) this->lugares = 1; else this->lugares = lugares; kms = 0;}
     Veiculo(string matricula_string, double kms, int lugares) {vmatricula = transf_matricula(matricula_string); if(lugares < 1) this->lugares = 1; else this->lugares = lugares; this->kms = kms;}
+    Veiculo(string matricula_string, double kms, int lugares, string marca) {vmatricula = transf_matricula(matricula_string); if(lugares < 1) this->lugares = 1; else this->lugares = lugares; this->kms = kms; this->marca = marca;}
     matricula getMatricula() const;
+    string getMarca() const {return marca;}
     double getKms() const;
     int getLugares() const;
     void setkms(double new_kms) {kms = new_kms;}

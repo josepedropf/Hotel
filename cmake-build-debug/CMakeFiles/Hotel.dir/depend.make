@@ -19,6 +19,7 @@ CMakeFiles/Hotel.dir/Frota.cpp.obj: ../Frota.cpp
 CMakeFiles/Hotel.dir/Frota.cpp.obj: ../Frota.h
 CMakeFiles/Hotel.dir/Frota.cpp.obj: ../bst.h
 
+CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Exceptions.h
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Funcionario.cpp
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Funcionario.h
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj: ../Produto.h
@@ -63,6 +64,7 @@ CMakeFiles/Hotel.dir/Reserva.cpp.obj: ../Reserva.cpp
 CMakeFiles/Hotel.dir/Reserva.cpp.obj: ../Reserva.h
 
 CMakeFiles/Hotel.dir/Servico.cpp.obj: ../Data.h
+CMakeFiles/Hotel.dir/Servico.cpp.obj: ../Exceptions.h
 CMakeFiles/Hotel.dir/Servico.cpp.obj: ../Funcionario.h
 CMakeFiles/Hotel.dir/Servico.cpp.obj: ../Produto.h
 CMakeFiles/Hotel.dir/Servico.cpp.obj: ../Quarto.h

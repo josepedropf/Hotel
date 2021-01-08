@@ -1058,12 +1058,14 @@ void Menu::Adicionar() {
         PrintBST(H.GetFrota());
         matricula matricula = InputMatricula("Matricula do Vaiculo: ");
         double kms = InputRestrito<double>("Insira os Kilometros Percorridos: ");
+        string marca = InputNome("Insira a Marca do Veiculo: ");
         int lugares = InputRestrito<int>("Insira o numero de Lugares do Veiculo: ");
-        while(!H.addVeiculo(matricula, kms, lugares)){
+        while(!H.addVeiculo(matricula, kms, lugares, marca)){
             PrintBST(H.GetFrota());
             cout << "O Veiculo que inseriu ja existe ou nao e valido!" << endl;
             matricula = InputMatricula("Matricula do Vaiculo: ");
             kms = InputRestrito<double>("Insira os Kilometros Percorridos: ");
+            marca = InputNome("Insira a Marca do Veiculo: ");
             lugares = InputRestrito<int>("Insira o numero de Lugares do Veiculo: ");
         }
         EfetuarProcura(matricula.id, H.GetFrota()).Info();
@@ -1332,7 +1334,7 @@ void Menu::Financas(int mes, int ano) {
 
 void Menu::Outros() {
     string titulo = "Outros";
-    vector<string> opcoes = {"Prestar Servico", "Promocoes", "Escolher Produto", "Fazer Pesquisas", "Voltar"};
+    vector<string> opcoes = {"Prestar Servico", "Promocoes", "Mudar Rating a Compra", "Escolher Produto", "Escolher Compra", "Fazer Pesquisas", "Voltar"};
     unsigned resposta = ProcessarInputInt(opcoes, titulo);
     if (resposta == 0){
         int nifcliente = ProcessarInputProcura("Prestar Servico", H.GetClientes());
@@ -1400,6 +1402,24 @@ void Menu::Outros() {
     }
     if (resposta == 2){
         if (H.GetFuncionariosGestores().empty()){
+            cout << endl << "Nao ha Funcionários Gestores para mudarem Ratings!" << endl;
+            return Outros();
+        }
+        if (H.GetCompras().empty()){
+            cout << endl << "Nao ha Compras com Rating a ser mudado!" << endl;
+            return Outros();
+        }
+        int fid = ProcessarInputProcura("Mudar Rating", H.GetFuncionariosGestores());
+        if (fid == -1) return Outros();
+        PrintPQ(H.GetCompras());
+        int ncomp = ProcessarInputProcura("Numero da Compra a qual se vai mudar o Rating", H.GetCompras());
+        nota_avaliacao new_rating = InputNota("Insira o novo Rating: ");
+        H.MudarRating(ncomp, new_rating);
+        PrintPQ(H.GetCompras());
+        return Outros();
+    }
+    if (resposta == 3){
+        if (H.GetFuncionariosGestores().empty()){
             cout << endl << "Nao ha Funcionarios Gestores para escolherem o Produto!" << endl;
             return Outros();
         }
@@ -1409,17 +1429,44 @@ void Menu::Outros() {
         }
         int fid = ProcessarInputProcura("Escolha do Melhor Produto", H.GetFuncionariosGestores());
         if (fid == -1) return Outros();
+        PrintList(H.GetProdutos());
         vector<int> nprod = ProcessarIntIndef("Numero do Produto a incluir na lista", "Numeros dos Produtos a incluir na lista", 1, H.GetProdutos());
         cout << endl << "Produto Escolhido: " << endl;
         (H.EscolherProduto(EfetuarProcura(fid, H.GetFuncionariosGestores()), nprod)).Info();
         return Outros();
     }
-    if (resposta == 3){
-        vector<string> topcoes = {"Quartos", "Funcionarios", "Reservas", "Voltar", "Voltar ao Menu Principal"};
+    if (resposta == 4){
+        if (H.GetFuncionariosGestores().empty()){
+            cout << endl << "Nao ha Funcionarios Gestores para escolherem as Compras!" << endl;
+            return Outros();
+        }
+        if (H.GetCompras().empty()){
+            cout << endl << "Nao ha Compras para escolher!" << endl;
+            return Outros();
+        }
+        int fid = ProcessarInputProcura("Escolha da Melhor Compra", H.GetFuncionariosGestores());
+        if (fid == -1) return Outros();
+        PrintPQ(H.GetCompras());
+        int stock_min = InputRestrito<int>("Escolha o Stock Minimo: ");
+        int stock_max = InputRestrito<int>("Escolha o Stock Maximo: ");
+        try{
+            cout << endl << "Compra Escolhida: " << endl;
+            EfetuarProcura(fid, H.GetFuncionariosGestores()).Escolher_Compra(H.GetComprasStocks(stock_min, stock_max)).Info();
+        }
+        catch (InputInvalido iv){
+            cout << endl << "O limite de stocks e Invalido!" << endl;
+        }
+        catch (MembroFalta mf){
+            cout << endl << "Membro em Falta do tipo " << mf.tipo << endl;
+        }
+        return Outros();
+    }
+    if (resposta == 5){
+        vector<string> topcoes = {"Quartos", "Funcionarios", "Reservas", "Clientes", "Voltar", "Voltar ao Menu Principal"};
         unsigned membro_ordenar = ProcessarInputInt(topcoes, "Pesquisas");
         unsigned criterio;
         if (membro_ordenar == 4) return Outros();
-        if (membro_ordenar > 4) return Principal();
+        if (membro_ordenar >= 5) return Principal();
         if (membro_ordenar == 0){
             vector<string> q_opcoes = {"Numero Crescente", "Numero Decrescente", "Preco Crescente", "Preco Decrescente", "Voltar", "Voltar ao Menu Principal"};
             criterio = ProcessarInputInt(q_opcoes, "Pesquisa Quartos");
@@ -1495,15 +1542,19 @@ void Menu::Outros() {
             PrintList(lr);
             return Outros();
         }
+        if (membro_ordenar == 3){
+            char inicial = InputLetra("Insira a Inicial que pretende Pesquisar: ");
+            PrintPointerListCliente(H.GetClientesInicial(inicial, false));
+        }
     }
-    if (resposta > 3) return Principal();
+    if (resposta > 5) return Principal();
     return Outros();
 }
 
 void Menu::Exportar() {
     string localizacao, titulo = "Exportar Hotel";
     ImprimeTit(titulo);
-    cout << endl << "Introduza a Localizacao do Ficheiro par onde quer Exportar o Hotel: ";
+    cout << endl << "Introduza a Localizacao do Ficheiro para onde quer Exportar o Hotel: ";
     cin >> localizacao;
     H.EscreverHotel(localizacao);
     return Principal();
@@ -1517,7 +1568,7 @@ void Menu::MViagem() {
     if(resposta == 0){
         PrintList(H.GetViagens());
         PrintList(H.GetClientes());
-        int nifcliente  = ProcessarInputProcura("Reservar", H.GetClientesHabituais());
+        int nifcliente  = ProcessarInputProcura("Viajar", H.GetClientesHabituais());
         if(nifcliente < 0) return MReserva();
         else{
             Cliente cliente = EfetuarProcura(nifcliente, H.GetClientesHabituais());
@@ -1526,16 +1577,8 @@ void Menu::MViagem() {
             string ponto_partida = InputNome("Insira o nome do Ponto de Partida: ");
             string chegada = InputNome("Insira o nome do Local de Chegada: ");
             double distancia = InputRestrito<double>("Insira a distancia da sua Viagem: ");
-            while(!H.Viajar(cliente, distancia, ponto_partida, chegada, idnumero)){
-                PrintList(H.GetViagens());
-                PrintList(H.GetClientes());
+            if(!H.Viajar(cliente, distancia, ponto_partida, chegada, idnumero)){
                 cout << "Impossivel Realizar a Viagem pretendida" << endl;
-                cliente = EfetuarProcura(nifcliente, H.GetClientesHabituais());
-                cliente.Info();
-                idnumero = InputRestrito<int>("Insira o ID da sua Viagem: ");
-                ponto_partida = InputNome("Insira o nome do Ponto de Partida: ");
-                chegada = InputNome("Insira o nome do Local de Chegada: ");
-                distancia = InputRestrito<double>("Insira a distancia da sua Viagem: ");
             }
             PrintList(H.GetViagens());
             return MViagem();

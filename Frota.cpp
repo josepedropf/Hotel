@@ -16,13 +16,14 @@ matricula transf_matricula(string s){
 }
 
 bool Veiculo::operator < (const Veiculo &v) const {
-    if (kms != v.getKms()) return kms < v.getKms();
-    else if(lugares != v.getLugares()) return lugares > v.getLugares();
-    else return true;
+    if (this->kms != v.getKms()) return this->kms < v.getKms();
+    else if(this->lugares != v.getLugares()) return this->lugares > v.getLugares();
+    else return false;
 }
 
 bool Veiculo::operator==(const Veiculo &v) const {
-    return this->getMatricula() == v.getMatricula();
+    //return (this->getMatricula() == v.getMatricula());
+    return (this->vmatricula.c1 == v.vmatricula.c1 && this->vmatricula.c2 == v.vmatricula.c2 && this->vmatricula.c3 == v.vmatricula.c3 && this->vmatricula.c4 == v.vmatricula.c4 && this->vmatricula.c5 == v.vmatricula.c5 && this->vmatricula.c6 == v.vmatricula.c6);
 }
 /**
  * @return matricula do veículo
@@ -56,6 +57,7 @@ void Veiculo::updateKms(double kms_feitos) {
 void Veiculo::Info() const {
     cout << "<VEICULO>" << endl;
     cout << "Matricula: " << vmatricula << " | ";
+    cout << "Marca: " << marca << " | ";
     cout << "Kilometragem: " << kms << " | ";
     cout << "Lugares: " << lugares;
     cout << endl;

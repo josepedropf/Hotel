@@ -201,9 +201,9 @@ Produto F_Gestor::Escolher_Prod(list <Produto *> prods) {
 }
 
 Compra F_Gestor::Escolher_Compra(priority_queue<Compra> compras_select){
+    if(compras_select.empty()) throw MembroFalta("Compra", 1);
     return compras_select.top();
 }
-
 
 
 

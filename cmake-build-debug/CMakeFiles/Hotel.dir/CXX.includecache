@@ -63,6 +63,8 @@ Quarto.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h
 Produto.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
+Exceptions.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.cpp
 Hotel.h
@@ -87,6 +89,8 @@ vector
 -
 unordered_set
 -
+bst.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/bst.h
 Reserva.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 Produto.h
@@ -105,6 +109,30 @@ Exceptions.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
 Frota.h
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.cpp
+Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
+iostream
+-
+fstream
+-
+sstream
+-
+vector
+-
+list
+-
+cmath
+-
+string
+-
+algorithm
+-
+Hotel.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Hotel.h
 
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
 iostream
@@ -169,4 +197,8 @@ stack
 -
 queue
 -
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/main.cpp
+Menu.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Menu.h
 

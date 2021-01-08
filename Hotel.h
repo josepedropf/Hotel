@@ -12,6 +12,7 @@
 #include <unordered_set>
 
 
+#include "bst.h"
 #include "Reserva.h"
 #include "Produto.h"
 #include "Quarto.h"
@@ -93,6 +94,7 @@ public:
     priority_queue<Compra> GetComprasStocks(int stock_min, int stock_max);
     Compra EscolherCompra(F_Gestor fgestor, int stock_min, int stock_max);
     Compra EscolherCompra(int id_func, int stock_min, int stock_max);
+    void MudarRating(int id, nota_avaliacao new_rating);
 
     bool Reservar(Cliente &cliente, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
     bool Reservar(int nif, int idnumero, data data_inicial, data data_final, int lugaresperados, vector <int> numquartos);
@@ -223,16 +225,19 @@ public:
     typedef unordered_set<Cliente, ClienteHash, ClienteHash> tabHclientes;
     tabHclientes clientes_usuais;
 
-    list <Cliente *> GetClientesInicial(char inicial);
+    list <Cliente *> GetClientesInicial(char inicial, bool usual);
     void PromoIniciais(char p_inicial, char s_inicial);
 
     priority_queue<Compra> compras;
     priority_queue<Compra> GetCompras() {return compras;}
+    Compra PesquisaCompra(int id);
 
     BST<Veiculo> frota;
     BST<Veiculo> GetFrota() const;
     int numVeiculos() const;
+    bool addVeiculo(string smatricula, double kms, int lugares, string marca);
     bool addVeiculo(string smatricula, double kms, int lugares);
+    bool addVeiculo(matricula matricula, double kms, int lugares, string marca);
     bool addVeiculo(matricula matricula, double kms, int lugares);
     bool addVeiculo(Veiculo veiculo);
     void alugarFrota(const vector<Veiculo>& rFrota);

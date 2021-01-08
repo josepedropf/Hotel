@@ -20,6 +20,7 @@ CMakeFiles/Hotel.dir/Frota.cpp.obj
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/bst.h
 CMakeFiles/Hotel.dir/Funcionario.cpp.obj
+ C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.cpp
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
@@ -64,6 +65,7 @@ CMakeFiles/Hotel.dir/Reserva.cpp.obj
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Reserva.h
 CMakeFiles/Hotel.dir/Servico.cpp.obj
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Data.h
+ C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Exceptions.h
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Funcionario.h
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Produto.h
  C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Quarto.h

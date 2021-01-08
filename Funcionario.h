@@ -8,6 +8,7 @@
 
 #include "Quarto.h"
 #include "Produto.h"
+#include "Exceptions.h"
 
 using namespace std;
 
