@@ -27,7 +27,8 @@ matricula vmatricula;
 string marca = "Hotel Car";
 double kms;
 int lugares;
-//can add brand and date and more
+
+
 public:
     Veiculo() : vmatricula(transf_matricula(" ")), lugares(0), kms(0) {}
     Veiculo(matricula vmatricula) {this->vmatricula = vmatricula; lugares = 0; kms = 0;}

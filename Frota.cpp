@@ -1,3 +1,4 @@
+#include <sstream>
 #include "Frota.h"
 
 matricula transf_matricula(string s){
@@ -22,8 +23,7 @@ bool Veiculo::operator < (const Veiculo &v) const {
 }
 
 bool Veiculo::operator==(const Veiculo &v) const {
-    //return (this->getMatricula() == v.getMatricula());
-    return (this->vmatricula.c1 == v.vmatricula.c1 && this->vmatricula.c2 == v.vmatricula.c2 && this->vmatricula.c3 == v.vmatricula.c3 && this->vmatricula.c4 == v.vmatricula.c4 && this->vmatricula.c5 == v.vmatricula.c5 && this->vmatricula.c6 == v.vmatricula.c6);
+    return (this->getMatricula() == v.getMatricula());
 }
 /**
  * @return matricula do veículo

@@ -1869,7 +1869,6 @@ void Hotel::devolveVeiculo(matricula matricula) {
         }
     }*/
     Veiculo v(matricula);
-    //Veiculo vv = frota.find(v);
     frota.remove(v);
     //frota.remove(frota.find(Veiculo(matricula)));
 }

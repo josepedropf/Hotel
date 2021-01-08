@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.cpp
+Cliente.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
+
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Cliente.h
 iostream
 -
@@ -43,6 +47,12 @@ string
 -
 algorithm
 -
+
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.cpp
+sstream
+-
+Frota.h
+C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
 
 C:/Users/MSI/Desktop/Universidade/Hotel/Hotel/Frota.h
 bst.h
